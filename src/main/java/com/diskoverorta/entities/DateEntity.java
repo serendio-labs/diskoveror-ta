@@ -27,7 +27,7 @@ public class DateEntity implements BaseEntity
             for (CoreLabel cl : lcl)
             {
                 String temp = cl.get(CoreAnnotations.AnswerAnnotation.class);
-                if(temp.equals("PERSON") == true)
+                if(temp.equals("DATE") == true)
                     entityList.add(cl.originalText());
             }
         }
