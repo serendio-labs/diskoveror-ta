@@ -12,7 +12,7 @@ import java.util.List;
 public class StanfordNERTagger
 {   
     URL url = StanfordNERTagger.class.getClassLoader().getResource("english.muc.7class.distsim.crf.ser.gz"); 
-	String s = url.getPath();
+	String StanfordNERClassifier = url.getPath();
     
     static AbstractSequenceClassifier<CoreLabel> nerClassifier = null;
 
@@ -20,7 +20,7 @@ public class StanfordNERTagger
     {
         try {
             if (nerClassifier == null)
-                nerClassifier = CRFClassifier.getClassifier(s);
+                nerClassifier = CRFClassifier.getClassifier(StanfordNERClassifier);
         }catch(Exception ex)
         {
             ex.printStackTrace();
