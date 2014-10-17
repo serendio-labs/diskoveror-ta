@@ -4,19 +4,19 @@ import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreLabel;
 
+import java.net.URL;
 import java.util.List;
 
 /**
  * Created by praveen on 15/10/14.
  */
-public class StanfordNERTagger
+public class StanfordNLP
 {   
-    URL url = StanfordNERTagger.class.getClassLoader().getResource("english.muc.7class.distsim.crf.ser.gz"); 
-	String StanfordNERClassifier = url.getPath();
-    
+    //URL url = StanfordNERTagger.class.getClassLoader().getResource("english.muc.7class.distsim.crf.ser.gz");
+	String StanfordNERClassifier = "english.muc.7class.distsim.crf.ser.gz";
     static AbstractSequenceClassifier<CoreLabel> nerClassifier = null;
 
-    public StanfordNERTagger()
+    public StanfordNLP()
     {
         try {
             if (nerClassifier == null)
