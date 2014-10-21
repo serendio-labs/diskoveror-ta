@@ -1,6 +1,6 @@
 package com.diskoverorta.entities;
 
-import com.diskoverorta.osdep.StanfordNERTagger;
+import com.diskoverorta.osdep.StanfordNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 
@@ -12,10 +12,16 @@ import java.util.List;
  */
 public class DateEntity implements BaseEntity
 {
+    public static void main(String args[])
+    {
+        DateEntity temp = new DateEntity();
+        System.out.println(temp.getEntities("Barack Obama is the president of USA"));
+    }
+
     public List<String> getEntities(String sentence)
     {
-        StanfordNERTagger snerTag = new StanfordNERTagger();
-        List<List<CoreLabel>> entityMap =  snerTag.getNERTaggedOutput(sentence);
+        StanfordNLP snerTag = new StanfordNLP();
+        List<List<CoreLabel>> entityMap =  snerTag.get7NERTaggedOutput(sentence);
         return getEntities(entityMap);
     }
 
@@ -32,10 +38,5 @@ public class DateEntity implements BaseEntity
             }
         }
         return entityList;
-    }
-    public static void main(String args[])
-    {
-        PersonEntity temp = new PersonEntity();
-        System.out.println(temp.getEntities("Barack Obama is the president of USA"));
     }
 }

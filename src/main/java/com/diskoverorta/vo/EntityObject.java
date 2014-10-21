@@ -1,7 +1,18 @@
 package com.diskoverorta.vo;
 
+import java.util.List;
+
 /**
  * Created by praveen on 17/10/14.
  */
-public class EntityObject {
+public class EntityObject
+{
+    public String sentence = null;
+    public List<String> currency = null;
+    public List<String> date = null;
+    public List<String> location = null;
+    public List<String> organization = null;
+    public List<String> percent = null;
+    public List<String> person = null;
+    public List<String> time = null;
 }
