@@ -8,6 +8,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by praveen on 17/10/14.
@@ -56,7 +57,6 @@ public class EntityManager
         List<List<CoreLabel>> entity7Tags = nlpStanford.get7NERTaggedOutput(sSentence);
         List<List<CoreLabel>> entity3Tags = nlpStanford.get3NERTaggedOutput(sSentence);
 
-        entities.sentence = sSentence;
         entities.person = (new PersonEntity()).getEntities(entity3Tags);
         entities.organization = (new OrganizationEntity()).getEntities(entity3Tags);
         entities.location = (new LocationEntity()).getEntities(entity3Tags);
@@ -64,6 +64,42 @@ public class EntityManager
         entities.time = (new TimeEntity()).getEntities(entity7Tags);
         entities.currency = (new CurrencyEntity()).getEntities(entity7Tags);
         entities.percent = (new PercentEntity()).getEntities(entity7Tags);
+
+        return entities;
+    }
+
+    public EntityObject getSelectedEntitiesForSentence(String sSentence,Map<String,String> entityConfig)
+    {
+        EntityObject entities = new EntityObject();
+        List<List<CoreLabel>> entity3Tags = null;
+        List<List<CoreLabel>> entity7Tags = null;
+
+        if((entityConfig.get("Person")== "TRUE")||(entityConfig.get("Organization")== "TRUE")||(entityConfig.get("Location")== "TRUE"))
+            entity3Tags = nlpStanford.get3NERTaggedOutput(sSentence);
+
+        if((entityConfig.get("Date")== "TRUE")||(entityConfig.get("Time")== "TRUE")||(entityConfig.get("Currency")== "TRUE")||(entityConfig.get("Percent")== "TRUE"))
+            entity7Tags = nlpStanford.get7NERTaggedOutput(sSentence);
+
+        if(entityConfig.get("Person")== "TRUE")
+            entities.person = (new PersonEntity()).getEntities(entity3Tags);
+
+        if(entityConfig.get("Organization")== "TRUE")
+            entities.organization = (new OrganizationEntity()).getEntities(entity3Tags);
+
+        if(entityConfig.get("Location")== "TRUE")
+            entities.location = (new LocationEntity()).getEntities(entity3Tags);
+
+        if(entityConfig.get("Date")== "TRUE")
+            entities.date = (new DateEntity()).getEntities(entity7Tags);
+
+        if(entityConfig.get("Time")== "TRUE")
+            entities.time = (new TimeEntity()).getEntities(entity7Tags);
+
+        if(entityConfig.get("Currency")== "TRUE")
+            entities.currency = (new CurrencyEntity()).getEntities(entity7Tags);
+
+        if(entityConfig.get("Percent")== "TRUE")
+            entities.percent = (new PercentEntity()).getEntities(entity7Tags);
 
         return entities;
     }

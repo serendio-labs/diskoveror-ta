@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class EntityObject
 {
-    public String sentence = null;
     public List<String> currency = null;
     public List<String> date = null;
     public List<String> location = null;

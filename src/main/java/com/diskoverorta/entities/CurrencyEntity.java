@@ -30,11 +30,24 @@ public class CurrencyEntity implements BaseEntity
         List<String> entityList = new ArrayList<String>();
         for (List<CoreLabel> lcl : sentTags)
         {
-            for (CoreLabel cl : lcl)
+            for (int i = 0; i < lcl.size(); i++)
             {
-                String temp = cl.get(CoreAnnotations.AnswerAnnotation.class);
-                if(temp.equals("MONEY") == true)
-                    entityList.add(cl.originalText());
+                String key = lcl.get(i).get(CoreAnnotations.AnswerAnnotation.class);
+                if(key.equals("MONEY") == true)
+                {
+                    String temp1 = "";
+                    while(key.equals("MONEY") == true)
+                    {
+                        temp1 = temp1 + lcl.get(i).originalText() + " ";
+                        i++;
+                        if(i < lcl.size())
+                            key = lcl.get(i).get(CoreAnnotations.AnswerAnnotation.class);
+                        else
+                            break;
+                    }
+                    temp1 = temp1.trim();
+                    entityList.add(temp1);
+                }
             }
         }
         return entityList;
