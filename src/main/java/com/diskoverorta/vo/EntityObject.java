@@ -16,7 +16,7 @@ public class EntityObject
     public List<String> person = null;
     public List<String> time = null;
 
-    EntityObject()
+    public EntityObject()
     {
         currency = new ArrayList<String>();
         date = new ArrayList<String>();

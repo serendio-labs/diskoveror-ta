@@ -8,5 +8,13 @@ import java.util.List;
  */
 public class DocumentObject
 {
-    List<EntityObject> entities = null;
+    String docText = null;
+    public EntityObject entities = null;
+    public EntityMap entitiesMeta = null;
+
+    public DocumentObject()
+    {
+        entities = new EntityObject();
+        entitiesMeta = new EntityMap();
+    }
 }
