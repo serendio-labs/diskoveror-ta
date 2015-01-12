@@ -1,5 +1,7 @@
 package com.diskoverorta.utils;
 
+import com.diskoverorta.vo.DocumentObject;
+import com.diskoverorta.vo.EntityAPISet;
 import com.diskoverorta.vo.EntityMap;
 import com.diskoverorta.vo.EntityObject;
 
@@ -39,6 +41,33 @@ public class EntityUtils
         }
         return tempMap;
     }
+    public static EntityAPISet getEntitySet(DocumentObject documentObject)
+    {
+        EntityAPISet apiSet = new EntityAPISet();
+
+        if(documentObject.entities.currency.size() > 0)
+            apiSet.Currency = new TreeSet<String>(documentObject.entities.currency);
+
+        if(documentObject.entities.date.size() > 0)
+            apiSet.Date = new TreeSet<String>(documentObject.entities.date);
+
+        if(documentObject.entities.time.size() > 0)
+            apiSet.Time = new TreeSet<String>(documentObject.entities.time);
+
+        if(documentObject.entities.percent.size() > 0)
+            apiSet.Percent = new TreeSet<String>(documentObject.entities.percent);
+
+        if(documentObject.entitiesMeta.personAlias.size() > 0)
+            apiSet.Person = documentObject.entitiesMeta.personAlias.keySet();
+
+        if(documentObject.entitiesMeta.organizationAlias.size() > 0)
+            apiSet.Organization = documentObject.entitiesMeta.organizationAlias.keySet();
+
+        if(documentObject.entitiesMeta.locationAlias.size() > 0)
+            apiSet.Location = documentObject.entitiesMeta.locationAlias.keySet();
+
+        return apiSet;
+    }
     public static Map<String,Set<String>> getAliasMap(Map<String,Integer> eMap)
     {
         Map<String,Set<String>> aliasMap = new TreeMap<String,Set<String>>();
@@ -64,4 +93,5 @@ public class EntityUtils
         }
         return aliasMap;
     }
+
 }

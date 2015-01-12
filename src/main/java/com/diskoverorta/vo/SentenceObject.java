@@ -7,4 +7,8 @@ public class SentenceObject
 {
     public String sentenceText = null;
     public EntityObject entities= null;
+    public SentenceObject()
+    {
+        entities = new EntityObject();
+    }
 }
