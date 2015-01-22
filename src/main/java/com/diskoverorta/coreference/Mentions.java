@@ -1,10 +1,16 @@
 package com.diskoverorta.coreference;
 
 import com.diskoverorta.vo.EntityObject;
+import com.google.common.io.Resources;
 import edu.stanford.nlp.dcoref.CorefChain;
 import edu.stanford.nlp.dcoref.CorefCoreAnnotations;
 import com.diskoverorta.entities.EntityManager;
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,15 +65,15 @@ public class Mentions {
 
             //put it into a map container.
 
-            if(entities.contains(cms_parsed.get(0).trim().toLowerCase())) {
+//            if(entities.contains(cms_parsed.get(0).trim().toLowerCase())) {
                 Set<String> tmp = new HashSet<>();
                 for (String element : cms_parsed.subList(1, cms.size())) {
-                    if(entities.contains(element.trim().toLowerCase()))
+//                    if(entities.contains(element.trim().toLowerCase()))
                     tmp.add(element);
                 }
                 mp.put(cms_parsed.get(0), tmp);
 
-            }
+//            }
 
 
 //            System.out.println(cms);
@@ -79,14 +85,15 @@ public class Mentions {
         System.out.println(mp);
     }
 
-    public static Set<String> getEntity() {
+    public static Set<String> getEntity(String content) {
 
         EntityManager entity = new EntityManager();
         Map<String,String> entityConfig = new HashMap<>();
         entityConfig.put("Person","TRUE");
         entityConfig.put("Organization","TRUE");
 
-        EntityObject en = entity.getSelectedEntitiesForSentence("Teresa H Meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.", entityConfig);
+//        EntityObject en = entity.getSelectedEntitiesForSentence("Teresa H Meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.", entityConfig);
+        EntityObject en = entity.getSelectedEntitiesForSentence(content, entityConfig);
 //        System.out.println(en.person);
 //        System.out.println(en.organization);
         Set<String> entities = new HashSet<>();
@@ -113,7 +120,17 @@ public class Mentions {
 
     public static void main(String args[])
     {
-        getMentions(getEntity());
+        String content = new String();
+        try {
+//             URL url = Resources.getResource("/home/Desktop/Kreiger_sample.txt");
+//             content = Resources.toString(url, Charsets.UTF_8);
+             content = Files.toString(new File("/home/naren/Desktop/Kreiger_sample.txt"), Charsets.UTF_8);
+            System.out.println(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("File not found");
+        }
+        getMentions(getEntity(content));
 //        getEntity();
 
     }
