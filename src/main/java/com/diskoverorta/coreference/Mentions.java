@@ -62,6 +62,7 @@ public class Mentions {
             if(entities.contains(cms_parsed.get(0).trim().toLowerCase())) {
                 Set<String> tmp = new HashSet<>();
                 for (String element : cms_parsed.subList(1, cms.size())) {
+                    if(entities.contains(element.trim().toLowerCase()))
                     tmp.add(element);
                 }
                 mp.put(cms_parsed.get(0), tmp);
