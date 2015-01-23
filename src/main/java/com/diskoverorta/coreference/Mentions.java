@@ -113,33 +113,20 @@ public class Mentions {
 
     public static void main(String args[])
     {
-//        String content = new String();
-//        try {
-////             URL url = Resources.getResource("/home/Desktop/Kreiger_sample.txt");
-////             content = Resources.toString(url, Charsets.UTF_8);
-//            content = Files.toString(new File("/home/naren/Desktop/Kreiger_sample.txt"), Charsets.UTF_8);
-//            content = content.replace("\n","");
-//            content = content.replace("\r", "");
-//
-////            System.out.println(content);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.out.println("File not found");
-//        }
+
         String content = "Teresa H Meng founded Atheros communications. \nMeng served on the board of Atheros. \nCharles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
         Map<String, Set<String>> mentions_map = getMentions(getEntity(content), content);
         System.out.println("Mentions: ");
         System.out.println(mentions_map);
 
-
         //Write to CSV
-//        WriteToCSV csv = new WriteToCSV();
-//        try {
-//            csv.writeMapAsCSV(mentions_map);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.out.println("Cannot write to CSV");
-//        }
+        WriteToCSV csv = new WriteToCSV();
+        try {
+            csv.writeMapAsCSV(mentions_map);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Cannot write to CSV");
+        }
 
 
     }

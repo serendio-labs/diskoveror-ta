@@ -26,9 +26,7 @@ public class WriteToCSV {
 
         String[] headers = data.keySet().toArray(new String[0]);
         writer.writeHeader(headers);
-        StringUtils.join(data.values(), ","); // "val1,val2"
-        writer.write(data, headers);
-        writer.write(data, headers);
+//        StringUtils.join(data.values(), ","); // "val1,val2"
         writer.write(data, headers);
         writer.close();
 
