@@ -7,6 +7,7 @@ import edu.stanford.nlp.dcoref.CorefCoreAnnotations;
 import com.diskoverorta.entities.EntityManager;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import com.diskoverorta.utils.WriteToCSV;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,9 +28,9 @@ public class Mentions {
 
     static StanfordNLP nlpStanford = new StanfordNLP();
 
-    public static void getMentions(Set<String> entities ) {
+    public static Map<String, Set<String>> getMentions(Set<String> entities,String text) {
         // read some text in the text variable
-        String text = "Teresa h meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
+//        String text = "Teresa h meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
 
         // create an empty Annotation just with the given text
         Annotation document = new Annotation(text);
@@ -50,7 +51,7 @@ public class Mentions {
             CorefChain.CorefMention cm = c.getRepresentativeMention();
 
             List<CorefChain.CorefMention> cms = c.getMentionsInTextualOrder();
-            List<String> cms_parsed = new ArrayList<String>();
+            List<String> cms_parsed = new ArrayList<>();
 
             // remove "in Sentences"
             for (CorefChain.CorefMention each : cms) {
@@ -64,31 +65,27 @@ public class Mentions {
             }
 
             //put it into a map container.
+            Set<String> tmp = new HashSet<>();
+            if(entities.contains(cms_parsed.get(0).trim().toLowerCase())) { //filters out the key that matches entity
 
-//            if(entities.contains(cms_parsed.get(0).trim().toLowerCase())) {
-                Set<String> tmp = new HashSet<>();
                 for (String element : cms_parsed.subList(1, cms.size())) {
-//                    if(entities.contains(element.trim().toLowerCase()))
+//                    if(entities.contains(element.trim().toLowerCase()))   //filters out the values that matches entity
                     tmp.add(element);
                 }
-                mp.put(cms_parsed.get(0), tmp);
+                mp.put(cms_parsed.get(0), tmp);    //take the first element as key and rest (tmp) as values
 
-//            }
-
-
-//            System.out.println(cms);
-//            System.out.println("Mentions:  ");
-//            System.out.println(mp);
+            }
 
         }
-        System.out.println("Mentions:  ");
-        System.out.println(mp);
+
+        return mp;
     }
 
     public static Set<String> getEntity(String content) {
 
         EntityManager entity = new EntityManager();
         Map<String,String> entityConfig = new HashMap<>();
+
         entityConfig.put("Person","TRUE");
         entityConfig.put("Organization","TRUE");
 
@@ -97,15 +94,11 @@ public class Mentions {
 //        System.out.println(en.person);
 //        System.out.println(en.organization);
         Set<String> entities = new HashSet<>();
+
+        // Add both person and organisation entity to a list
         List<String> entities_raw = en.person;
         entities_raw.addAll(en.organization);
 
-        // process the organisation entity string
-//        for(String element : en.organization)
-//        {
-//            String s = element.split(" ")[0];
-//            entities.add(s);
-//        }
 
         //trim and lower case
         for(String element : entities_raw)
@@ -120,18 +113,34 @@ public class Mentions {
 
     public static void main(String args[])
     {
-        String content = new String();
-        try {
-//             URL url = Resources.getResource("/home/Desktop/Kreiger_sample.txt");
-//             content = Resources.toString(url, Charsets.UTF_8);
-             content = Files.toString(new File("/home/naren/Desktop/Kreiger_sample.txt"), Charsets.UTF_8);
-            System.out.println(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("File not found");
-        }
-        getMentions(getEntity(content));
-//        getEntity();
+//        String content = new String();
+//        try {
+////             URL url = Resources.getResource("/home/Desktop/Kreiger_sample.txt");
+////             content = Resources.toString(url, Charsets.UTF_8);
+//            content = Files.toString(new File("/home/naren/Desktop/Kreiger_sample.txt"), Charsets.UTF_8);
+//            content = content.replace("\n","");
+//            content = content.replace("\r", "");
+//
+////            System.out.println(content);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("File not found");
+//        }
+        String content = "Teresa H Meng founded Atheros communications. \nMeng served on the board of Atheros. \nCharles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
+        Map<String, Set<String>> mentions_map = getMentions(getEntity(content), content);
+        System.out.println("Mentions: ");
+        System.out.println(mentions_map);
+
+
+        //Write to CSV
+//        WriteToCSV csv = new WriteToCSV();
+//        try {
+//            csv.writeMapAsCSV(mentions_map);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("Cannot write to CSV");
+//        }
+
 
     }
 
