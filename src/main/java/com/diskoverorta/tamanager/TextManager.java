@@ -1,13 +1,13 @@
 package com.diskoverorta.tamanager;
 
 import com.diskoverorta.entities.EntityManager;
-import com.diskoverorta.lifesciences.LSInterface;
+//import com.diskoverorta.lifesciences.LSInterface;
 import com.diskoverorta.osdep.StanfordNLP;
 import com.diskoverorta.utils.EntityUtils;
 import com.diskoverorta.vo.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
+//import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
 
 import java.util.List;
 
@@ -83,8 +83,8 @@ public class TextManager
             apiOut.entity_general = apiSet;
         }
 
-        if(config.analysisConfig.get("LSEntity") == "TRUE")
-            apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
+//        if(config.analysisConfig.get("LSEntity") == "TRUE")
+//            apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
 
         return gson.toJson(apiOut);
     }
@@ -146,7 +146,7 @@ public class TextManager
         sample2 =  sample2.replace("\n","");
         TAConfig config = new TAConfig();
         config.analysisConfig.put("Entity","TRUE");
-        config.analysisConfig.put("LSEntity","TRUE");
+//        config.analysisConfig.put("LSEntity","TRUE");
         config.entityConfig.put("Person","TRUE");
         config.entityConfig.put("Organization","TRUE");
         config.entityConfig.put("Location","TRUE");
