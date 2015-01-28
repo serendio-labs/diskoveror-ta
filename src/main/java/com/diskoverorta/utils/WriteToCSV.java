@@ -1,8 +1,6 @@
 package com.diskoverorta.utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.*;
 
 import com.google.common.base.Charsets;
@@ -21,35 +19,17 @@ public class WriteToCSV {
      */
     public static void writeMapAsCSV(Map<String, Set<String>> data) throws IOException {
 
-        StringWriter sw = new StringWriter();
-        CsvMapWriter writer = new CsvMapWriter(sw, CsvPreference.STANDARD_PREFERENCE);
+        FileWriter fp = new FileWriter(new File("/home/naren/Desktop/output.csv"));
+        BufferedWriter bw = new BufferedWriter(fp);
 
-        String[] headers = data.keySet().toArray(new String[0]);
-        writer.writeHeader(headers);
-//        StringUtils.join(data.values(), ","); // "val1,val2"
-        writer.write(data, headers);
-        writer.close();
-
-        System.out.println("Generated CSV : \n");
-        System.out.println(sw.toString());
-
-        try {
-            Files.write(sw.toString(), new File("/home/naren/Desktop/output.csv"), Charsets.UTF_8);
-        } catch( IOException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        for(String temp : data.keySet())
+        {
+            if(!data.get(temp).isEmpty() && !data.get(temp).contains(temp))
+            bw.write(temp+"\t"+data.get(temp)+"\n");
         }
+        bw.close();
+
     }
 
-//    public static void main(String args[])
-//    {
-//        try {
-//            writeMapAsCSV();
-//        }
-//        catch (IOException e)
-//        {
-//            System.out.println("Cannot write to CSV");
-//        }
-//    }
 
 }
