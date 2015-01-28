@@ -8,6 +8,7 @@ import com.diskoverorta.entities.EntityManager;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.diskoverorta.utils.WriteToCSV;
+import com.diskoverorta.utils.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +30,6 @@ public class Mentions {
     static StanfordNLP nlpStanford = new StanfordNLP();
 
     public static Map<String, Set<String>> getMentions(Set<String> entities,String text) {
-        // read some text in the text variable
-//        String text = "Teresa h meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
 
         // create an empty Annotation just with the given text
         Annotation document = new Annotation(text);
@@ -38,19 +37,15 @@ public class Mentions {
         // run all Annotators on this text
         nlpStanford.pipeline.annotate(document);
 
-        // these are all the sentences in this document
-        // a CoreMap is essentially a Map that uses class objects as keys and has values with custom types
-        //List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-
         Map<Integer, CorefChain> graph = document.get(CorefCoreAnnotations.CorefChainAnnotation.class);
         Map<String, Set<String>> mp = new HashMap<>();
         for (Integer temp : graph.keySet()) {
 
             CorefChain c = graph.get(temp);
-            System.out.println("ClusterId: " + temp);
             CorefChain.CorefMention cm = c.getRepresentativeMention();
 
             List<CorefChain.CorefMention> cms = c.getMentionsInTextualOrder();
+
             List<String> cms_parsed = new ArrayList<>();
 
             // remove "in Sentences"
@@ -59,7 +54,6 @@ public class Mentions {
                 Pattern p = Pattern.compile("\"([^\"]*)\"");
                 Matcher m = p.matcher(each.toString());
                 while (m.find()) {
-//                    System.out.println(m.group(1));
                     cms_parsed.add(m.group(1));
                 }
             }
@@ -89,15 +83,12 @@ public class Mentions {
         entityConfig.put("Person","TRUE");
         entityConfig.put("Organization","TRUE");
 
-//        EntityObject en = entity.getSelectedEntitiesForSentence("Teresa H Meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.", entityConfig);
         EntityObject en = entity.getSelectedEntitiesForSentence(content, entityConfig);
-//        System.out.println(en.person);
-//        System.out.println(en.organization);
         Set<String> entities = new HashSet<>();
 
         // Add both person and organisation entity to a list
-        List<String> entities_raw = en.person;
-        entities_raw.addAll(en.organization);
+        List<String> entities_raw = en.organization;
+//        entities_raw.addAll(en.organization);
 
 
         //trim and lower case
@@ -114,16 +105,35 @@ public class Mentions {
     public static void main(String args[])
     {
 
-        String content = "Teresa H Meng founded Atheros communications. \nMeng served on the board of Atheros. \nCharles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
-        Map<String, Set<String>> mentions_map = getMentions(getEntity(content), content);
-        System.out.println("Mentions: ");
-        System.out.println(mentions_map);
+//        String content = "Teresa H Meng founded Atheros communications. \nMeng served on the board of Atheros. \nCharles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
+
 
         //Write to CSV
         WriteToCSV csv = new WriteToCSV();
         try {
+
+//            URL url = Resources.getResource("/home/Desktop/Kreiger_sample.txt");
+//            String content = Resources.toString(url, Charsets.UTF_8);
+            String content = Files.toString(new File("/home/naren/Desktop/kreiger1_trimmed.txt"), Charsets.UTF_8);
+            Map<String, Set<String>> mentions_map = getMentions(getEntity(content), content);
+
+            // Using sub-string methods from utils and passing only entity set
+//            EntityUtils alias = new EntityUtils();
+//            Set<String> en_set = getEntity(content);
+//            Map<String, Set<String>> mentions_map = alias.getAliasMapFromSet(en_set);
+
+            System.out.println("Mentions: ");
+            //System.out.println(mentions_map);
+            for(String temp : mentions_map.keySet())
+            {
+                if(!mentions_map.get(temp).isEmpty() && !mentions_map.get(temp).contains(temp)) {
+                    System.out.println(temp + " : " + mentions_map.get(temp));
+                }
+            }
+
             csv.writeMapAsCSV(mentions_map);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             System.out.println("Cannot write to CSV");
         }
