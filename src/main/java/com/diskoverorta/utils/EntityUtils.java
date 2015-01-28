@@ -94,4 +94,30 @@ public class EntityUtils
         return aliasMap;
     }
 
+    public static Map<String,Set<String>> getAliasMapFromSet(Set<String> entitySet)
+    {
+        Map<String,Set<String>> aliasMap = new TreeMap<String,Set<String>>();
+//        Set<String> entitySet = eMap.keySet();
+        for(String temp : entitySet)
+        {
+            Set<String> aliasSet = new TreeSet<String>();
+            String key = temp;
+            for(String temp1 : entitySet)
+            {
+                if((key.contains(temp1) == true)&&(key.equals(temp1)==false))
+                {
+                    aliasSet.add(temp1);
+                }
+                else if((temp1.contains(key) == true)&&(temp1.equals(key)==false))
+                {
+                    key = temp1;
+                    aliasSet.add(key);
+                }
+            }
+            if(aliasMap.containsKey(key) == false)
+                aliasMap.put(key,aliasSet);
+        }
+        return aliasMap;
+    }
+
 }
