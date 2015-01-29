@@ -143,10 +143,12 @@ public class TextManager
                 "\n" +
                 "To another question on whether the Saradha chief has admitted that he paid large sums to several people to influence the case in his favour, the Minister said, “The matter is under investigation.”";
 
+        String sample3 = "Teresa h meng founded Atheros communications. Meng served on the board of Atheros. Charles barratt was the CEO of Atheros inc. Barratt and Meng were directors of Atheros.";
+
         sample2 =  sample2.replace("\n","");
         TAConfig config = new TAConfig();
         config.analysisConfig.put("Entity","TRUE");
-        config.analysisConfig.put("LSEntity","TRUE");
+        //config.analysisConfig.put("LSEntity","TRUE");
         config.entityConfig.put("Person","TRUE");
         config.entityConfig.put("Organization","TRUE");
         config.entityConfig.put("Location","TRUE");
@@ -156,7 +158,7 @@ public class TextManager
         config.entityConfig.put("Percent","TRUE");
 
         TextManager temp = new TextManager();
-        System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(sample2,config));
+        System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(sample3,config));
     }
 
 }
