@@ -2,6 +2,8 @@ package com.diskoverorta.ontology;
 
 import java.sql.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by naren on 4/2/15.
@@ -126,7 +128,7 @@ public class OntologyLookup
             ex.printStackTrace();
         }
     }
-    static Map<String, Set<String>> getDocSentences(String kind)
+    static Map<String, Set<String>> getTermsFromTable(String kind)
     {
         Map<String, Set<String>> doc_Sentences = new HashMap<>();
         try
@@ -165,18 +167,34 @@ public class OntologyLookup
         }
     }
 
-    public static  Map<String, Set<String>> getTerms(String term)
+    public static Map<String, Set<String>> getTerms(String content, String term)
     {
         OntologyLookup db = new OntologyLookup();
         db.establishDBConnection();
-        return db.getDocSentences(term);
+        Set<String> result = new HashSet<>();
+        Map<String, Set<String>> result_map = new HashMap<>();
+        Map<String, Set<String>> terms_set =  db.getTermsFromTable(term);
+        for(String key : terms_set.keySet()) {
+            Set<String> values = terms_set.get(key);
+            for (String tmp : values) {
+                // using regex to match exact words
+                Pattern p = Pattern.compile(".*\\b" + tmp.toLowerCase() + "\\b.*");
+                Matcher m = p.matcher(content.toLowerCase().trim());
+                if (m.matches()) {
+                    result.add(tmp);
+                }
+            }
+            result_map.put(key, result);
+        }
+        return result_map;
+
     }
 
     public static void main(String args[])
     {
         OntologyLookup db = new OntologyLookup();
         db.establishDBConnection();
-        System.out.println(db.getDocSentences("topics"));
+        System.out.println(db.getTermsFromTable("topics"));
 
     }
 
