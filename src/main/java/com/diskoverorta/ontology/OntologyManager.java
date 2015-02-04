@@ -28,17 +28,17 @@ public class OntologyManager {
 
     }
     public static Map<String, Set<String>> getOntologyForSelectedTerms(String content, Map<String, String> ontologyConfig) {
-
+        // gets the ontology for given terms like events or topics
         Map<String, Set<String>> ontology_map = new HashMap<>();
         if ((ontologyConfig.get("topics") != null) && (ontologyConfig.get("topics") == "TRUE")) {
-            ontology_map = ontology.getTerms(content, "topics");
+            ontology_map = OntologyLookup.getTerms(content, "topics");
         }
         if ((ontologyConfig.get("events") != null) && (ontologyConfig.get("events") == "TRUE")) {
             // if both topics and events are true
             if (ontology_map.isEmpty())
-                ontology_map = ontology.getTerms(content, "events");
+                ontology_map = OntologyLookup.getTerms(content, "events");
             if (!ontology_map.isEmpty())
-                ontology_map.putAll(ontology.getTerms(content, "events"));
+                ontology_map.putAll(OntologyLookup.getTerms(content, "events"));
         }
 
         return ontology_map;

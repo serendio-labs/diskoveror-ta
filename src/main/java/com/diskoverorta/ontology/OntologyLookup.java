@@ -21,10 +21,7 @@ public class OntologyLookup
 
     void establishDBConnection()
     {
-        String ipAddress = null;
-        String dbName = null;
-        String username = null;
-        String password = null;
+
         try
         {
 
@@ -83,13 +80,15 @@ public class OntologyLookup
         }
     }
 
-    public static Map<String, Set<String>> getTerms(String content, String term)
+    public static Map<String, Set<String>> getTerms(String content, String kind)
     {
+        //Takes in content and kind, returns the map kind:terms that occurs in content.
         OntologyLookup db = new OntologyLookup();
         db.establishDBConnection();
         Set<String> result = new HashSet<>();
         Map<String, Set<String>> result_map = new HashMap<>();
-        Map<String, Set<String>> terms_set =  db.getTermsFromTable(term);
+        Map<String, Set<String>> terms_set =  getTermsFromTable(kind);
+        // iterate through the values and match each value with the given sentence
         for(String key : terms_set.keySet()) {
             Set<String> values = terms_set.get(key);
             for (String tmp : values) {
@@ -97,9 +96,11 @@ public class OntologyLookup
                 Pattern p = Pattern.compile(".*\\b" + tmp.toLowerCase() + "\\b.*");
                 Matcher m = p.matcher(content.toLowerCase().trim());
                 if (m.matches()) {
+                    // add the matched terms to the set
                     result.add(tmp);
                 }
             }
+            //map the set to the key value pairs.example, kind:term1,term2 (topics: bail,auto...)
             result_map.put(key, result);
         }
         closeConnection();
@@ -111,7 +112,7 @@ public class OntologyLookup
     {
         OntologyLookup db = new OntologyLookup();
         db.establishDBConnection();
-        System.out.println(db.getTermsFromTable("topics"));
+        System.out.println(getTermsFromTable("topics"));
 
     }
 
