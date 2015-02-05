@@ -23,19 +23,26 @@ import java.util.*;
 public class LegalManager
 {
     static TAConfig m_config = new TAConfig();
+    static CorefManager m_coref = new CorefManager();
+    static StanfordNLP m_snlp = new StanfordNLP();
+    static EntityManager m_eManager = new EntityManager();
+    static OntologyManager m_oManager = new OntologyManager();
     static
     {
         setConfigInformation();
     }
+    public LegalManager()
+    {
+
+    }
     public String tagLegalTextAnalyticsComponents(String sDoc)
     {
-        Map<String,Map<String,Set<String>>> coref_out = (new CorefManager().getCorefForSelectedEntites(sDoc,m_config.corefConfig));
-        List<String> sentList = (new StanfordNLP().splitSentencesINDocument(sDoc));
+        Map<String,Map<String,Set<String>>> coref_out = m_coref.getCorefForSelectedEntites(sDoc,m_config.corefConfig);
+        List<String> sentList = m_snlp.splitSentencesINDocument(sDoc);
         String jsonOutput = "";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        EntityManager eManager = new EntityManager();
-        OntologyManager oManager = new OntologyManager();
+
         Map<String,String> gpersonCoref = getCorefInvMap(coref_out.get("Person"));
         Map<String,String> gorgCoref = getCorefInvMap(coref_out.get("Organization"));
 
@@ -47,11 +54,11 @@ public class LegalManager
         for(String temp : sentList)
         {
             LegalObject legalcomponent = new LegalObject();
-            ontologyTemp = oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
+            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
 
             legalcomponent.sentenceText = temp;
-            legalcomponent.entities = eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
-            legalcomponent.personAlias = getMatchedCoref(gpersonCoref,legalcomponent.entities.person);
+            legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
+            legalcomponent.personAlias = getMatchedCoref(gpersonCoref, legalcomponent.entities.person);
             legalcomponent.orgAlias = getMatchedCoref(gorgCoref,legalcomponent.entities.organization);
             legalcomponent.events = ontologyTemp.get("Events");
             legalcomponent.topics = ontologyTemp.get("Topics");
@@ -118,7 +125,7 @@ public class LegalManager
         LegalManager lobj = new LegalManager();
         String content = "";
         try {
-            content = Files.toString(new File("tmp_kreiger1.txtssplit.txt.trimmed.txt"), Charsets.UTF_8);
+            content = Files.toString(new File("Novastar_ORIGINAL_TXT.txt_trimmed.txt"), Charsets.UTF_8);
             content = content.replace("\n"," ");
             content = content.replace("\r"," ");
         }
