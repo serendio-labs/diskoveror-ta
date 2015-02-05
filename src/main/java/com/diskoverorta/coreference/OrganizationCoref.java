@@ -101,7 +101,7 @@ public class OrganizationCoref {
 
     public Map<String, Set<String>> getOrganizationCoref(String content, String corefMethod) {
 
-        if( corefMethod == "SUBSTRING")
+        if( corefMethod.equals("SUBSTRING") == true)
             return getSubStringAlias(content);
         else
             return getMentions(content);

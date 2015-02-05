@@ -15,6 +15,7 @@ public class TAConfig
     public Map<String,String> bioentityConfig = null;
     public Map<String,String> outputConfig = null;
     public Map<String,String> corefConfig = null;
+    public Map<String,String> ontologyConfig = null;
 
     public TAConfig()
     {
@@ -23,6 +24,8 @@ public class TAConfig
         bioentityConfig = new TreeMap<String,String>();
         outputConfig = new TreeMap<String,String>();
         corefConfig = new TreeMap<String,String>();
+        ontologyConfig = new TreeMap<String,String>();
+
         analysisConfig.put("Entity","FALSE");
         analysisConfig.put("Coref","FALSE");
 
@@ -37,5 +40,8 @@ public class TAConfig
         entityConfig.put("Time","FALSE");
         entityConfig.put("Currency","FALSE");
         entityConfig.put("Percent","FALSE");
+
+        ontologyConfig.put("Topics","FALSE");
+        ontologyConfig.put("Events","FALSE");
     }
 }

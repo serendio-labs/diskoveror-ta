@@ -87,23 +87,19 @@ public class PersonCoref {
         return mp;
     }
 
-    public Map<String, Set<String>> getSubStringAlias(String content){
-
-
-        // Using sub-string methods from utils and passing only entity set
-            EntityUtils alias = new EntityUtils();
-            Set<String> en_set = getPersonEntity(content);
-            Map<String, Set<String>> mentions_map = alias.getAliasMapFromSet(en_set);
+    public Map<String, Set<String>> getSubStringAlias(String content)
+    {
+        EntityUtils alias = new EntityUtils();
+        Set<String> en_set = getPersonEntity(content);
+        Map<String, Set<String>> mentions_map = alias.getAliasMapFromSet(en_set);
         return mentions_map;
-
     }
 
-    public Map<String, Set<String>> getPersonCoref(String content, String corefMethod) {
-
-        if( corefMethod == "SUBSTRING")
+    public Map<String, Set<String>> getPersonCoref(String content, String corefMethod)
+    {
+        if( corefMethod.equals("SUBSTRING") == true)
             return getSubStringAlias(content);
         else
             return getMentions(content);
-
     }
 }

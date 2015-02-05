@@ -19,15 +19,16 @@ public class CorefManager {
 
     public static void main(String args[])
     {
-        TAConfig config = new TAConfig();
+     /*   TAConfig config = new TAConfig();
         config.analysisConfig.put("Coref","TRUE");
         config.corefConfig.put("Person","TRUE");
         config.corefConfig.put("Organization", "FALSE");
         config.corefConfig.put("CorefMethod","SUBSTRING");
         String text = "Teresa H Meng founded Atheros communications. Atheros communications is also called as atheros inc. or simply atheros. \nMeng served on the board of Atheros. \nCharles barratt was the CEO of Atheros inc., Barratt and Meng were directors of Atheros.";
         try {
+            CorefManager coref = new CorefManager();
             String content = Files.toString(new File("/home/naren/Desktop/kreiger1_trimmed.txt"), Charsets.UTF_8);
-            Map<String, Set<String>> coref_map = getCorefForSelectedEntites(content, config.corefConfig);
+            Map<String, Set<String>> coref_map = coref.getCorefForSelectedEntites(content, config.corefConfig);
             for(String temp : coref_map.keySet())
             {
                 if(!coref_map.get(temp).isEmpty() && !coref_map.get(temp).contains(temp)) {
@@ -39,13 +40,13 @@ public class CorefManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
 
     }
 
-    public static Map<String, Set<String>> getCorefForSelectedEntites(String content, Map<String,String> corefConfig)
+    public Map<String,Map<String,Set<String>>> getCorefForSelectedEntites(String content, Map<String,String> corefConfig)
     {
-        Map<String, Set<String>> coref_map = new HashMap<>();
+        Map<String,Map<String, Set<String>>> coref_map = new HashMap<>();
         //check for NPE
         String CorefMethod = "";
         if(corefConfig.get("CorefMethod") != null) {
@@ -59,14 +60,12 @@ public class CorefManager {
         if((corefConfig.get("Person")!=null)&&(corefConfig.get("Person")== "TRUE"))
         {
             PersonCoref coref = new PersonCoref();
-            coref_map = coref.getPersonCoref(content, CorefMethod);
-
+            coref_map.put("Person",coref.getPersonCoref(content, CorefMethod));
         }
         if((corefConfig.get("Organization")!=null) && (corefConfig.get("Organization")== "TRUE"))
         {
             OrganizationCoref coref = new OrganizationCoref();
-            coref_map = coref.getOrganizationCoref(content, CorefMethod);
-
+            coref_map.put("Organization",coref.getOrganizationCoref(content, CorefMethod));
         }
         return coref_map;
 
