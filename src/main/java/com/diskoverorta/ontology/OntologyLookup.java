@@ -21,8 +21,10 @@ public class OntologyLookup
 
     void establishDBConnection()
     {
+
         try
         {
+
             Class.forName("org.postgresql.Driver");
             m_con = DriverManager.getConnection("jdbc:postgresql://" + "178.63.22.132" + "/" + "vipin_test","amc_engineer","serendio123");
             m_stmt = m_con.createStatement();

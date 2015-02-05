@@ -25,10 +25,11 @@ public class TAConfig
         outputConfig = new TreeMap<String,String>();
         corefConfig = new TreeMap<String,String>();
         ontologyConfig = new TreeMap<String,String>();
-
         analysisConfig.put("Entity","FALSE");
         analysisConfig.put("Coref","FALSE");
 
+        ontologyConfig.put("topics","FALSE");
+        ontologyConfig.put("events","FALSE");
         corefConfig.put("Person","FALSE");
         corefConfig.put("Organization", "FALSE");
         corefConfig.put("CorefMethod","SUBSTRING");
@@ -40,8 +41,5 @@ public class TAConfig
         entityConfig.put("Time","FALSE");
         entityConfig.put("Currency","FALSE");
         entityConfig.put("Percent","FALSE");
-
-        ontologyConfig.put("Topics","FALSE");
-        ontologyConfig.put("Events","FALSE");
     }
 }
