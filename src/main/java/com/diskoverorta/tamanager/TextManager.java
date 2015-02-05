@@ -148,7 +148,11 @@ public class TextManager
         sample2 =  sample2.replace("\n","");
         TAConfig config = new TAConfig();
         config.analysisConfig.put("Entity","TRUE");
+<<<<<<< HEAD
         //config.analysisConfig.put("LSEntity","TRUE");
+=======
+//        config.analysisConfig.put("LSEntity","TRUE");
+>>>>>>> 403099ba798a0f68089361aeff26dc6aefc57cb1
         config.entityConfig.put("Person","TRUE");
         config.entityConfig.put("Organization","TRUE");
         config.entityConfig.put("Location","TRUE");

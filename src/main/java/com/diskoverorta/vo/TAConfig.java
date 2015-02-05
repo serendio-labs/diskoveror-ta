@@ -14,6 +14,7 @@ public class TAConfig
     public Map<String,String> entityConfig = null;
     public Map<String,String> bioentityConfig = null;
     public Map<String,String> outputConfig = null;
+    public Map<String,String> corefConfig = null;
 
     public TAConfig()
     {
@@ -21,8 +22,13 @@ public class TAConfig
         entityConfig = new TreeMap<String,String>();
         bioentityConfig = new TreeMap<String,String>();
         outputConfig = new TreeMap<String,String>();
-
+        corefConfig = new TreeMap<String,String>();
         analysisConfig.put("Entity","FALSE");
+        analysisConfig.put("Coref","FALSE");
+
+        corefConfig.put("Person","FALSE");
+        corefConfig.put("Organization", "FALSE");
+        corefConfig.put("CorefMethod","SUBSTRING");
 
         entityConfig.put("Person","FALSE");
         entityConfig.put("Organization","FALSE");
