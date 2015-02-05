@@ -38,7 +38,7 @@ public class OntologyManager {
         }
         if ((ontologyConfig.get("Events") != null) && (ontologyConfig.get("Events") == "TRUE"))
         {
-            ontology_map.put("Events",ontology.matchOntologies(content,"topics"));
+            ontology_map.put("Events",ontology.matchOntologies(content,"events"));
         }
         return ontology_map;
     }

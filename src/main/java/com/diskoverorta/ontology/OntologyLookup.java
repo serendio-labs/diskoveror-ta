@@ -84,6 +84,8 @@ public class OntologyLookup
                 // add the matched terms to the set
                 result_set.add(tmp);
             }
+         //   if(content.toLowerCase().contains(tmp.toLowerCase()) == true)
+         //       result_set.add(tmp);
         }
         return result_set;
     }

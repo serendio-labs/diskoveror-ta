@@ -53,8 +53,8 @@ public class LegalManager
             legalcomponent.entities = eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
             legalcomponent.personAlias = getMatchedCoref(gpersonCoref,legalcomponent.entities.person);
             legalcomponent.orgAlias = getMatchedCoref(gorgCoref,legalcomponent.entities.organization);
-            legalcomponent.events = ontologyTemp.get("events");
-            legalcomponent.topics = ontologyTemp.get("topics");
+            legalcomponent.events = ontologyTemp.get("Events");
+            legalcomponent.topics = ontologyTemp.get("Topics");
 
             legalcomponents.add(legalcomponent);
         }
