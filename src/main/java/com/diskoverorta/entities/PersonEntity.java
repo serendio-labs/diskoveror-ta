@@ -35,14 +35,19 @@ public class PersonEntity implements BaseEntity
                 if(key.equals("PERSON") == true)
                 {
                     String temp1 = "";
+                    int cnt =0;
                     while(key.equals("PERSON") == true)
                     {
+                        if(cnt >= 3)
+                            break;
+                        cnt++;
                         temp1 = temp1 + lcl.get(i).originalText() + " ";
                         i++;
                         if(i < lcl.size())
                             key = lcl.get(i).get(CoreAnnotations.AnswerAnnotation.class);
                         else
                             break;
+
                     }
                     temp1 = temp1.trim();
                     entityList.add(temp1);

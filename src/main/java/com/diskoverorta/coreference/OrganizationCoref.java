@@ -99,10 +99,19 @@ public class OrganizationCoref {
 
     }
 
-    public Map<String, Set<String>> getOrganizationCoref(String content, String corefMethod) {
+    public Map<String, Set<String>> getSubStringAlias(Set<String> enSet){
+
+        // Using sub-string methods from utils and passing only entity set
+        EntityUtils alias = new EntityUtils();
+        Map<String, Set<String>> mentions_map = alias.getAliasMapFromSet(enSet);
+        return mentions_map;
+
+    }
+
+    public Map<String, Set<String>> getOrganizationCoref(String content,Set<String> enSet, String corefMethod) {
 
         if( corefMethod.equals("SUBSTRING") == true)
-            return getSubStringAlias(content);
+            return getSubStringAlias(enSet);
         else
             return getMentions(content);
 

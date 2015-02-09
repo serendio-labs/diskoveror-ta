@@ -26,7 +26,7 @@ public class LegalManager
     static CorefManager m_coref = new CorefManager();
     static StanfordNLP m_snlp = new StanfordNLP();
     static EntityManager m_eManager = new EntityManager();
-    static OntologyManager m_oManager = new OntologyManager();
+//    static OntologyManager m_oManager = new OntologyManager();
     static
     {
         setConfigInformation();
@@ -37,7 +37,7 @@ public class LegalManager
     }
     public String tagLegalTextAnalyticsComponents(String sDoc)
     {
-        Map<String,Map<String,Set<String>>> coref_out = m_coref.getCorefForSelectedEntites(sDoc,m_config.corefConfig);
+        Map<String,Map<String,Set<String>>> coref_out = m_coref.getCorefForSelectedEntites(sDoc,null,null,m_config.corefConfig);
         List<String> sentList = m_snlp.splitSentencesINDocument(sDoc);
         String jsonOutput = "";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -54,7 +54,7 @@ public class LegalManager
         for(String temp : sentList)
         {
             LegalObject legalcomponent = new LegalObject();
-            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
+//            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
 
             legalcomponent.sentenceText = temp;
             legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
@@ -67,6 +67,75 @@ public class LegalManager
         }
         jsonOutput = gson.toJson(legalcomponents);
         return jsonOutput;
+    }
+    public String tagLegalTextAnalyticsComponents(String sDoc, Map<String,String> apiConfig)
+    {
+
+        Set<String> personEntities = new HashSet<>();
+        Set<String> orgEntities = new HashSet<>();
+
+        List<String> sentList = m_snlp.splitSentencesINDocument(sDoc);
+        String chunkSize = null;
+
+        if((apiConfig!=null)&&(apiConfig.containsKey("chunksize")==true))
+            chunkSize = apiConfig.get("chunksize");
+
+        if(chunkSize != null)
+            sentList = chunkSentences(sentList,chunkSize);
+
+        String jsonOutput = "";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        Map<String,Set<String>> ontologyTemp = null;
+
+        List<LegalObject> legalcomponents = new ArrayList<>();
+        for(String temp : sentList)
+        {
+            LegalObject legalcomponent = new LegalObject();
+//            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
+            legalcomponent.sentenceText = temp;
+            legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
+            insertEntity(personEntities,legalcomponent.entities.person);
+            insertEntity(orgEntities,legalcomponent.entities.organization);
+//            legalcomponent.events = ontologyTemp.get("Events");
+//            legalcomponent.topics = ontologyTemp.get("Topics");
+
+            legalcomponents.add(legalcomponent);
+        }
+        Map<String,Map<String,Set<String>>> coref_out = m_coref.getCorefForSelectedEntites(sDoc,personEntities,orgEntities,m_config.corefConfig);
+        Map<String,String> gpersonCoref = getCorefInvMap(coref_out.get("Person"));
+        Map<String,String> gorgCoref = getCorefInvMap(coref_out.get("Organization"));
+
+        for(LegalObject temp : legalcomponents)
+        {
+            temp.personAlias = getMatchedCoref(gpersonCoref, temp.entities.person);
+            temp.orgAlias = getMatchedCoref(gorgCoref,temp.entities.organization);
+        }
+
+        jsonOutput = gson.toJson(legalcomponents);
+        return jsonOutput;
+    }
+    void insertEntity(Set<String> gcoref,List<String> entity)
+    {
+        for(String temp : entity)
+            gcoref.add(temp.toLowerCase().trim());
+    }
+
+    List<String> chunkSentences(List<String> sent, String count)
+    {
+        Integer size = Integer.parseInt(count);
+        int total_size = sent.size();
+        List<String> chunkedList = new ArrayList<String>();
+        for(int i=0; i < sent.size();i = i + size)
+        {
+            String temp = "";
+            for(int j=i;(j < i+size)&&(j<total_size);j++)
+            {
+                temp = temp+sent.get(j)+ " ";
+            }
+            chunkedList.add(temp.trim());
+        }
+        return chunkedList;
     }
     Map<String,String> getMatchedCoref(Map<String,String> globalCoref, List<String> entities)
     {
@@ -133,6 +202,8 @@ public class LegalManager
         {
             ex.printStackTrace();
         }
-        System.out.println(lobj.tagLegalTextAnalyticsComponents(content));
+        Map<String,String> config1 = new TreeMap<String,String>();
+        config1.put("chunksize","5");
+        System.out.println(lobj.tagLegalTextAnalyticsComponents(content,config1));
     }
 }
