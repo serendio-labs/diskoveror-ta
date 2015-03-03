@@ -10,7 +10,7 @@ import java.util.TreeSet;
  */
 public class LegalObject
 {
-    public String sentenceText = null;
+    public String sentence = null;
     public EntityObject entities= null;
     public Map<String,String> personAlias = null;
     public Map<String,String> orgAlias = null;

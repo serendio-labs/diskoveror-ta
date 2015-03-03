@@ -26,7 +26,7 @@ public class LegalManager
     static CorefManager m_coref = new CorefManager();
     static StanfordNLP m_snlp = new StanfordNLP();
     static EntityManager m_eManager = new EntityManager();
-//    static OntologyManager m_oManager = new OntologyManager();
+    static OntologyManager m_oManager = new OntologyManager();
     static
     {
         setConfigInformation();
@@ -56,7 +56,7 @@ public class LegalManager
             LegalObject legalcomponent = new LegalObject();
 //            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
 
-            legalcomponent.sentenceText = temp;
+            legalcomponent.sentence = temp;
             legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
             legalcomponent.personAlias = getMatchedCoref(gpersonCoref, legalcomponent.entities.person);
             legalcomponent.orgAlias = getMatchedCoref(gorgCoref,legalcomponent.entities.organization);
@@ -92,13 +92,13 @@ public class LegalManager
         for(String temp : sentList)
         {
             LegalObject legalcomponent = new LegalObject();
-//            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
-            legalcomponent.sentenceText = temp;
+            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
+            legalcomponent.sentence = temp;
             legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
             insertEntity(personEntities,legalcomponent.entities.person);
             insertEntity(orgEntities,legalcomponent.entities.organization);
-//            legalcomponent.events = ontologyTemp.get("Events");
-//            legalcomponent.topics = ontologyTemp.get("Topics");
+            legalcomponent.events = ontologyTemp.get("Events");
+            legalcomponent.topics = ontologyTemp.get("Topics");
 
             legalcomponents.add(legalcomponent);
         }
