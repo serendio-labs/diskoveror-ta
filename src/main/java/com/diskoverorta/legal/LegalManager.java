@@ -12,16 +12,20 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.common.base.Stopwatch;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
+import org.apache.log4j.Logger;
 
 /**
  * Created by praveen on 4/2/15.
  */
 public class LegalManager
 {
+	final static Logger logger = Logger.getLogger(LegalManager.class);
     static TAConfig m_config = new TAConfig();
     static CorefManager m_coref = new CorefManager();
     static StanfordNLP m_snlp = new StanfordNLP();
@@ -49,15 +53,19 @@ public class LegalManager
         Map<String,String> personCoref = null;
         Map<String,String> orgCoref = null;
         Map<String,Set<String>> ontologyTemp = null;
-
+        
         List<LegalObject> legalcomponents = new ArrayList<>();
+        
+        
         for(String temp : sentList)
         {
             LegalObject legalcomponent = new LegalObject();
 //            ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
 
             legalcomponent.sentence = temp;
+        
             legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
+        
             legalcomponent.personAlias = getMatchedCoref(gpersonCoref, legalcomponent.entities.person);
             legalcomponent.orgAlias = getMatchedCoref(gorgCoref,legalcomponent.entities.organization);
             legalcomponent.events = ontologyTemp.get("Events");
@@ -66,11 +74,16 @@ public class LegalManager
             legalcomponents.add(legalcomponent);
         }
         jsonOutput = gson.toJson(legalcomponents);
+        
         return jsonOutput;
     }
     public String tagLegalTextAnalyticsComponents(String sDoc, Map<String,String> apiConfig)
     {
 
+    	Stopwatch allTimer = Stopwatch.createUnstarted();
+    	Stopwatch entitiesTimer = Stopwatch.createUnstarted();
+    	Stopwatch ontologyTimer = Stopwatch.createUnstarted();
+    	allTimer.start();
         Set<String> personEntities = new HashSet<>();
         Set<String> orgEntities = new HashSet<>();
 
@@ -87,14 +100,18 @@ public class LegalManager
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         Map<String,Set<String>> ontologyTemp = null;
-
+        
         List<LegalObject> legalcomponents = new ArrayList<>();
         for(String temp : sentList)
         {
             LegalObject legalcomponent = new LegalObject();
+            ontologyTimer.start();
             ontologyTemp = m_oManager.getOntologyForSelectedTerms(temp,m_config.ontologyConfig);
+            ontologyTimer.stop();
             legalcomponent.sentence = temp;
+            entitiesTimer.start();
             legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
+            entitiesTimer.stop();
             insertEntity(personEntities,legalcomponent.entities.person);
             insertEntity(orgEntities,legalcomponent.entities.organization);
             legalcomponent.events = ontologyTemp.get("Events");
@@ -111,8 +128,13 @@ public class LegalManager
             temp.personAlias = getMatchedCoref(gpersonCoref, temp.entities.person);
             temp.orgAlias = getMatchedCoref(gorgCoref,temp.entities.organization);
         }
-
+        
         jsonOutput = gson.toJson(legalcomponents);
+        logger.info("Person Organization took" + entitiesTimer);
+        logger.info("Topics and Events took" + ontologyTimer);
+        logger.info("Total time taken" + allTimer);
+        allTimer.stop();
+        
         return jsonOutput;
     }
     void insertEntity(Set<String> gcoref,List<String> entity)
@@ -191,10 +213,13 @@ public class LegalManager
     }
     public static void main(String args[])
     {
+    	logger.error("This is a Err");
+    	logger.debug("This is a debug msg");
+    	logger.info("This is info message");
         LegalManager lobj = new LegalManager();
         String content = "";
         try {
-            content = Files.toString(new File("Novastar_ORIGINAL_TXT.txt_trimmed.txt"), Charsets.UTF_8);
+            content = Files.toString(new File("temp1.txt"), Charsets.UTF_8);
             content = content.replace("\n"," ");
             content = content.replace("\r"," ");
         }
@@ -204,6 +229,7 @@ public class LegalManager
         }
         Map<String,String> config1 = new TreeMap<String,String>();
         config1.put("chunksize","5");
-        System.out.println(lobj.tagLegalTextAnalyticsComponents(content,config1));
+        String s = lobj.tagLegalTextAnalyticsComponents(content,config1);
+        //System.out.println(s);
     }
 }
