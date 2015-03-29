@@ -1,9 +1,7 @@
 package com.diskoverorta.ml;
-
 /**
  * Created by praveen on 29/3/15.
  */
-
 import com.diskoverorta.ontology.OntologyLookup;
 import com.diskoverorta.vo.KlusterData;
 import com.diskoverorta.vo.groups;
@@ -11,12 +9,11 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
@@ -48,15 +45,13 @@ import java.util.*;
 import java.util.Arrays;
 import java.util.Vector;
 import java.util.zip.DeflaterOutputStream;
-
 /**
  * Created by praveen on 23/3/15.
  */
-
 public class Clustering {
+    final static Logger logger = Logger.getLogger(Clustering.class);
     public Configuration configuration;
     public FileSystem fileSystem;
-
     public List<String> getFilePathsFromFolder(String foldername)
     {
         List<String> filePaths = new ArrayList<String>();
@@ -66,6 +61,7 @@ public class Clustering {
                 filePaths.add(f.getAbsolutePath());
             }
         }
+        logger.info("returning filePaths");
         return filePaths;
     }
     public Clustering() {
@@ -129,7 +125,6 @@ public class Clustering {
             ex.printStackTrace();
         }
     }
-
     public Map<String, Double[]> getTFIDFScores(Path path)
     {
         SequenceFileIterable<Writable, Writable> iterable = new SequenceFileIterable<Writable, Writable>(path, configuration);
@@ -157,6 +152,7 @@ public class Clustering {
             }
             finalftidf.put(temp, tfidfscore);
         }
+        logger.info("returning TFIDF scores");
         return finalftidf;
     }
     public void writePointsToFile(List<NamedVector> points,String fileName,FileSystem fs,Configuration conf)
@@ -206,23 +202,33 @@ public class Clustering {
             }
             groups.groups.add(tempgroups);
         }
+        logger.info("Converting GSON to JSON");
         return gson.toJson(groups);
     }
     public static void main(String args[]){
         Clustering obj = new Clustering();
         String foldername = "/home/praveen/Testcase";
+        logger.info("getting File paths from folder");
         List<String> filePaths = obj.getFilePathsFromFolder(foldername);
+        logger.info("Giving output folder name");
         String outputFolder = "output/";
         String docSequence = "sequence";
         String tfidf = "tfidf";
+        logger.info("storing files to hdfs");
         obj.storeFilesToHDFS(filePaths, outputFolder, docSequence);
+        logger.info("Finding tfidf scores");
         obj.getTfIDFScoreForHDFSData(outputFolder, docSequence, tfidf);
         KlusterData klust = new KlusterData();
+        logger.info("Storing the TFIDF scores output in a MAP");
         klust.featureMap =  obj.getTFIDFScores(new Path(outputFolder + "tfidf/tfidf-vectors/part-r-00000"));
+        logger.info("Storing the wordIndex output in a MAP");
         klust.wordIndex = obj.wordindex((new Path(outputFolder, "dictionary.file-0")));
+        logger.info("Storing the Cluster output in a MAP");
         klust.clusterMap = obj.clusteringmethod(5, klust);
+        logger.info("Storing the cluster label in a MAP");
         klust.labelMap = obj.findClusterLabels(klust);
         obj.formClusterJSON(klust);
+        logger.info("deleting the temporary outputFolder and clustering folder");
         try {
             HadoopUtil.delete(obj.configuration, new Path(outputFolder));
             HadoopUtil.delete(obj.configuration, new Path("clustering"));
@@ -248,6 +254,7 @@ public class Clustering {
             }
             clusterLabels.put(clustemp,getClusterLabels(klus.wordIndex,result,5));
         }
+        logger.info("returning ClusterLabels");
         return clusterLabels;
     }
     List<String> getClusterLabels(Map<Integer,String> wordIndex,Double[] resArray,int n)
@@ -280,6 +287,7 @@ public class Clustering {
             String value = pair.getSecond().toString();
             wordindex.put(Integer.parseInt(value),key);
         }
+        logger.info("returning wordIndex");
         return wordindex;
     }
     public Map<Integer,List<String>> clusteringmethod(int k,KlusterData klust)
