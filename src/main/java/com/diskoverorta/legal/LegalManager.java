@@ -2,12 +2,10 @@ package com.diskoverorta.legal;
 
 import com.diskoverorta.coreference.CorefManager;
 import com.diskoverorta.entities.EntityManager;
+import com.diskoverorta.ml.Clustering;
 import com.diskoverorta.ontology.OntologyManager;
 import com.diskoverorta.osdep.StanfordNLP;
-import com.diskoverorta.vo.APIOutput;
-import com.diskoverorta.vo.EntityObject;
-import com.diskoverorta.vo.LegalObject;
-import com.diskoverorta.vo.TAConfig;
+import com.diskoverorta.vo.*;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
@@ -18,7 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Logger;
+import org.apache.mahout.common.HadoopUtil;
 
 /**
  * Created by praveen on 4/2/15.
@@ -210,6 +210,29 @@ public class LegalManager
 
         m_config.ontologyConfig.put("Events","TRUE");
         m_config.ontologyConfig.put("Topics","TRUE");
+    }
+    String getClusterJson(String caseno)
+    {
+        Clustering obj = new Clustering();
+        String outputFolder = "output/";
+        String docSequence = "sequence";
+        String tfidf = "tfidf";
+        obj.storeDBDataToHDFS(caseno, outputFolder, docSequence);
+        obj.getTfIDFScoreForHDFSData(outputFolder, docSequence, tfidf);
+        KlusterData klust = new KlusterData();
+        klust.featureMap =  obj.getTFIDFScores(new Path(outputFolder + "tfidf/tfidf-vectors/part-r-00000"));
+        klust.wordIndex = obj.wordindex((new Path(outputFolder, "dictionary.file-0")));
+        klust.clusterMap = obj.clusteringmethod(5, klust);
+        klust.labelMap = obj.findClusterLabels(klust);
+
+        try {
+            HadoopUtil.delete(obj.configuration, new Path(outputFolder));
+            HadoopUtil.delete(obj.configuration, new Path("clustering"));
+        }catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+        return obj.formClusterJSON(klust);
     }
     public static void main(String args[])
     {
