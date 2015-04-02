@@ -1,5 +1,9 @@
 package com.diskoverorta.ontology;
 
+
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -15,7 +19,7 @@ public class OntologyLookup
     static Statement m_stmt = null;
     static Map<String,Set<String>> m_ontologyMap = new HashMap<>();
 
-    OntologyLookup()
+    public OntologyLookup()
     {
         establishDBConnection();
         m_ontologyMap.put("events",getTermsFromTable("events"));
@@ -89,5 +93,59 @@ public class OntologyLookup
         }
         return result_set;
     }
+    public Map<String,String> getDocumentsForCase(String caseno)
+    {
+        Map<String,String> docMap = new HashMap<>();
+        establishDBConnection();
+        try
+        {
+            Statement stat = m_con.createStatement();
+            String query = "select id,path from docs where docket_report_id in (select id from docket_report where case_id="+ caseno +") and source='User'";
+            ResultSet res = m_stmt.executeQuery(query);
+            String basePath = "/home/serendio/myproject/legalitee/tmp/";
+            while(res.next())
+            {
+                String query2 = "select id from jobs where docs_id ="+res.getString("id");
+                ResultSet res1 = stat.executeQuery(query2);
 
+                String jobid="";
+                if(res1.next())
+                {
+                    jobid = res1.getString("id");
+                    String temp = res.getString("path");
+                    temp = temp.substring(temp.lastIndexOf("/")+1, temp.length());
+                    docMap.put(temp,jobid);
+                }
+            }
+            closeConnection();
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return getFilecontents(docMap);
+    }
+    Map<String,String> getFilecontents(Map<String,String> fileMap)
+    {
+        Map<String,String> fileOutMap = new HashMap<String,String>();
+        try
+        {
+            establishDBConnection();
+            for(String temp : fileMap.keySet())
+            {
+                String query = "select trimmed_content from docs_trimmed_contents where job_id="+fileMap.get(temp);
+                ResultSet res = m_stmt.executeQuery(query);
+                if(res.next())
+                {
+                    fileOutMap.put(temp,res.getString("trimmed_content"));
+                }
+            }
+            closeConnection();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return fileOutMap;
+    }
 }

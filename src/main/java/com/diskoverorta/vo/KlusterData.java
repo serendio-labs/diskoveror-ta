@@ -11,12 +11,12 @@ public class KlusterData {
     public Map<Integer,String> wordIndex = null;
     public Map<String,Double[]> featureMap = null;
     public Map<Integer,List<String>> clusterMap = null;
-    public Map<Integer,List<String>> labelMap =null;
+    public Map<Integer,String> labelMap =null;
     public KlusterData()
     {
         wordIndex = new HashMap<Integer, String>();
         featureMap = new HashMap<String, Double[]>();
         clusterMap = new HashMap<Integer,List<String>>();
-        labelMap = new HashMap<Integer,List<String>>();
+        labelMap = new HashMap<Integer,String>();
     }
 }
