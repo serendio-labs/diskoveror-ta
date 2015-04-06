@@ -78,7 +78,7 @@ public class LegalManager
     }
     public String tagLegalTextAnalyticsComponents(String sDoc, Map<String,String> apiConfig)
     {
-
+        logger.info("tagging legal text analytics components");
     	Stopwatch allTimer = Stopwatch.createUnstarted();
     	Stopwatch entitiesTimer = Stopwatch.createUnstarted();
     	Stopwatch ontologyTimer = Stopwatch.createUnstarted();
@@ -88,10 +88,10 @@ public class LegalManager
 
         List<String> sentList = m_snlp.splitSentencesINDocument(sDoc);
         String chunkSize = null;
-
+        logger.info("getting chunk size");
         if((apiConfig!=null)&&(apiConfig.containsKey("chunksize")==true))
             chunkSize = apiConfig.get("chunksize");
-
+        logger.info("Chunking sentences");
         if(chunkSize != null)
             sentList = chunkSentences(sentList,chunkSize);
 
@@ -111,15 +111,20 @@ public class LegalManager
             entitiesTimer.start();
             legalcomponent.entities = m_eManager.getSelectedEntitiesForSentence(temp,m_config.entityConfig);
             entitiesTimer.stop();
+            logger.info("Inserting person entities");
             insertEntity(personEntities,legalcomponent.entities.person);
+            logger.info("Inserting OrganiZation entities");
             insertEntity(orgEntities,legalcomponent.entities.organization);
             legalcomponent.events = ontologyTemp.get("Events");
             legalcomponent.topics = ontologyTemp.get("Topics");
 
             legalcomponents.add(legalcomponent);
         }
+        logger.info("getting coref for selected entities and store it in a map");
         Map<String,Map<String,Set<String>>> coref_out = m_coref.getCorefForSelectedEntites(sDoc,personEntities,orgEntities,m_config.corefConfig);
+        logger.info("getting coref Inverse Map for person entity");
         Map<String,String> gpersonCoref = getCorefInvMap(coref_out.get("Person"));
+        logger.info("getting coref Inverse Map for Organization entity");
         Map<String,String> gorgCoref = getCorefInvMap(coref_out.get("Organization"));
 
         for(LegalObject temp : legalcomponents)
@@ -156,6 +161,7 @@ public class LegalManager
             }
             chunkedList.add(temp.trim());
         }
+        logger.info("Returning chunked list ");
         return chunkedList;
     }
     Map<String,String> getMatchedCoref(Map<String,String> globalCoref, List<String> entities)
@@ -169,6 +175,7 @@ public class LegalManager
             }
         }
         return localCoref;
+
     }
     Map<String,String> getCorefInvMap(Map<String,Set<String>> corefMap)
     {
@@ -191,6 +198,7 @@ public class LegalManager
 
             }
         }
+        logger.info("returning coref inverse map");
         return corefinvMap;
     }
     static void setConfigInformation()
