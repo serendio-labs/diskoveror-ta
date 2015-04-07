@@ -1,5 +1,7 @@
 package com.diskoverorta.entities;
 
+import com.diskoverorta.osdep.OSEntityInterface;
+import com.diskoverorta.osdep.OpenNLP;
 import com.diskoverorta.osdep.StanfordNLP;
 import com.diskoverorta.vo.EntityObject;
 import com.google.gson.Gson;
@@ -7,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.ling.CoreLabel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,53 +56,49 @@ public class EntityManager
 
     EntityObject getALLEntitiesForSentence(String sSentence)
     {
-        EntityObject entities = new EntityObject();
-        List<List<CoreLabel>> entity7Tags = nlpStanford.get7NERTaggedOutput(sSentence);
-        List<List<CoreLabel>> entity3Tags = nlpStanford.get3NERTaggedOutput(sSentence);
+        Map<String,String> entityConfig = new HashMap<String,String>();
+        entityConfig.put("Person","TRUE");
+        entityConfig.put("Organization","TRUE");
+        entityConfig.put("Location","TRUE");
+        entityConfig.put("Date","TRUE");
+        entityConfig.put("Time","TRUE");
+        entityConfig.put("Currency","TRUE");
+        entityConfig.put("Percent","TRUE");
+        entityConfig.put("Package","TRUE");
 
-        entities.person = (new PersonEntity()).getEntities(entity3Tags);
-        entities.organization = (new OrganizationEntity()).getEntities(entity3Tags);
-        entities.location = (new LocationEntity()).getEntities(entity3Tags);
-        entities.date = (new DateEntity()).getEntities(entity7Tags);
-        entities.time = (new TimeEntity()).getEntities(entity7Tags);
-        entities.currency = (new CurrencyEntity()).getEntities(entity7Tags);
-        entities.percent = (new PercentEntity()).getEntities(entity7Tags);
-
-        return entities;
+        return getSelectedEntitiesForSentence(sSentence,entityConfig);
     }
 
     public EntityObject getSelectedEntitiesForSentence(String sSentence,Map<String,String> entityConfig)
     {
+        OSEntityInterface osdep = null;
         EntityObject entities = new EntityObject();
-        List<List<CoreLabel>> entity3Tags = null;
-        List<List<CoreLabel>> entity7Tags = null;
 
-        if((entityConfig.get("Person")== "TRUE")||(entityConfig.get("Organization")== "TRUE")||(entityConfig.get("Location")== "TRUE"))
-            entity3Tags = nlpStanford.get3NERTaggedOutput(sSentence);
-
-        if((entityConfig.get("Date")== "TRUE")||(entityConfig.get("Time")== "TRUE")||(entityConfig.get("Currency")== "TRUE")||(entityConfig.get("Percent")== "TRUE"))
-            entity7Tags = nlpStanford.get7NERTaggedOutput(sSentence);
+        if((entityConfig.containsKey("Package") == true) && entityConfig.get("Package").equals("StanfordNLP") == true )
+            osdep = new StanfordNLP();
+        else
+            osdep = new OpenNLP();
 
         if(entityConfig.get("Person")== "TRUE")
-            entities.person = (new PersonEntity()).getEntities(entity3Tags);
+            entities.person = (new PersonEntity()).getEntities(osdep,sSentence);
 
         if(entityConfig.get("Organization")== "TRUE")
-            entities.organization = (new OrganizationEntity()).getEntities(entity3Tags);
+            entities.organization = (new OrganizationEntity()).getEntities(osdep,sSentence);
 
         if(entityConfig.get("Location")== "TRUE")
-            entities.location = (new LocationEntity()).getEntities(entity3Tags);
+            entities.location = (new LocationEntity()).getEntities(osdep,sSentence);
 
         if(entityConfig.get("Date")== "TRUE")
-            entities.date = (new DateEntity()).getEntities(entity7Tags);
+            entities.date = (new DateEntity()).getEntities(osdep,sSentence);
 
         if(entityConfig.get("Time")== "TRUE")
-            entities.time = (new TimeEntity()).getEntities(entity7Tags);
+            entities.time = (new TimeEntity()).getEntities(osdep,sSentence);
 
         if(entityConfig.get("Currency")== "TRUE")
-            entities.currency = (new CurrencyEntity()).getEntities(entity7Tags);
+            entities.currency = (new CurrencyEntity()).getEntities(osdep,sSentence);
 
         if(entityConfig.get("Percent")== "TRUE")
-            entities.percent = (new PercentEntity()).getEntities(entity7Tags);
+            entities.percent = (new PercentEntity()).getEntities(osdep,sSentence);
 
         return entities;
     }

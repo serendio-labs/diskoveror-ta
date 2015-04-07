@@ -1,5 +1,6 @@
 package com.diskoverorta.osdep;
 
+import com.diskoverorta.vo.EntityType;
 import edu.stanford.nlp.dcoref.CorefChain;
 import edu.stanford.nlp.dcoref.CorefCoreAnnotations;
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
@@ -24,14 +25,15 @@ import java.util.*;
 /**
  * Created by praveen on 15/10/14.
  */
-public class StanfordNLP
+public class StanfordNLP implements OSEntityInterface
 {
     public static StanfordCoreNLP pipeline = null;
     static AbstractSequenceClassifier<CoreLabel> ner7Classifier = null;
     static AbstractSequenceClassifier<CoreLabel> ner3Classifier = null;
-    //URL url = StanfordNERTagger.class.getClassLoader().getResource("english.muc.7class.distsim.crf.ser.gz");
 	String ner7classifierName = "english.muc.7class.distsim.crf.ser.gz";
     String ner3classifierName = "english.all.3class.distsim.crf.ser.gz";
+    List<List<CoreLabel>> entity3Tags = null;
+    List<List<CoreLabel>> entity7Tags = null;
 
     public StanfordNLP()
     {
@@ -46,21 +48,71 @@ public class StanfordNLP
                 props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
                 pipeline = new StanfordCoreNLP(props);
             }
-
-
         }catch(Exception ex)
         {
             ex.printStackTrace();
         }
     }
-    public List<List<CoreLabel>> get7NERTaggedOutput(String str)
+
+
+    List<List<CoreLabel>> getStanfordTaggedOutput(EntityType entityType, String sentence)
     {
-        return ner7Classifier.classify(str);
+        List<List<CoreLabel>> temp = null;
+        if((entityType==EntityType.PERSON) || (entityType == EntityType.ORGANIZATION) || (entityType == EntityType.LOCATION)) {
+            if (entity3Tags == null)
+                return get3NERTaggedOutput(sentence);
+            else
+                return entity3Tags;
+        }
+        else
+        {
+            if (entity7Tags == null)
+                return get7NERTaggedOutput(sentence);
+            else
+                return entity7Tags;
+        }
     }
 
-    public List<List<CoreLabel>> get3NERTaggedOutput(String str)
+    public List<String> getEntities(EntityType entityCat,String text)
     {
-        return ner3Classifier.classify(str);
+        List<List<CoreLabel>> taggedOutput = getStanfordTaggedOutput(entityCat, text);
+        List<String> entityList = new ArrayList<String>();
+
+        for (List<CoreLabel> lcl : taggedOutput)
+        {
+            for (int i = 0; i < lcl.size(); i++)
+            {
+                String key = lcl.get(i).get(CoreAnnotations.AnswerAnnotation.class);
+                if (key.equals(entityCat.name()) == true)
+                {
+                    String temp1 = "";
+                    while (key.equals(entityCat.name()) == true)
+                    {
+                        temp1 = temp1 + lcl.get(i).originalText() + " ";
+                        i++;
+                        if (i < lcl.size())
+                            key = lcl.get(i).get(CoreAnnotations.AnswerAnnotation.class);
+                        else
+                            break;
+                    }
+                    temp1 = temp1.trim();
+                    entityList.add(temp1);
+                }
+            }
+        }
+        return entityList;
+    }
+
+    List<List<CoreLabel>> get7NERTaggedOutput(String str)
+    {
+        entity7Tags = ner7Classifier.classify(str);
+        return entity7Tags;
+    }
+
+    List<List<CoreLabel>> get3NERTaggedOutput(String str)
+    {
+        entity3Tags = ner3Classifier.classify(str);
+        return entity3Tags;
     }
 
     public List<String> splitSentencesINDocument(String sDoc)
@@ -86,6 +138,7 @@ public class StanfordNLP
         }
         return sentenceList;
     }
+
     public static void main(String args[]) {
         String sample2 = "Investigation into the Saradha chit fund scam has so far not revealed any terror link with Bangladesh, the Centre said today, days after the BJP had alleged such a connection.\n" +
                 "\n" +

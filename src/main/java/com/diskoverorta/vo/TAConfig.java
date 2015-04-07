@@ -41,5 +41,6 @@ public class TAConfig
         entityConfig.put("Time","FALSE");
         entityConfig.put("Currency","FALSE");
         entityConfig.put("Percent","FALSE");
+        entityConfig.put("Package","StanfordNLP");
     }
 }
