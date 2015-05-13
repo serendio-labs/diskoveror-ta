@@ -2,6 +2,7 @@ package com.diskoverorta;
 
 import com.diskoverorta.entities.BaseEntity;
 import com.diskoverorta.entities.PersonEntity;
+import com.diskoverorta.osdep.OpenNLP;
 import com.diskoverorta.osdep.StanfordNLP;
 
 /**
@@ -14,6 +15,6 @@ public class DTAEngineExample
         String exSentence = "Barack Obama is the president of USA";
         PersonEntity ex = new PersonEntity();
         System.out.println("Input Sentence : "+exSentence);
-        System.out.println("Person Names : "+ ex.getEntities(new StanfordNLP(),exSentence));
+        System.out.println("Person Names : "+ ex.getEntities(new OpenNLP(),exSentence));
     }
 }
