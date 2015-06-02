@@ -9,6 +9,7 @@ import java.util.Set;
 import com.diskoverorta.entities.BaseEntity;
 import com.diskoverorta.entities.OrganizationEntity;
 import com.diskoverorta.entities.PersonEntity;
+import com.diskoverorta.vo.EntityType;
 
 public class TweetPaser {
 	
@@ -40,9 +41,9 @@ public class TweetPaser {
 	
 	public Map<String,List<String>> tweetCategories(String tweet){
 		BaseEntity ex = new PersonEntity();
-		List<String> keyWords = ex.getEntities(tweet);
+		List<String> keyWords = ex.getEntities(null, tweet, EntityType.DATE);
 		ex = new OrganizationEntity();
-		List<String> organisations = ex.getEntities(tweet);
+		List<String> organisations = ex.getEntities(null, tweet, EntityType.DATE);
 		keyWords.addAll(organisations);
 		Map<String,List<String>> dbCategories= new HashMap<String, List<String>>();
 		for(String keyWord:keyWords){
