@@ -4,6 +4,8 @@ package com.diskoverorta.coreference;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -49,14 +51,16 @@ public class PersonNameCleaner implements com.diskoverorta.coreference.Cleaner {
   }
 
   private Map<String, String> loadMapping() throws IOException {
-    String mapfile = "com/diskoverorta/coreference/name-mappings.txt";
-    
+  //  String mapfile = "com/diskoverorta/coreference/name-mappings.txt";
+	  String mapfile = "name-mappings.txt";
     Map<String, String> mapping = new HashMap();
     ClassLoader cloader = Thread.currentThread().getContextClassLoader();
-    InputStream istream = cloader.getResourceAsStream(mapfile);
+  /*  InputStream istream = cloader.getResourceAsStream(mapfile);
     InputStreamReader reader = new InputStreamReader(istream, "utf-8");
     BufferedReader in = new BufferedReader(reader);
-
+*/
+    BufferedReader in = new BufferedReader(new FileReader(new File(mapfile)));
+    
     String line = in.readLine();
     while (line != null) {
       int pos = line.indexOf(',');

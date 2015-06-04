@@ -5,12 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import com.opencsv.CSVReader;
 
 /**
  * Command-line interface to the engine.
@@ -46,7 +46,7 @@ public class Duke {
   
   }
   
-  public static void listCompare(List allNames, List data)
+  public static HashMap<String, Set<String>> listCompare(List allNames, List data)
   {
 	
 	  /*
@@ -83,8 +83,8 @@ public class Duke {
 			  
 			  if (flag==1)
 			  {
-				  System.out.println("Match " + result);
-		    	  System.out.println(one + ", " + two);
+				  //System.out.println("Match " + result);
+		    	  //System.out.println(one + ", " + two);
 				
 				  HashMap<String,String> map1 = (HashMap<String, String>) data.get(i); 
 				  HashMap<String,String> map2 = (HashMap<String, String>) data.get(j);
@@ -97,43 +97,47 @@ public class Duke {
 					  map1.put("status", "T");
 					  map2.put("group", z);
 					  map2.put("status", "T");
-					  System.out.println("Updated :" + a + " and " + b );
+					  //System.out.println("Updated :" + a + " and " + b );
 				  }
 				  
 				  else if(map1.get("status")=="T" && map2.get("status")=="F")
 				  {
 					  map2.put("group", map1.get("group"));
 					  map2.put("status", "T");
-					  System.out.println("Updated :" + b + " with " + a );
+					  //System.out.println("Updated :" + b + " with " + a );
 				  }
 				  
 				  else if(map1.get("status")=="F" && map2.get("status")=="T")
 				  {
 					  map1.put("group", map2.get("group"));
 					  map1.put("status", "T");
-					  System.out.println("Updated :" + a + " with " + b);
+					  //System.out.println("Updated :" + a + " with " + b);
 				  }
 				  
 				  System.out.println(" ");  
 			  }
 		  }
 	   }
-	  makeFinalMap(data);
+	  
+	  HashMap<String, Set<String>> catchReturn = new HashMap<String, Set<String>>();
+	  catchReturn = makeFinalMap(data);
+	  return catchReturn;
   }
   
   
-  public static void makeFinalMap(List sortedData)
+public static HashMap<String, Set<String>> makeFinalMap(List sortedData)
   {
 	  int c = keepCount.gcount;
 	  ArrayList<ArrayList<String>> Groups = new ArrayList<ArrayList<String>>();
-      HashMap<String, List<String>> mapOfList = new HashMap<String, List<String>>();
+      HashMap<String, Set<String>> mapOfList = new HashMap<String, Set<String>>();
       
 	  for(int i = 1; i < c + 1; i++)
 	  {
 		  int j = 0;
 		  ArrayList<String> sameGroup = new ArrayList<String>();
+		  int countInput = sortedData.size();
 		  
-		  while (j < 124)
+		  while (j < countInput)
 		  {
 			  HashMap<String,String> map4 = (HashMap<String, String>) sortedData.get(j);
 			  if(Integer.parseInt(map4.get("group"))==i)
@@ -147,11 +151,11 @@ public class Duke {
 	  
 	  for (ArrayList<String> list1: Groups) 
 	    {
-		    System.out.println(" Next Group ");
+		    //System.out.println(" Next Group ");
 		    String list2[] = new String[list1.size()];
 		    list1.toArray(list2);
 		    String longestString = getLongestString(list2);
-		    System.out.format("longest string: '%s'\n", longestString);
+		    //System.out.format("longest string: '%s'\n", longestString);
 		    for (Iterator<String> iter = list1.listIterator(); iter.hasNext(); ) 
 		    {
 		        String a = iter.next();
@@ -160,9 +164,11 @@ public class Duke {
 		            iter.remove();
 		        }
 		    }
-		    mapOfList.put(longestString, list1);
+		    Set<String> foo = new HashSet<>(list1);
+		    mapOfList.put(longestString, foo);
 	    }
 	  
+	  /*
 	  System.out.println(" ");
 	  System.out.println(" ");
 	  System.out.println(" ");
@@ -191,7 +197,9 @@ public class Duke {
 		  System.out.println(" ");
 	  }
 	  
+	  */
 	  
+	  return mapOfList;
   }
   
   public static String getLongestString(String[] array) {
@@ -226,11 +234,13 @@ public class Duke {
   
   
   // Function to get Coreference
-  public static void getCoref(List<String> entityList) 
+  public static HashMap<String,Set<String>> getCoref(Set<String> entitySet) 
   {
+	  keepCount.gcount = 0;
+	  List<String> entityList = new ArrayList<String>(entitySet);
 	  List<HashMap<String, String>> mapList= new ArrayList<HashMap<String, String>>();
-	  
-      String[] row;
+	  HashMap<String, Set<String>> entityMap = new HashMap<String, Set<String>>();
+      
       int count = 0;
       
 	  for(int i = 0; i < entityList.size(); i++)
@@ -243,14 +253,16 @@ public class Duke {
           count = count + 1;
 	  }
 	  
-	  listCompare(entityList,mapList);
-	  display(mapList);
+	  entityMap = listCompare(entityList,mapList);
+	  return entityMap;
+	  
   }
   
   
   public static void main_(String[] argv) throws IOException 
   {
-	  // Sample Example with Entity List as exampleNames.csv
+	  /*
+	  Sample Example with Entity List as exampleNames.csv
 	  CSVReader reader = new CSVReader(new FileReader("/home/itachi/Serendio /Duke/duke-1.1/NewTry/names3.csv"));
 	  List<String> restAPIbig = new ArrayList<String>();
 	  
@@ -260,19 +272,19 @@ public class Duke {
       while ((row = reader.readNext()) != null) 
       {
              restAPIbig.add(row[0]);
-             /*System.out.println(row[0]);
+             System.out.println(row[0]);
              map.put("name", row[0]);
              map.put("status", "F");
              map.put("group", "0");
              data.add(count, map);
              count = count + 1;
-             */
+             
       }
 	  
     getCoref(restAPIbig);
     
-    
-    System.out.println("Total Groups are " + keepCount.gcount);
+    */
+     System.out.println("Total Groups are " + keepCount.gcount);
     
   }
 }

@@ -1,6 +1,7 @@
 package com.diskoverorta.legal;
 
 import com.diskoverorta.coreference.CorefManager;
+import com.diskoverorta.coreference.Duke;
 import com.diskoverorta.entities.EntityManager;
 import com.diskoverorta.ontology.OntologyManager;
 import com.diskoverorta.osdep.StanfordNLP;
@@ -123,9 +124,15 @@ public class LegalManager
         logger.info("getting coref for selected entities and store it in a map");
         Map<String,Map<String,Set<String>>> coref_out = m_coref.getCorefForSelectedEntites(sDoc,personEntities,orgEntities,m_config.corefConfig);
         logger.info("getting coref Inverse Map for person entity");
-        Map<String,String> gpersonCoref = getCorefInvMap(coref_out.get("Person"));
+        
+        
+        Map<String,Set<String>> coref_person = Duke.getCoref(personEntities);
+        Map<String,Set<String>> coref_org = Duke.getCoref(orgEntities);
+        
+        
+        Map<String,String> gpersonCoref = getCorefInvMap(coref_person);
         logger.info("getting coref Inverse Map for Organization entity");
-        Map<String,String> gorgCoref = getCorefInvMap(coref_out.get("Organization"));
+        Map<String,String> gorgCoref = getCorefInvMap(coref_org);
 
         for(LegalObject temp : legalcomponents)
         {
@@ -226,7 +233,7 @@ public class LegalManager
         LegalManager lobj = new LegalManager();
         String content = "";
         try {
-            content = Files.toString(new File("temp1.txt"), Charsets.UTF_8);
+            content = Files.toString(new File("/home/itachi/Serendio /RestAPIexample/tmp_kreiger1.txtssplit.txt.trimmed.txt"), Charsets.UTF_8);
             content = content.replace("\n"," ");
             content = content.replace("\r"," ");
         }
@@ -237,6 +244,6 @@ public class LegalManager
         Map<String,String> config1 = new TreeMap<String,String>();
         config1.put("chunksize","5");
         String s = lobj.tagLegalTextAnalyticsComponents(content,config1);
-        //System.out.println(s);*/
+        /*System.out.println(s);*/
     }
 }
