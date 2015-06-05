@@ -1,13 +1,11 @@
 # Implementation of RAKE - Rapid Automtic Keyword Exraction algorithm
 # as described in:
-# Rose, S., D. Engel, N. Cramer, and W. Cowley (2010). 
-# Automatic keyword extraction from indi-vidual documents. 
+# Rose, S., D. Engel, N. Cramer, and W. Cowley (2010).
+# Automatic keyword extraction from indi-vidual documents.
 # In M. W. Berry and J. Kogan (Eds.), Text Mining: Applications and Theory.unknown: John Wiley and Sons, Ltd.
 
 import re
 import operator
-
-path = "./Model/rake/"
 
 debug = False
 test = True
@@ -124,7 +122,7 @@ def generate_candidate_keyword_scores(phrase_list, word_score):
 class Rake(object):
     def __init__(self, stop_words_path):
         self.stop_words_path = stop_words_path
-        self.__stop_words_pattern = build_stop_word_regex(stoppath)
+        self.__stop_words_pattern = build_stop_word_regex(stop_words_path)
 
     def run(self, text):
         sentence_list = split_sentences(text)
@@ -138,7 +136,6 @@ class Rake(object):
         sorted_keywords = sorted(keyword_candidates.items(), key=operator.itemgetter(1), reverse=True)
         return sorted_keywords
 
-stoppath = path + "SmartStoplist.txt"
 # if test:
 #     # text = "Compatibility of systems of linear constraints over the set of natural numbers. Criteria of compatibility of a system of linear Diophantine equations, strict inequations, and nonstrict inequations are considered. Upper bounds for components of a minimal set of solutions and algorithms of construction of minimal generating sets of solutions for all types of systems are given. These criteria and the corresponding algorithms for constructing a minimal supporting set of solutions can be used in solving all the considered types of systems and systems of mixed types."
 #     text ="the hard disk cover is very slim, that it can break any time now, leading to a huge data loss"
