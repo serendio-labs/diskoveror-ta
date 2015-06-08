@@ -8,6 +8,7 @@ import com.diskoverorta.vo.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
+import com.diskoverorta.topicmodel.Client;
 
 import java.util.List;
 
@@ -17,12 +18,18 @@ import java.util.List;
 public class TextManager
 {
     static StanfordNLP nlpStanford = null;
+    static Client TopicThriftClient = null;
+
     DocumentObject doc = null;
     public TextManager()
     {
-        if(nlpStanford==null)
+               if(nlpStanford==null)
         {
             nlpStanford = new StanfordNLP();
+        }
+        if(TopicThriftClient==null)
+        {
+            TopicThriftClient = new Client("localhost",8001);
         }
     }
 
@@ -85,7 +92,10 @@ public class TextManager
 
         if(config.analysisConfig.get("LSEntity") == "TRUE")
             apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
+        if(config.analysisConfig.get("Category") == "TRUE")
+            apiOut.topics = TopicThriftClient.getTopics(sDoc);
 
+        System.out.println(apiOut.topics);
         return gson.toJson(apiOut);
     }
 
@@ -149,6 +159,7 @@ public class TextManager
         TAConfig config = new TAConfig();
         config.analysisConfig.put("Entity","TRUE");
         config.analysisConfig.put("LSEntity","TRUE");
+        config.analysisConfig.put("Category","TRUE");
 
         config.entityConfig.put("Person","TRUE");
         config.entityConfig.put("Organization","TRUE");

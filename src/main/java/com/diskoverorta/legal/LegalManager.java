@@ -212,6 +212,7 @@ public class LegalManager
     {
         m_config.analysisConfig.put("Entity","TRUE");
         m_config.analysisConfig.put("Coref","TRUE");
+        m_config.analysisConfig.put("Category","TRUE");
 
         m_config.corefConfig.put("Person","TRUE");
         m_config.corefConfig.put("Organization", "TRUE");

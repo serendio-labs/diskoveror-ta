@@ -18,7 +18,7 @@ public class Client {
     String ip;
     int port;
     
-    Client(String s , int p){
+    public Client(String s, int p){
         this.ip= s;
         this.port = p;
     }
