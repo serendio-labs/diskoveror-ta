@@ -10,7 +10,7 @@ public class APIOutput
     public EntityAPISet entity_general = null;
     public LifeScienceDocument entity_lifesciences = null;
     public String topics = null;
-
+    public  String sentiment = null;
     public APIOutput()
     {
 

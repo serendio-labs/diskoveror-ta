@@ -28,6 +28,7 @@ public class TAConfig
         analysisConfig.put("Entity","FALSE");
         analysisConfig.put("Coref","FALSE");
         analysisConfig.put("Category","FALSE");
+        analysisConfig.put("Sentiment","FALSE");
 
         ontologyConfig.put("Topics","FALSE");
         ontologyConfig.put("Events","FALSE");

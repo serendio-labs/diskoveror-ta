@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
 import com.diskoverorta.topicmodel.Client;
+import com.diskoverorta.sentiment.*;
+
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class TextManager
 {
     static StanfordNLP nlpStanford = null;
     static Client TopicThriftClient = null;
-
+    static SClient SentimentThriftClient = null;
     DocumentObject doc = null;
     public TextManager()
     {
@@ -31,6 +33,12 @@ public class TextManager
         {
             TopicThriftClient = new Client("localhost",8001);
         }
+        if(SentimentThriftClient==null)
+        {
+            SentimentThriftClient = new SClient("localhost",8002);
+        }
+
+
     }
 
     public DocSentObject tagTextAnalyticsComponents(String sDoc,TAConfig config)
@@ -95,6 +103,10 @@ public class TextManager
         if(config.analysisConfig.get("Category") == "TRUE")
             apiOut.topics = TopicThriftClient.getTopics(sDoc);
 
+        if(config.analysisConfig.get("Sentiment") == "TRUE")
+            apiOut.sentiment = SentimentThriftClient.getSentiment(sDoc);
+
+
         System.out.println(apiOut.topics);
         return gson.toJson(apiOut);
     }
@@ -157,9 +169,10 @@ public class TextManager
 
         sample2 =  sample2.replace("\n","");
         TAConfig config = new TAConfig();
-        config.analysisConfig.put("Entity","TRUE");
-        config.analysisConfig.put("LSEntity","TRUE");
-        config.analysisConfig.put("Category","TRUE");
+//        config.analysisConfig.put("Entity","TRUE");
+//        config.analysisConfig.put("LSEntity","TRUE");
+//        config.analysisConfig.put("Category","TRUE");
+        config.analysisConfig.put("Sentiment","TRUE");
 
         config.entityConfig.put("Person","TRUE");
         config.entityConfig.put("Organization","TRUE");
