@@ -169,9 +169,9 @@ public class TextManager
 
         sample2 =  sample2.replace("\n","");
         TAConfig config = new TAConfig();
-//        config.analysisConfig.put("Entity","TRUE");
-//        config.analysisConfig.put("LSEntity","TRUE");
-//        config.analysisConfig.put("Category","TRUE");
+        config.analysisConfig.put("Entity","TRUE");
+        //config.analysisConfig.put("LSEntity","TRUE");
+        config.analysisConfig.put("Category","TRUE");
         config.analysisConfig.put("Sentiment","TRUE");
 
         config.entityConfig.put("Person","TRUE");
