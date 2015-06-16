@@ -33,7 +33,7 @@ class Categorize(object):
 		self.stoplistw = stopwords.words('english')
 		self.stoplist = [")","(",".","'",",",";",":","?","/","!","@","$","*","+","-","_","=","&","%","`","~","\"","{","}"]
 		#Load Rake
-		self.rake = rake.Rake(path + "/rake/SmartStoplist.txt")
+		self.rake = rake.Rake(path + "rake/SmartStoplist.txt")
 
 	def prep (self,text):
 		line = text

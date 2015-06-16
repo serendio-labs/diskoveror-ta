@@ -28,6 +28,6 @@ class Senti(object):
 		return float(pred[0])
 
 ##### TEST
-# message ="i am in love"
-# S = Senti()
-# print(S.getSentiment(message))
+#message ="i am in love"
+#S = Senti()
+#print(S.getSentiment(message))

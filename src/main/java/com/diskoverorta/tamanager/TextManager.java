@@ -13,6 +13,8 @@ import com.diskoverorta.sentiment.*;
 
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by praveen on 11/11/14.
@@ -25,7 +27,7 @@ public class TextManager
     DocumentObject doc = null;
     public TextManager()
     {
-               if(nlpStanford==null)
+        if(nlpStanford==null)
         {
             nlpStanford = new StanfordNLP();
         }
@@ -89,6 +91,7 @@ public class TextManager
     {
         String jsonOutput = "";
         APIOutput apiOut = new APIOutput();
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         if(config.analysisConfig.get("Entity") == "TRUE")
         {
@@ -101,13 +104,25 @@ public class TextManager
         if(config.analysisConfig.get("LSEntity") == "TRUE")
             apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
         if(config.analysisConfig.get("Category") == "TRUE")
-            apiOut.topics = TopicThriftClient.getTopics(sDoc);
-
+        {
+            if(apiOut.text_information == null)
+                apiOut.text_information = new TextInformation();
+            String topics_temp = TopicThriftClient.getTopics(sDoc);
+            Set<String> topic_set = new TreeSet<String>();
+            String[] topics = topics_temp.split("\\|");
+            for(String topic : topics)
+                topic_set.add(topic);
+            apiOut.text_information.topics = topic_set;
+        }
         if(config.analysisConfig.get("Sentiment") == "TRUE")
-            apiOut.sentiment = SentimentThriftClient.getSentiment(sDoc);
-
-
-        System.out.println(apiOut.topics);
+        {
+            if(apiOut.text_information == null)
+                apiOut.text_information = new TextInformation();
+            String senti_temp = SentimentThriftClient.getSentiment(sDoc);
+            Set<String> senti_set = new TreeSet<String>();
+            senti_set.add(senti_temp);
+            apiOut.text_information.sentiment = senti_set;
+        }
         return gson.toJson(apiOut);
     }
 
