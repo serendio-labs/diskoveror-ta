@@ -7,3 +7,9 @@ The workspace contains the core Text analytics engine which in turn optimally le
 to give several results structed and presented in a clean user-friendly format.
 
 
+### Features
+
+##### Sentiment Extraction
+##### Topic/Theme detection
+##### Topic/Theme detectio
+##### Topic/Theme detectio
