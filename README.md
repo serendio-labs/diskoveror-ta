@@ -37,12 +37,12 @@ New components could be added or removed under these categories without disturbi
 
 ### Packages Used : 
 
-##### Stanford CoreNLP
-##### Apache OpenNLP
-##### DUKE
-##### Proprietary Topic Modeling Algorithm
-##### Proprietary Sentiment Analysis Algorithm
-##### Proprietary Life Science Ontologies
+###### Stanford CoreNLP
+###### Apache OpenNLP
+###### DUKE
+###### Proprietary Topic Modeling Algorithm
+###### Proprietary Sentiment Analysis Algorithm
+###### Proprietary Life Science Ontologies
 
 
 
