@@ -4,4 +4,6 @@ The DisKoveror Text analytics engine(DTAE) is a software product developed by Se
 
 
 The workspace contains the core Text analytics engine which in turn optimally leverages multiple open source packages
-to give
+to give several results structed and presented in a clean user-friendly format.
+
+
