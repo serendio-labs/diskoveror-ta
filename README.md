@@ -7,3 +7,27 @@ The workspace contains the core Text analytics engine which in turn optimally le
 to give several results structed and presented in a clean user-friendly format.
 
 
+### Features
+
+* Sentiment Extraction
+* Topic detection
+* Named Entity Recognition
+* Categories Detection
+* Coreference Resolution
+* Sentiment Polarity
+* Clean Web Interface
+
+
+### System Architechture
+
+The system is modified frequently and new features are added on a daily basis. But the final architechture of the project is as shown in the image below.
+
+![Alt text](/img1.jpg "Optional title")
+
+
+
+
+
+
+
+
