@@ -18,9 +18,9 @@ to give several results structed and presented in a clean user-friendly format.
 
 
 
-### System Architechture
+### System Architecture
 
-The system is modified frequently and new features are added on a daily basis. But the final architechture of the project is as shown in the image below.
+The intended architecture of the system is as given below.
 
 ![System Architecture](/img1.png "System Architechture")
 
@@ -33,6 +33,18 @@ The main idea is to segregate our text analytics capabilities into four division
 * Third party API/Software integrations
 
 New components could be added or removed under these categories without disturbing the existing system in any manner, since the pipeline executor is coupled to the interface and not to the implementation. This could be especially useful in updating the open source softwares since they improve significantly over time.
+
+
+### Packages Used : 
+
+#### Stanford CoreNLP
+#### Apache OpenNLP
+#### DUKE
+#### Proprietary Topic Modeling Algorithm
+#### Proprietary Sentiment Analysis Algorithm
+#### Proprietary Life Science Ontologies
+
+
 
 
 ### A small example
