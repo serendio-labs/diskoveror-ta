@@ -22,7 +22,7 @@ to give several results structed and presented in a clean user-friendly format.
 
 The intended architecture of the system is as given below.
 
-![System Architecture](/img1.png "System Architechture")
+![System Architecture](/Diskoverer_architecture.png "System Architechture")
 
 
 The main idea is to segregate our text analytics capabilities into four divisions namely :
