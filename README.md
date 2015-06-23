@@ -44,21 +44,22 @@ New components could be added or removed under these categories without disturbi
 
 ###### DisKoveror tagged output for Sentiment, Sentiment polarity
 
-<Sentiment_Analysis>
-          <product_name>iphone</product_name>
-          <weighted_score>3.0</weighted_score>
-          <unweighted_score>4.0</unweighted_score>
-          <Feature>
-                <feature>
-                      <sentiment>positive</sentiment>
-                      <positive_probability>0.95</positive_probability>
-                      <negative_probability>0</negative_probability>
-                      <positive_word>awesome</positive_word>
-                      <negative_word/>                             
-                 </feature>
-           </Feature>
-           <Sentiment_Polarity>2.0</Sentiment_Polarity>
-</Sentiment_Analysis>
+
+>          <Sentiment_Analysis>
+>                    <product_name>iphone</product_name>
+>                    <weighted_score>3.0</weighted_score>
+>                    <unweighted_score>4.0</unweighted_score>
+>                    <Feature>
+>                          <feature>
+>                                <sentiment>positive</sentiment>
+>                                <positive_probability>0.95</positive_probability>
+>                                <negative_probability>0</negative_probability>
+>                                <positive_word>awesome</positive_word>
+>                                <negative_word/>                             
+>                           </feature>
+>                     </Feature>
+>                     <Sentiment_Polarity>2.0</Sentiment_Polarity>
+>          </Sentiment_Analysis>
 
 
 
