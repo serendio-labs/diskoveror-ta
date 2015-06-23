@@ -9,7 +9,25 @@ to give several results structed and presented in a clean user-friendly format.
 
 ### Features
 
-##### Sentiment Extraction
-##### Topic/Theme detection
-##### Topic/Theme detectio
-##### Topic/Theme detectio
+* Sentiment Extraction
+* Topic detection
+* Named Entity Recognition
+* Categories Detection
+* Coreference Resolution
+* Sentiment Polarity
+* Clean Web Interface
+
+
+### System Architechture
+
+The system is modified frequently and new features are added on a daily basis. But the final architechture of the project is as shown in the image below.
+
+![Alt text](/img1.jpg "Optional title")
+
+
+
+
+
+
+
+
