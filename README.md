@@ -35,7 +35,7 @@ The main idea is to segregate our text analytics capabilities into four division
 New components could be added or removed under these categories without disturbing the existing system in any manner, since the pipeline executor is coupled to the interface and not to the implementation. This could be especially useful in updating the open source softwares since they improve significantly over time.
 
 
-### A small sentiment example
+### A small example
 
 
 ###### Sample input tweet:
