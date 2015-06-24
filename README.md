@@ -57,8 +57,12 @@ To package it in a single executable jar for distribution (.jar file), the follo
 ### Software requirements
 
 #### JDK
->    Version 7 build 79 or above
+>       Version 7 build 79 or above
+
+
 #### Maven
->    Apache Maven 3.0.5 or above
+>       Apache Maven 3.0.5 or above
+
+
 #### Thrift servers
->    [Get Thrift Here](https://thrift.apache.org/)
+>       [Get Thrift Here](https://thrift.apache.org/)
