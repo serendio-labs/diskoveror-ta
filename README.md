@@ -27,22 +27,23 @@ The intended architecture of the system is as given below.
 
 The diskoveror-ta-engine leverages modules under the below independent categories :
 
-* Opensource softwares
-* Serendio proprietary softwares
-* Serendio domain specific softwares
-* Third party API/Software integrations
+###### Opensource softwares
+* Stanford CoreNLP
+* Apache OpenNLP
+* DUKE
+
+###### Serendio proprietary softwares
+* Topic Modeling Algorithm
+* Sentiment Analysis Algorithm
+ 
+###### Serendio domain specific softwares
+* Life Scoience Ontologies
+* Legal Ontologies
+
+###### Third party API/Software integrations
 
 New modules could be supported under these categories without disturbing the existing system in any manner.
 
-
-### Packages : 
-
-###### Stanford CoreNLP
-###### Apache OpenNLP
-###### DUKE
-###### Proprietary Topic Modeling Algorithm
-###### Proprietary Sentiment Analysis Algorithm
-###### Proprietary Life Science Ontologies
 
 
 ### Compiling Diskoveror TA Engine
@@ -51,10 +52,13 @@ To package it in a single executable jar for distribution (.jar file), the follo
 
 >       mvn clean compile assembly:single
 
-### Example usage from tamanager
+### Example usage from Tamanager
 
 ### Software requirements
 
-## JDK
-## maven
-## Thrift servers running etc
+#### JDK
+>    Version 7 build 79 or above
+#### Maven
+>    Apache Maven 3.0.5 or above
+#### Thrift servers
+>    [Get Thrift Here](https://thrift.apache.org/)
