@@ -25,17 +25,17 @@ The intended architecture of the system is as given below.
 ![System Architecture](/Diskoverer_architecture.png "System Architechture")
 
 
-The main idea is to segregate our text analytics capabilities into four divisions namely :
+The diskoveror-ta-engine leverages modules under the below independent categories :
 
-* Opensource Core softwares
+* Opensource softwares
 * Serendio proprietary softwares
 * Serendio domain specific softwares
 * Third party API/Software integrations
 
-New components could be added or removed under these categories without disturbing the existing system in any manner, since the pipeline executor is coupled to the interface and not to the implementation. This could be especially useful in updating the open source softwares since they improve significantly over time.
+New modules could be supported under these categories without disturbing the existing system in any manner.
 
 
-### Packages Used : 
+### Packages : 
 
 ###### Stanford CoreNLP
 ###### Apache OpenNLP
@@ -45,10 +45,16 @@ New components could be added or removed under these categories without disturbi
 ###### Proprietary Life Science Ontologies
 
 
-
-
 ### Compiling Diskoveror TA Engine
 
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line. 
 
 >       mvn clean compile assembly:single
+
+### Example usage from tamanager
+
+### Software requirements
+
+## JDK
+## maven
+## Thrift servers running etc
