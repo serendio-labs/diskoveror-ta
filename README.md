@@ -51,4 +51,4 @@ New components could be added or removed under these categories without disturbi
 
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line. 
 
-> mvn clean compile assembly:single
+>       mvn clean compile assembly:single
