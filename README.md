@@ -65,4 +65,4 @@ To package it in a single executable jar for distribution (.jar file), the follo
 
 
 #### Thrift servers
-       [Get Thrift Here](https://thrift.apache.org/)
+[Get Thrift Here](https://thrift.apache.org/)
