@@ -37,7 +37,7 @@ The diskoveror-ta-engine leverages modules under the below independent categorie
 * Sentiment Analysis Algorithm
  
 ###### Serendio domain specific softwares
-* Life Scoience Ontologies
+* Life Science Ontologies
 * Legal Ontologies
 
 ###### Third party API/Software integrations
