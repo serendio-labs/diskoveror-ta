@@ -22,3 +22,6 @@ target/
 .project
 .settings/
 Dependencies\ (tp95)/
+outputSentiTopicsMultiSource.ods
+outputSentiTopics.csv
+TopicThrift/sns/

@@ -1,0 +1,319 @@
+. #1	Number one
+. $	Dollar, money
+. $_$	Has money
+. %)	Drunk, giddy
+. &	And
+. 'S	Wrongly displayed 's
+. ><	Frustration
+. >,<	Angry, annoyed
+. >.>	Suspicious, wary
+. >.<	Frustrated, angry, upset, in pain
+. >//<	Embarrassed, blushing
+. >3	Evil but happy
+. >:(	Angry
+· >:)	Evil Grin
+· >:D	Scheming Maniacal
+· >:D<	Hug
+· >:O	Angry
+· >O<	Yelling
+· >_>	Looking left, shifty look
+· >_<	Frustrated
+· &HEARTS;	HTML code for a heart
+· <#	Misspelling of <3
+· <>	Not equal No comment
+· <><	Fish
+· <.<	Shifty look
+· </3	Broken Hearted
+· <2	Not quite love (<3)
+· <3	Love (heart shape)
+· <333	Multiple hearts
+· <3U	Love You
+· <4	More than love (<3)
+· <B	Hate
+· <G>	Grin
+· <_<	Sarcasm, look left
+· 'EM	Them
+· (!)	Sarcasm
+· ('_')	Emoticon Representing Boredom
+· (.)(.)	Female Breasts
+· (8)	Musical note (MSN)
+· (:	Happy
+· (A)	Angel (MSN)
+· (H)	Cool dude emoticon (MSN)
+· (K)	Kiss (MSN)
+· (L)	Love heart (MSN)
+· (N)	Thumbs down (MSN)
+· (S)	Seriously
+· (U)	Heartbroken
+· (Y)	Thumbs up (MSN)
+· (YN)	Fingers crossed (MSN)
+· (^^^)	Shark
+· (_8^(I)	Homer Simpson
+· ({)(})	Two People Hugging
+· *	Indicating a spelling correction
+· *$	Starbucks
+· *$$	Starbucks
+· *<:-)	Clown
+· *.*	Every file on a computer
+· *G*	Grin
+· *HUG*	A Cyberhug
+· *O*	Confused, surprised, shocked
+· *S*	Salute
+· *\O/*	Cheerleader
+· *_*	In love, dazed
+· +1	Partner Me too
+· +REP	Boost reputation on XBox Live
+· +_+	Dead man
+· -.-	Annoyance
+· -_-	Annoyed, tired
+· .-.	Sad, unhappy
+· ...	Speechless Silence A Trailing Thought
+· .BIZ	Top level domain for business
+· .CO	Alternative to .COM
+· .COM	Top level domain for commerce
+· .EDU	Top level domain for education
+· .GOV	Top level domain for governments
+· .MIL	Top level domain for the military
+· .NET	Top level domain originally for network providers
+· .ORG	Top level domain for non-profit organizations
+· ._.	Emoticon Representing Apathy
+· /.\	Shy Ashamed
+· //	Love, I love you
+· /:)	Sign Of Flirtation Sign Of Suspicion
+· /B/	4chan's random image board
+· /O/	Happy, arms in the air
+· /O\	Frustrated, hands on head
+· /R/	Requesting
+· /S	Sarcasm
+· /THREAD	End of a thread on a forum
+· /W	Whisper
+· 0.0	Surprise
+· 0.O	Raised eyebrow, WTF
+· 0/	Waving
+· 012	Forever
+· 0_0	Shocked
+· 10	Perfect looking woman
+· 10-1	Radio code for 'Receiving poorly'
+· 10-2	Radio code for 'Receiving well'
+· 10-4	Understood, OK
+· 101	Basic introduction
+· 10CHAR	Padding where at least 10 characters are required
+· 10Q	Thank you
+· 10X	Thanks
+· 11	One louder than 10
+· 111	Excited
+· 112	European emergency number
+· 12	The police
+· 120	LOL! (101! = 5! = 120)
+· 123	I agree
+· 1234	1 thing 2 say 3 words 4 you (I Love You)
+· 1314	Forever (Chinese)
+· 1337	Elite
+· 133T	Elite
+· 143	I Love You (letters in each word)
+· 14344	I Love You Very Much (letters in each word)
+· 1437	I Love You Forever
+· 153	I Adore You (letters in each word)
+· 180	Turn around, 180 degrees
+· 187	Police code for murder or death
+· 1AAT	One At A Time
+· 1D	One Direction (band)
+· 1UP	Extra life in a game
+· 2	To
+· 21	Quit
+· 211	Police code for robbery
+· 212	Speak with someone
+· 22	A .22 caliber handgun
+· 220	Second To None
+· 224	Today, tomorrow, forever
+· 24/7	Twenty-four hours a day, seven days a week
+· 241	Two For One
+· 250	Stupid person (Chinese)
+· 2B	To Be
+· 2BH	To Be Honest
+· 2DAY	Today
+· 2EZ	Too Easy
+· 2G	Too Good
+· 2G2BT	Too Good To Be True
+· 2K10	2010
+· 2K4U	To Cool For You
+· 2K9	2009
+· 2L8	Too late
+· 2M	Tomorrow
+· 2MI	Too Much Information
+· 2MM	Tomorrow
+· 2MORO	Tomorrow
+· 2MOZ	Tomorrow
+· 2MRO	Tomorrow
+· 2MRW	Tomorrow
+· 2NITE	Tonight
+· 2NYT	Tonight
+· 2U	To You
+· 2U2	To You Too
+· 3	The letter E
+· 3 WHEELIN	Driving with one wheel off the ground
+· 3>	Hate (opposite of <3)
+· 30STM	30 Seconds To Mars (band)
+· 313	Area code for Detroit
+· 333	Half evil
+· 360	XBox 360 Complete circle
+· 381	I Love You (3 words, 8 letters, 1 meaning)
+· 39	Thank You
+· 3DG	Three Days Grace (band)
+· 3G	Third Generation mobile phone network
+· 3Q	Thank You
+· 4	For
+· 4/20	April 20th, WEED smoking day
+· 401	Area Code for Rhode Island
+· 401K	Retirement investment plan
+· 403	Deny Access To
+· 404	Page not found error Clueless
+· 411	Information
+· 419	Nigerian Email Scam
+· 42	The answer to life, the universe and everything
+· 420	WEED, Pot Time to get high, smoke marijuana
+· 420 FRIENDLY	Person who likes smoking pot
+· 4221	4ever 2gether 2love 1another
+· 4377	Hell in LEET
+· 44	.44 Magnum
+· 459	I Love You (phone digits for ILY)
+· 4CHAN	Internet message/image board
+· 4COL	For Crying Out Loud
+· 4E4	Forever
+· 4EVA	Forever
+· 4EVER	Forever
+· 4G	4th Generation
+· 4GET	Forget
+· 4GM	Forgive me
+· 4M	Forum
+· 4RL?	For Real?
+· 4SHO	For Sure
+· 4SRS	For Serious?
+· 4TW	For The Win
+· 4U	For You
+· 4WD	Four-Wheel Drive
+· 4X4	Four wheel drive vehicle
+· 4YEO	For Your Eyes Only
+· 5	LOL
+· 5 BY 5	Loud and clear, fine
+· 5 HOLE	Gap between goalie's legs in hockey
+· 5!	LOL! see 120
+· 50	Police (from Hawaii Five-O)
+· 5150	Police code for crazy person on the loose
+· 520	I Love You (Chinese)
+· 555	Thai for HaHaHa
+· 5EVER	Because Forever Isn't Long Enough Longer Than 4ever
+· 5N	Fine
+· 5X5	Loud and Clear
+· 637	Always and Forever (letters in each word)
+· 66	Spooning
+· 666	The Number of the Beast
+· 6_6	Looking down Suspicious
+· 72	72 hours, 3 days
+· 721	Love You (7 letters, 2 words, 1 meaning)
+· 73	Best regards (Amateur Radio)
+· 730	Crazy
+· 7DAW	Seven Days A Week
+· 8)	Cool
+· 8*	Kiss
+· 8-)	Cool (sunglasses)
+· 8-|	Nerdy (wearing glasses)
+· 808	Police code for disturbing the peace
+· 80S	The Eighties, 1980s
+· 81	Hells Angels (HA 8th and 1st letter)
+· 823	Thinking Of You
+· 831	I Love You (8 letters, 3 words, 1 meaning)
+· 86	Get rid of something
+· 88	Heil Hitler (H is 8th letter)
+· 881	Bye Bye (from Chinese pronounciation)
+· 886	Bye Bye (Hong Kong Cantonese)
+· 888	Ate, ate, ate
+· 88888888	Clapping
+· 8====D	Penis
+· 8===D	A Penis
+· 8BALL	1/8 ounce of cocaine
+· 8D	Manic
+· 8|	Balls To The Wall
+· 9	Parent watching
+· 911	US emergency number
+· 93	Rough suburb of Paris
+· 99	Parent stopped watching
+· 999	UK emergency number
+· 9JA	Nigeria
+· 9_9	Rolling the eyes
+· :$	Embarrassed
+· :&	Tongue tied, speechless
+· :>	Mischievous smile
+· :<	Sad, frowning
+· :'(	Crying
+· :')	Crying with joy
+· :(	Unhappy, sad
+· :(:)	Pig
+· :(|)	Monkey
+· :)	Happy
+· :*	Kiss
+· :-(	Sad
+· :-)	Smile
+· :-*	Kiss
+· :-D	Laughing Big Smile
+· :-P	Emoticon Of Someone Sticking Their Tongue Out
+· :/	Sarcasm
+· :0	Surprised, shocked
+· :3	Cute/goofy face
+· :9	Yum, licking
+· :?	Confused
+· :@	Angry
+· :B	Buck teeth
+· :C	Very Sad
+· :D	Happy
+· :DD	Very happy
+· :F	Drooling
+· :J	Smirk
+· :K	Vampire teeth Snake's tongue
+· :L	Laughing
+· :O	Surprised
+· :O)	Clown nose smiley face
+· :P	Sticking tongue out
+· :Q	Smoking
+· :S	Confused
+· :T	Side smile
+· :X	Zipped lips
+· :[	Sad Vampire
+· :\	Emoticon Meaning Confusion
+· :]	Happy
+· :{)	Happy with a moustache
+· :|	Disgust, disapproval, not funny
+· ;(	Crying
+· ;)	Wink
+· ;-)	Wink
+· ;;	Sad Confused
+· ;D	Wink
+· ;O	Joking
+· ;P	Winking and sticking tongue out
+· ;P;	Misspelling of LOL
+· =		Equals Complete Transformation
+· =)	Happy
+· =*	Kiss
+· =.=	Tired
+· =/=	Not equal to
+· =0	Surprised, shocked
+· =3	Cute/goofy face
+· =D	:D
+· =F	Vampire
+· =I	Indifference
+· =P	Sticking tongue out
+· =S	Confused
+· =W=	Weezer (band)
+· =X	No Comment
+· =[	Sad
+· =]	Happy
+· ?		What
+· ?4U	Question For You
+· ??	What?
+· ?_?	Confused, lost
+· @	At
+· @.@	Confused, surprised
+· @@@	Warning of parents nearby
+· @_@	Hypnotized, dazed
+· @_@	Hypnotized, dazed
+· @}--->----	A rose

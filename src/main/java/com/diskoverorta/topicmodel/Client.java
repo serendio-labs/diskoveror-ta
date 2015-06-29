@@ -2,9 +2,23 @@
 package com.diskoverorta.topicmodel;
 
 /**
+ * Copyright 2015 Satish Palaniappan
  *
- * @author satish palaniappan
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
+import com.diskoverorta.sentiment.Sentiments;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -17,31 +31,41 @@ public class Client {
 
     String ip;
     int port;
-    
+    TTransport transport = null;
+    Categorizer.Client client = null;
+    TProtocol protocol = null;
     public Client(String s, int p){
         this.ip= s;
         this.port = p;
+        if (transport == null)
+            transport = new TSocket(this.ip, this.port);
+        if (protocol == null)
+        {
+            protocol = new TBinaryProtocol(transport);
+            client = new Categorizer.Client(protocol);
+            try {
+                transport.open();
+            } catch (TTransportException e) {
+                e.printStackTrace();
+                transport.close();
+            }
+        }
+
     }
     
     public String getTopics(String text) {
-        TTransport transport;
         try {
-            transport = new TSocket(this.ip, this.port);
-            TProtocol protocol = new TBinaryProtocol(transport);
-            
-	    Categorizer.Client client = new Categorizer.Client(protocol);
-            transport.open();
 
             String cat = client.getTopic(text);
-
-            transport.close();
-            
             return cat;
         } catch (TTransportException e) {
             e.printStackTrace();
+            transport.close();
         } catch (TException e) {
             e.printStackTrace();
+            transport.close();
         }
+        transport.close();
         return "Connection to " + this.ip + ":" + this.port + " failed!";
  }
 }

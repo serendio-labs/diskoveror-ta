@@ -116,9 +116,17 @@ public class TextManager
         }
         if(config.analysisConfig.get("Sentiment") == "TRUE")
         {
+            String senti_temp = null;
             if(apiOut.text_information == null)
                 apiOut.text_information = new TextInformation();
-            String senti_temp = SentimentThriftClient.getSentiment(sDoc);
+            if (config.sentimentConfig.get("textType") == "blogs_news")
+                senti_temp= SentimentThriftClient.getSentimentScore(sDoc,config.sentimentConfig.get("title"),config.sentimentConfig.get("middleParas"),config.sentimentConfig.get("lastPara"),1);
+            if (config.sentimentConfig.get("textType") == "reviews")
+                senti_temp= SentimentThriftClient.getSentimentScore(sDoc,config.sentimentConfig.get("title"),config.sentimentConfig.get("topDomain"),config.sentimentConfig.get("subDomain"));
+            else
+                senti_temp= SentimentThriftClient.getSentimentScore(sDoc,config.sentimentConfig.get("textType"));
+
+
             Set<String> senti_set = new TreeSet<String>();
             senti_set.add(senti_temp);
             apiOut.text_information.sentiment = senti_set;

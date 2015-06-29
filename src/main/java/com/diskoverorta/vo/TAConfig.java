@@ -12,6 +12,7 @@ public class TAConfig
 {
     public Map<String,String> analysisConfig = null;
     public Map<String,String> entityConfig = null;
+    public Map<String,String> sentimentConfig = null;
     public Map<String,String> bioentityConfig = null;
     public Map<String,String> outputConfig = null;
     public Map<String,String> corefConfig = null;
@@ -20,6 +21,7 @@ public class TAConfig
     public TAConfig()
     {
         analysisConfig = new TreeMap<String,String>();
+        sentimentConfig = new TreeMap<String,String>();
         entityConfig = new TreeMap<String,String>();
         bioentityConfig = new TreeMap<String,String>();
         outputConfig = new TreeMap<String,String>();
@@ -29,6 +31,14 @@ public class TAConfig
         analysisConfig.put("Coref","FALSE");
         analysisConfig.put("Category","FALSE");
         analysisConfig.put("Sentiment","FALSE");
+
+        //sentimentConfig.put("mainText","");
+        sentimentConfig.put("textType","microblogs");
+        sentimentConfig.put("title","");
+        sentimentConfig.put("middleParas","");
+        sentimentConfig.put("lastPara","");
+        sentimentConfig.put("topDomain","");
+        sentimentConfig.put("subDomain","");
 
         ontologyConfig.put("Topics","FALSE");
         ontologyConfig.put("Events","FALSE");

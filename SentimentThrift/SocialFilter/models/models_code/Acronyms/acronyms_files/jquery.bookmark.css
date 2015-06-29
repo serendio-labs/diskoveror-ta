@@ -1,0 +1,57 @@
+/* jQuery Bookmark styles */
+.bookmark_list {
+	display: block;
+	list-style-type: none;
+	font-size: 80%;
+	margin: 0px;
+	padding: 0px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {  /* Safari3/Opera9 */
+	.bookmark_list {
+		font-size: 100%;
+	}
+}
+html:first-child .bookmark_list {  /* Opera */
+	font-size: 80%;
+}
+.bookmark_list li {
+	float: left;
+	width: 23%;
+	margin: 0% 0.5%;
+	padding: 2px;
+	background-color: #eee;
+	border: 1px outset;
+}
+.bookmark_compact {
+	background-color: #eee;
+	border: 1px outset;
+}
+.bookmark_compact li {
+	width: 16px;
+	height: 16px;
+	margin: 0%;
+	background-color: transparent;
+	border: none;
+}
+.bookmark_list a {
+	width: 100%;
+}
+.bookmark_list span {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+.bookmark_list img {
+	border: none;
+	vertical-align: bottom;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {  /* Safari3/Opera9 */
+	.bookmark_list img {
+		margin-bottom: 3px;
+		vertical-align: middle;
+	}
+}
+html:first-child .bookmark_list img { /* Opera */
+	margin-bottom: 3px;
+	vertical-align: middle;
+}
