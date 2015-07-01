@@ -1,9 +1,7 @@
 package com.diskoverorta;
-
-import com.diskoverorta.entities.BaseEntity;
 import com.diskoverorta.entities.PersonEntity;
 import com.diskoverorta.osdep.OpenNLP;
-import com.diskoverorta.osdep.StanfordNLP;
+
 
 /**
  * Created by praveen on 15/10/14.

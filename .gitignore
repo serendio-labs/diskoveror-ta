@@ -21,6 +21,7 @@ target/
 .classpath
 .project
 .settings/
+.idea
 Dependencies\ (tp95)/
 outputSentiTopicsMultiSource.ods
 outputSentiTopics.csv

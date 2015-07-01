@@ -6,8 +6,6 @@ import com.diskoverorta.osdep.StanfordNLP;
 import com.diskoverorta.vo.EntityObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import edu.stanford.nlp.ling.CoreLabel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
