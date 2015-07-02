@@ -1,6 +1,6 @@
 package com.diskoverorta.vo;
 
-import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
+//import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
 
 /**
  * Created by praveen on 3/12/14.
@@ -8,7 +8,7 @@ import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
 public class APIOutput
 {
     public EntityAPISet entity_general = null;
-    public LifeScienceDocument entity_lifesciences = null;
+  //  public LifeScienceDocument entity_lifesciences = null;
     public TextInformation text_information = null;
     public APIOutput()
     {

@@ -30,8 +30,8 @@ public class StanfordNLP implements OSEntityInterface
     public static StanfordCoreNLP pipeline = null;
     static AbstractSequenceClassifier<CoreLabel> ner7Classifier = null;
     static AbstractSequenceClassifier<CoreLabel> ner3Classifier = null;
-	String ner7classifierName = "english.muc.7class.distsim.crf.ser.gz";
-    String ner3classifierName = "english.all.3class.distsim.crf.ser.gz";
+	String ner7classifierName = "stanfordnlpmodel/english.muc.7class.distsim.crf.ser.gz";
+    String ner3classifierName = "stanfordnlpmodel/english.all.3class.distsim.crf.ser.gz";
     List<List<CoreLabel>> entity3Tags = null;
     List<List<CoreLabel>> entity7Tags = null;
 

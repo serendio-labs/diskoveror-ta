@@ -1,13 +1,13 @@
 package com.diskoverorta.tamanager;
 
 import com.diskoverorta.entities.EntityManager;
-import com.diskoverorta.lifesciences.LSInterface;
+//import com.diskoverorta.lifesciences.LSInterface;
 import com.diskoverorta.osdep.StanfordNLP;
 import com.diskoverorta.utils.EntityUtils;
 import com.diskoverorta.vo.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
+//import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
 import com.diskoverorta.topicmodel.Client;
 import com.diskoverorta.sentiment.*;
 
@@ -39,8 +39,6 @@ public class TextManager
         {
             SentimentThriftClient = new SClient("localhost",8002);
         }
-
-
     }
 
     public DocSentObject tagTextAnalyticsComponents(String sDoc,TAConfig config)
@@ -101,33 +99,50 @@ public class TextManager
             apiOut.entity_general = apiSet;
         }
 
-        if(config.analysisConfig.get("LSEntity") == "TRUE")
-            apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
+       // if(config.analysisConfig.get("LSEntity") == "TRUE")
+       //     apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
         if(config.analysisConfig.get("Category") == "TRUE")
         {
-            if(apiOut.text_information == null)
-                apiOut.text_information = new TextInformation();
-            String topics_temp = TopicThriftClient.getTopics(sDoc);
             Set<String> topic_set = new TreeSet<String>();
-            String[] topics = topics_temp.split("\\|");
-            for(String topic : topics)
-                topic_set.add(topic);
+            if (apiOut.text_information == null)
+                apiOut.text_information = new TextInformation();
+            if(TopicThriftClient != null)
+            {
+                String topics_temp = TopicThriftClient.getTopics(sDoc);
+                String[] topics = topics_temp.split("\\|");
+                for (String topic : topics)
+                    topic_set.add(topic);
+            }
+            else
+            {
+                topic_set.add("Topic analyzer not working, Start Topic Thrift server at port 8001");
+            }
             apiOut.text_information.topics = topic_set;
         }
         if(config.analysisConfig.get("Sentiment") == "TRUE")
         {
             String senti_temp = null;
-            if(apiOut.text_information == null)
-                apiOut.text_information = new TextInformation();
-            if (config.sentimentConfig.get("textType") == "blogs_news")
-                senti_temp= SentimentThriftClient.getSentimentScore(sDoc,config.sentimentConfig.get("title"),config.sentimentConfig.get("middleParas"),config.sentimentConfig.get("lastPara"),1);
-            if (config.sentimentConfig.get("textType") == "reviews")
-                senti_temp= SentimentThriftClient.getSentimentScore(sDoc,config.sentimentConfig.get("title"),config.sentimentConfig.get("topDomain"),config.sentimentConfig.get("subDomain"));
-            else
-                senti_temp= SentimentThriftClient.getSentimentScore(sDoc,config.sentimentConfig.get("textType"));
-
-
             Set<String> senti_set = new TreeSet<String>();
+
+            if (apiOut.text_information == null)
+                apiOut.text_information = new TextInformation();
+
+            if(SentimentThriftClient != null)
+            {
+                if (apiOut.text_information == null)
+                    apiOut.text_information = new TextInformation();
+                if (config.sentimentConfig.get("textType") == "blogs_news")
+                    senti_temp = SentimentThriftClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("middleParas"), config.sentimentConfig.get("lastPara"), 1);
+                if (config.sentimentConfig.get("textType") == "reviews")
+                    senti_temp = SentimentThriftClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("topDomain"), config.sentimentConfig.get("subDomain"));
+                else
+                    senti_temp = SentimentThriftClient.getSentimentScore(sDoc, config.sentimentConfig.get("textType"));
+            }
+            else
+            {
+                senti_temp = "Sentiment analyzer not working, Start Sentiment Thrift server at port 8002";
+            }
+
             senti_set.add(senti_temp);
             apiOut.text_information.sentiment = senti_set;
         }

@@ -3,52 +3,16 @@
     <groupId>com.serendio.diskoverorta</groupId>
     <artifactId>diskoverorta</artifactId>
     <version>0.1</version>
-    <name>DTAEngine</name>
+    <name>diskoveror-ta</name>
     <description>Diskoveror Text analytics Engine</description>
+    <packaging>jar</packaging>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.0</version>
-                    <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>make-assembly</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <archive>
-                            <manifest> <mainClass>com.diskoverorta.DTAEngineExample</mainClass>
-                            </manifest>
-                        </archive>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-    <repositories>
+ <!--   <repositories>
         <repository>
             <id>resource</id>
             <url>file://${project.basedir}/src/main/resources</url>
         </repository>
-    </repositories>
+    </repositories> -->
 
     <dependencies>
         <dependency>
@@ -60,14 +24,12 @@
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
             <version>3.4.1</version>
-          
-              </dependency>
+            </dependency>
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
             <version>3.4.1</version>
             <classifier>models</classifier>
-        
         </dependency>
         <dependency>
             <groupId>org.apache.opennlp</groupId>
@@ -89,11 +51,11 @@
             <artifactId>libthrift</artifactId>
             <version>0.9.2</version>
         </dependency>
-        <dependency>
+     <!--   <dependency>
             <groupId>com.serendio.diskovererls</groupId>
             <artifactId>diskovererls</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
@@ -130,4 +92,116 @@
             <version>2.6</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.0</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>com.diskoverorta.DTAEngineExample</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.7</version>
+                    <executions>
+                        <execution>
+                            <id>copy-resources1</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${basedir}/target/opennlpmodel</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${basedir}/opennlpmodel</directory>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>copy-resources2</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${basedir}/target/stanfordnlpmodel</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${basedir}/stanfordnlpmodel</directory>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <executions>
+                        <execution>
+                            <id>copy-dependencies</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                            <configuration>
+                                <includeScope>runtime</includeScope>
+                                <outputDirectory>${project.build.directory}/lib/</outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.6.1</version>
+                    <configuration>
+                        <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                        <filesets>
+                            <fileset>
+                                <directory>target/classes</directory>
+                            </fileset>
+                            <fileset>
+                                <directory>target/generated-sources</directory>
+                            </fileset>
+                            <fileset>
+                                <directory>target/maven-archiver</directory>
+                            </fileset>
+                            <fileset>
+                                <directory>target/maven-status</directory>
+                            </fileset>
+                            <fileset>
+                                <directory>target/surefire</directory>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
 </project>
