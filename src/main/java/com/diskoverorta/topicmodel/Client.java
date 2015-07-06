@@ -37,12 +37,8 @@ public class Client {
     public Client(String s, int p){
         this.ip= s;
         this.port = p;
-        if (transport == null)
+        if (transport == null) {
             transport = new TSocket(this.ip, this.port);
-        if (protocol == null)
-        {
-            protocol = new TBinaryProtocol(transport);
-            client = new Categorizer.Client(protocol);
             try {
                 transport.open();
             } catch (TTransportException e) {
@@ -50,12 +46,16 @@ public class Client {
                 transport.close();
             }
         }
-
+        if (protocol == null)
+        {
+            protocol = new TBinaryProtocol(transport);
+            client = new Categorizer.Client(protocol);
+        }
     }
     
     public String getTopics(String text) {
         try {
-
+            transport.open();
             String cat = client.getTopic(text);
             return cat;
         } catch (TTransportException e) {

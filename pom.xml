@@ -112,8 +112,8 @@
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
-                                <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>com.diskoverorta.DTAEngineExample</mainClass>
+                                <classpathPrefix>dependency/</classpathPrefix>
+                                <mainClass>com.diskoverorta.tamanager.TextManager</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
