@@ -10,16 +10,16 @@ to give several results structured and presented in a clean user-friendly format
 
 ### **Software requirements**
 
-#### JDK
->       Version 7 build 79 or above
+ * JDK (Version 7 build 79 or above)
+      
 
 
-#### Maven
->       Apache Maven 3.0.5 or above
+ * Maven (Apache Maven 3.0.5 or above)
+      
 
 
-#### Thrift servers
-[Get Thrift Here](https://thrift.apache.org/)
+ * Thrift server (version 0.9.2)
+
 
 
 #### **Compiling Diskoveror TA Engine**
