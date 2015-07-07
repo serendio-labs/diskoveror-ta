@@ -10,7 +10,7 @@ to give several results structured and presented in a clean user-friendly format
 
 ### **Software requirements**
 
- * JDK (Version 7 build 79 or above)
+ * JDK (Version 7 or above)
       
 
 
