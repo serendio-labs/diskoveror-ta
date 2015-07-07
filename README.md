@@ -8,7 +8,7 @@ to give several results structured and presented in a clean user-friendly format
 
 ## **Getting Started**
 
-### **Software requirements**
+### **Software Requirements**
 
  * JDK (Version 7 or above)
       
