@@ -4,8 +4,17 @@ The DisKoveror Text analytics engine(DTAE) is a software product developed by Se
 
 
 The workspace contains the core Text analytics engine which in turn optimally leverages multiple open source packages
-to give several results structed and presented in a clean user-friendly format.
+to give several results structured and presented in a clean user-friendly format.
 
+## **Getting Started**
+
+#### **Compiling Diskoveror TA Engine:**
+To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
+>      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta$ mvn package dependency:copy-dependencies clean
+
+#### **Execution:**
+To execute the .jar file, the following command has to be run from the command line.
+>      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
 
 ### Features
 
@@ -43,14 +52,6 @@ The diskoveror-ta-engine leverages modules under the below independent categorie
 ###### Third party API/Software integrations
 
 New modules could be supported under these categories without disturbing the existing system in any manner.
-
-
-
-### Compiling Diskoveror TA Engine
-
-To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line. 
-
->       mvn clean compile assembly:single
 
 ### Example usage from Tamanager
 
