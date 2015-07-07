@@ -1,11 +1,15 @@
-# Diskoveror-TA-engine
+# **Diskoveror Overview**
 
-The DisKoveror Text analytics engine(DTAE) is a software product developed by Serendio for extracting information such as Sentiment, Text categories, named entities etc from unstructured text. DTAE is useful in extracting information from Twitter streams, product reviews, emails, webpages and any other source of unstructured information. 
+DisKoveror is a Text Analytics engine developed by Serendio. Built on top of other open source packages, it provides a flexible and extensible way to extract Entities, Topics, Categories, Sentiments, and Keywords from unstructured text regardless of its source. Diskoveror has been used to mine brand sentiments from social media, understand customer satisfaction from emails,  extract topics from Tweets, auto-categorize legal documents and much more. .  
 
+## **Key Highlights**
 
-The workspace contains the core Text analytics engine which in turn optimally leverages multiple open source packages
-to give several results structured and presented in a clean user-friendly format.
-
+  *  Sentiment analysis
+  *  Topic detection
+  *  Named Entity Recognition
+  *  Coreference Resolution
+  *  Java and REST API support
+    
 ## **Getting Started**
 
 ### **Software Requirements**
@@ -29,16 +33,6 @@ To package it in a single executable jar for distribution (.jar file), the follo
 #### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
 >      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
-
-### Features
-
-* Sentiment Extraction
-* Topic detection
-* Named Entity Recognition
-* Java based API
-* Coreference Resolution
-* Sentiment Polarity
-
 
 
 ### System Architecture
@@ -65,5 +59,5 @@ The diskoveror-ta-engine leverages modules under the below independent categorie
 
 ###### Third party API/Software integrations
 
-New modules could be supported under these categories without disturbing the existing system in any manner.
+New modules could be supported under these categories in a plugin like manner.
 
