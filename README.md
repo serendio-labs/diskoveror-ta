@@ -8,6 +8,20 @@ to give several results structured and presented in a clean user-friendly format
 
 ## **Getting Started**
 
+### **Software requirements**
+
+#### JDK
+>       Version 7 build 79 or above
+
+
+#### Maven
+>       Apache Maven 3.0.5 or above
+
+
+#### Thrift servers
+[Get Thrift Here](https://thrift.apache.org/)
+
+
 #### **Compiling Diskoveror TA Engine:**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
 >      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta$ mvn package dependency:copy-dependencies clean
@@ -53,17 +67,3 @@ The diskoveror-ta-engine leverages modules under the below independent categorie
 
 New modules could be supported under these categories without disturbing the existing system in any manner.
 
-### Example usage from Tamanager
-
-### Software requirements
-
-#### JDK
->       Version 7 build 79 or above
-
-
-#### Maven
->       Apache Maven 3.0.5 or above
-
-
-#### Thrift servers
-[Get Thrift Here](https://thrift.apache.org/)
