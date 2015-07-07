@@ -22,11 +22,11 @@ to give several results structured and presented in a clean user-friendly format
 [Get Thrift Here](https://thrift.apache.org/)
 
 
-#### **Compiling Diskoveror TA Engine:**
+#### **Compiling Diskoveror TA Engine**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
 >      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
-#### **Execution:**
+#### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
 >      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
 
