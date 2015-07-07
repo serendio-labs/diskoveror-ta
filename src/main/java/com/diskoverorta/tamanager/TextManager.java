@@ -53,7 +53,7 @@ public class TextManager
         }
         if(SentimentThriftClient==null)
         {
-            SentimentThriftClient = new SClient("localhost",8002);
+             SentimentThriftClient = new SClient("localhost",8002);
         }
     }
 
@@ -167,17 +167,7 @@ public class TextManager
 
     public static void main(String args[])
     {
-        String sample = "Investigation into the Saradha chit fund scam has so far not revealed any terror link with Bangladesh, the Centre said today, days after the BJP had alleged such a connection.\n" +
-            "\n" +
-            "“The investigation has so far not revealed any such transaction where money was routed to Bangladesh to fund terrorist activities,” Union Minister of State for Personnel Jitendra Singh told the Lok Sabha in a written response.\n" +
-            "\n" +
-            "BJP chief Amit Shah had alleged that Saradha chit fund money had been used in the October 2, 2014 Bardhaman blast, which is being probed for link with the Jamaat-ul-Mujahideen Bangladesh (JMB) terror outfit.\n" +
-            "\n" +
-            "“Saradha chit fund money was used in the Burdwan (Bardhaman) blast. The NIA is not being allowed to probe the blast properly. Hurdles are being created. It is being done in order to save TMC leaders who are involved in the blast,” Mr. Shah had said, attacking the Trinamool Congress, at a BJP rally in Kolkata.\n" +
-            "\n" +
-            "The Union Minister was asked whether the government has sought details of the probe into the Saradha chit fund scam after reports indicated that a part of the money was routed to Bangladesh to fund terror activities. Mr. Singh replied that government had not sought details of the probe.\n" +
-            "\n" +
-            "To another question on whether the Saradha chief has admitted that he paid large sums to several people to influence the case in his favour, the Minister said, “The matter is under investigation.”";
+        String sample = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
         TAConfig config = new TAConfig();
         TextManager temp = new TextManager();
 

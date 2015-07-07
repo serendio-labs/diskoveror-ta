@@ -55,7 +55,7 @@ public class Client {
     
     public String getTopics(String text) {
         try {
-            transport.open();
+
             String cat = client.getTopic(text);
             return cat;
         } catch (TTransportException e) {
