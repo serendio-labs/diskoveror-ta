@@ -18,7 +18,7 @@ to give several results structured and presented in a clean user-friendly format
       
 
 
- * Thrift server (version 0.9.2)
+ * Thrift server (Apache Thrift 0.9.2)
 
 
 
