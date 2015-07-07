@@ -24,11 +24,11 @@ to give several results structured and presented in a clean user-friendly format
 
 #### **Compiling Diskoveror TA Engine**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
->      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta$ mvn package dependency:copy-dependencies clean
+>      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
 #### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
->      root@root-Motherboard-H61MAT-D-E:~/Documents/diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
+>      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
 
 ### Features
 
