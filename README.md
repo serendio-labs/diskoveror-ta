@@ -43,7 +43,7 @@ To execute the .jar file, the following command has to be run from the command l
 
 ### System Architecture
 
-The intended architecture of the system is as given below.
+The architecture of the system is as given below.
 
 ![System Architecture](/Diskoverer_architecture.png "System Architechture")
 
