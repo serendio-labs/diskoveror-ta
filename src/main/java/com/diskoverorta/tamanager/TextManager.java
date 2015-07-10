@@ -32,15 +32,48 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static org.kohsuke.args4j.ExampleMode.ALL;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
+
+
+
+//import java.io.File;  
+import java.io.IOException;  
+import java.util.ArrayList;  
+
+
+
 /**
  * Created by praveen on 11/11/14.
  */
 public class TextManager
 {
-    static StanfordNLP nlpStanford = null;
+	 
+	@Option(name = "--use-Entity", aliases = {"-e"}, usage = "if entity is required")
+	  private boolean Entity;
+	
+	@Option(name = "--use-Sentiment", aliases = {"-s"}, usage = "if sentiment is required")
+	  private boolean Sentiment;
+	
+	@Option(name = "--use-Category", aliases = {"-c"}, usage = "if category is required")
+	  private boolean Category;
+	
+	@Argument  
+          private List<String> arguments = new ArrayList<String>(); 
+	
+	static StanfordNLP nlpStanford = null;
     static Client TopicThriftClient = null;
     static SClient SentimentThriftClient = null;
     DocumentObject doc = null;
+    
+    public static void main(String args[])throws IOException
+    {
+    	 new TextManager().doMain(args);  
+    }
+    
     public TextManager()
     {
         if(nlpStanford==null)
@@ -164,35 +197,93 @@ public class TextManager
         }
         return gson.toJson(apiOut);
     }
-
-    public static void main(String args[])
-    {
+    
+    public void doMain(String[] args) throws IOException { 
+    	
+        CmdLineParser parser = new CmdLineParser(this);
         String sample = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
         TAConfig config = new TAConfig();
         TextManager temp = new TextManager();
-
-
-        config.analysisConfig.put("Entity", "TRUE");
-        config.analysisConfig.put("Category", "TRUE");
-        config.analysisConfig.put("Sentiment", "TRUE");
-
+        
+        config.analysisConfig.put("Entity", "FALSE");
+        
+        config.analysisConfig.put("Category", "FALSE");
+        
+        config.analysisConfig.put("Sentiment", "FALSE");
+        
         config.entityConfig.put("Person", "TRUE");
+        
         config.entityConfig.put("Organization", "TRUE");
+        
         config.entityConfig.put("Location", "TRUE");
+        
         config.entityConfig.put("Date", "TRUE");
+        
         config.entityConfig.put("Time", "TRUE");
+        
         config.entityConfig.put("Currency", "TRUE");
+        
         config.entityConfig.put("Percent", "TRUE");
-
-        if (args.length == 0)
+       
+       
+          
+          try {  
+             
+            parser.parseArgument(args);  
+  
+          if( arguments.isEmpty() )  
+                throw new CmdLineException("No argument is given");  
+  
+        } catch( CmdLineException e ) {  
+            
+            System.err.println(e.getMessage());  
+            System.err.println("java TextManager [options...] arguments...");  
+            parser.printUsage(System.err);  
+            System.err.println();  
+            System.err.println(" Example: java -jar diskoverorta-0.1.jar"+parser.printExample(ALL));  
+  
+        }  
+        
+    
+        if( Entity )
         {
-            System.out.println("Sample input text not found, finding text analytics components with below Text :");
-            System.out.println(sample);
-            System.out.println("Execution syntax : java -jar diskoverorta-0.1.jar SampleText");
+        	config.analysisConfig.put("Entity", "TRUE");
+            System.out.println("-e flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)) ;  
         }
-        if(args.length == 1)
-            sample = args[1];
-        System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config));
-    }
+        if( Category)
+        {
+            
+            config.analysisConfig.put("Category", "TRUE");
+            System.out.println("-c flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)  ); 
+        }
+        if( Sentiment)
+        {
+        	config.analysisConfig.put("Sentiment", "TRUE");
+        	System.out.println("-s flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
+        }  
+        
+        }
+        
+        }
 
-}
+        
+  
+  
+      
+        
+       
+      
+        
+        
+        
+      
+
+    
+
+       
+
+    
+
+
+
+
