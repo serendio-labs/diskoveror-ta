@@ -64,7 +64,7 @@ public class TextManager
 	@Argument  
           private List<String> arguments = new ArrayList<String>(); 
 	
-	static StanfordNLP nlpStanford = null;
+    static StanfordNLP nlpStanford = null;
     static Client TopicThriftClient = null;
     static SClient SentimentThriftClient = null;
     DocumentObject doc = null;
@@ -226,7 +226,6 @@ public class TextManager
         config.entityConfig.put("Percent", "TRUE");
        
        
-          
           try {  
              
             parser.parseArgument(args);  
@@ -247,7 +246,7 @@ public class TextManager
     
         if( Entity )
         {
-        	config.analysisConfig.put("Entity", "TRUE");
+            config.analysisConfig.put("Entity", "TRUE");
             System.out.println("-e flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)) ;  
         }
         if( Category)
@@ -258,8 +257,8 @@ public class TextManager
         }
         if( Sentiment)
         {
-        	config.analysisConfig.put("Sentiment", "TRUE");
-        	System.out.println("-s flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
+            config.analysisConfig.put("Sentiment", "TRUE");
+            System.out.println("-s flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
         }  
         
         }
