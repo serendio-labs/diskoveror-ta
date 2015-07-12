@@ -39,7 +39,7 @@ To execute the .jar file, the following command has to be run from the command l
 
 The architecture of the system is as given below.
 
-![System Architecture](/Diskoverer_architecture.png "System Architechture")
+![System Architecture](/Diskoveror_architecture.png "System Architechture")
 
 
 The diskoveror-ta-engine leverages modules under the below independent categories :
