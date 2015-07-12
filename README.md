@@ -10,16 +10,6 @@ DisKoveror is a Text Analytics engine developed by Serendio. Built on top of oth
   *  Coreference Resolution
   *  Keyword Extraction
     
-## **Getting Started**
-
-### **Software Requirements**
-
- * JDK (Version 7 or above)
-      
- * Maven (Apache Maven 3.0.5 or above)
-      
- * Thrift server (Apache Thrift 0.9.2)
-
 ### System Architecture
 
 The architecture of the system is as given below.
@@ -41,6 +31,16 @@ The diskoveror-ta-engine leverages modules under the below independent categorie
 ###### Serendio domain specific softwares
 * Life Science Ontologies
 * Legal Ontologies
+
+## **Getting Started**
+
+### **Software Requirements**
+
+ * JDK (Version 7 or above)
+      
+ * Maven (Apache Maven 3.0.5 or above)
+      
+ * Thrift server (Apache Thrift 0.9.2)
 
 #### **Compiling Diskoveror TA Engine**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
