@@ -16,24 +16,9 @@ DisKoveror is a Text Analytics engine developed by Serendio. Built on top of oth
 
  * JDK (Version 7 or above)
       
-
-
  * Maven (Apache Maven 3.0.5 or above)
       
-
-
  * Thrift server (Apache Thrift 0.9.2)
-
-
-
-#### **Compiling Diskoveror TA Engine**
-To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
->      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
-
-#### **Execution**
-To execute the .jar file, the following command has to be run from the command line.
->      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
-
 
 ### System Architecture
 
@@ -57,7 +42,11 @@ The diskoveror-ta-engine leverages modules under the below independent categorie
 * Life Science Ontologies
 * Legal Ontologies
 
-###### Third party API/Software integrations
+#### **Compiling Diskoveror TA Engine**
+To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
+>      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
-New modules could be supported under these categories in a plugin like manner.
+#### **Execution**
+To execute the .jar file, the following command has to be run from the command line.
+>      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
 
