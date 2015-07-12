@@ -17,20 +17,26 @@ The architecture of the system is as given below.
 ![System Architecture](/Diskoveror_architecture.png "System Architechture")
 
 
-The diskoveror-ta-engine leverages modules under the below independent categories :
+The diskoveror-ta-engine leverages the below open source modules under the given categories:
 
-###### Opensource softwares
+###### Name Entity extraction
 * Stanford CoreNLP
 * Apache OpenNLP
 * DUKE
 
-###### Serendio proprietary softwares
-* Topic Modeling Algorithm
-* Sentiment Analysis Algorithm
+###### Sentiment extraction
+* Twokenize
+* Scikit-Learn
+* RAKE
  
-###### Serendio domain specific softwares
-* Life Science Ontologies
-* Legal Ontologies
+###### Topic extraction
+* WORD2VEC
+* Scikit-Learn
+* RAKE
+* Gensim
+
+###### Keyword extraction
+* RAKE
 
 ## **Getting Started**
 
