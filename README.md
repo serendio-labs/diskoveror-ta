@@ -37,21 +37,38 @@ The diskoveror-ta-engine leverages the below open source modules for its functio
 ###### Keyword extraction
 * RAKE
 
-## **Getting Started**
+### **Getting Started**
 
-### **Software Requirements**
+##### **Software Requirements**
 
  * JDK (Version 7 or above)
-      
  * Maven (Apache Maven 3.0.5 or above)
-      
  * Thrift server (Apache Thrift 0.9.2)
+ * Python (version 2.7.X)
+ * Pip (version 7.1.X)
 
-#### **Compiling Diskoveror TA Engine**
+##### **Workspaces to Download**
+
+ * [Diskoveror-ta](https://github.com/serendio-labs/diskoveror-ta/archive/master.zip) 
+ * [Diskoveror-ml-server](https://github.com/serendio-labs/diskoveror-ml-server/archive/master.zip)
+
+##### **Starting Thrift servers for Sentiment and Topics**
+
+The requirements.txt file specifies the software packages along with their versions to be installed. Execute the
+below command to install all python related dependencies for the Sentiment and Topics.
+
+>     /diskoveror-ml-server$ sudo pip install -r requirements.txt
+
+Start the thrift servers for Topics and Sentiments
+
+>     /diskoveror-ml-server/TopicThrift$ python server.py
+>     /diskoveror-ml-server/SentimentThrift/Thrift$ python server.py
+
+##### **Compiling Diskoveror TA Engine**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
 >      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
-#### **Execution**
+##### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
 >      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
 
