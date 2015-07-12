@@ -4,10 +4,9 @@ DisKoveror is a Text Analytics engine developed by Serendio. Built on top of oth
 
 ## **Key Functionalities**
 
-  *  Sentiment analysis
-  *  Topic detection
-  *  Named Entity Recognition
-  *  Keyword Extraction
+  *  [Sentiment analysis](https://github.com/serendio-labs/diskoveror-ta/wiki/Sentiment-Extraction)
+  *  [Topic detection](https://github.com/serendio-labs/diskoveror-ta/wiki/Topic-Detection)
+  *  [Named Entity Extraction](https://github.com/serendio-labs/diskoveror-ta/wiki/Name-Entity-Extraction)
     
 ### System Architecture
 
