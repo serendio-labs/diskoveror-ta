@@ -7,7 +7,6 @@ DisKoveror is a Text Analytics engine developed by Serendio. Built on top of oth
   *  Sentiment analysis
   *  Topic detection
   *  Named Entity Recognition
-  *  Coreference Resolution
   *  Keyword Extraction
     
 ### System Architecture
@@ -17,7 +16,7 @@ The architecture of the system is as given below.
 ![System Architecture](/Diskoveror_architecture.png "System Architechture")
 
 
-The diskoveror-ta-engine leverages the below open source modules under the given categories:
+The diskoveror-ta-engine leverages the below open source modules for its functionalities:
 
 ###### Name Entity extraction
 * Stanford CoreNLP
