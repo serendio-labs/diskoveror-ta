@@ -52,14 +52,14 @@ DisKoveror supports Java APIs and a RESTful interface.
  * [DisKoveror-ta](https://github.com/serendio-labs/diskoveror-ta/archive/master.zip) 
  * [DisKoveror-ml-server](https://github.com/serendio-labs/diskoveror-ml-server/archive/master.zip)
 
-##### **Starting Thrift servers for Sentiment and Topics**
+##### **Starting Thrift servers for Sentiment and Topics in DisKoveror-ml-server**
 
 The requirements.txt file specifies the software packages along with their versions to be installed. Execute the
 below command to install all python related dependencies for the Sentiment and Topics.
 
 >     /diskoveror-ml-server$ sudo pip install -r requirements.txt
 
-Start the thrift servers for Topics and Sentiments in DisKoveror-ml-server
+Start the thrift servers for Topics and Sentiments 
 
 >     /diskoveror-ml-server/TopicThrift$ python server.py
 >     /diskoveror-ml-server/SentimentThrift/Thrift$ python server.py
