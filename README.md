@@ -77,7 +77,7 @@ To display all of Entity, Topics, Sentiment.
 To display only the Results of Entity.
 >      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -e
 
-To display only the Results of Topics.
+To display only the Results of Topic.
 >      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -t
 
 To display only the Results of Sentiment.
