@@ -14,8 +14,9 @@ The architecture of the system is as given below.
 
 ![System Architecture](/Diskoveror_architecture.png "System Architechture")
 
+DisKoveror supports Java APIs and a RESTful interface.
 
-The diskoveror-ta-engine leverages the below open source modules for its functionalities:
+DisKoveror leverages the open source modules shown below:
 
 ###### Name Entity extraction
 * Stanford CoreNLP
