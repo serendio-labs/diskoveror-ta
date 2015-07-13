@@ -71,7 +71,7 @@ To package it in a single executable jar for distribution (.jar file), the follo
 ##### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
 
-To display all of Entity, Topics, Sentiment. 
+To display all of Entity, Topic, Sentiment. 
 >      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -all
 
 To display only the Results of Entity.
