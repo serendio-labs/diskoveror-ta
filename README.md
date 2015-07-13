@@ -32,6 +32,7 @@ To package it in a single executable jar for distribution (.jar file), the follo
 
 #### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
+
 To diplay only the Results of Category.
 >      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -c
 
