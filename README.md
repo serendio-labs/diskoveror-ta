@@ -16,28 +16,28 @@ The architecture of the system is as given below.
 
 DisKoveror supports Java APIs and a RESTful interface.
 
-DisKoveror leverages the open source modules shown below:
+#####**DisKoveror leverages the open source modules shown below:**
 
-###### Name Entity extraction
+######**Name Entity extraction**
 * Stanford CoreNLP
 * Apache OpenNLP
 * DUKE
 
-###### Sentiment extraction
+######**Sentiment extraction**
 * Twokenize
 * Scikit-Learn
 * RAKE
  
-###### Topic extraction
+######**Topic extraction**
 * WORD2VEC
 * Scikit-Learn
 * RAKE
 * Gensim
 
-###### Keyword extraction
+######**Keyword extraction**
 * RAKE
 
-### **Getting Started**
+###**Getting Started**
 
 ##### **Software Requirements**
 
