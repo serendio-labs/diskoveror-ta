@@ -1,6 +1,6 @@
 # **Overview**
 
-DisKoveror is a Text Analytics engine developed by Serendio. Built on top of other open source packages, it provides a flexible and extensible way to extract Entities, Topics, Categories, Sentiments, and Keywords from unstructured text regardless of its source. Diskoveror has been used to mine brand sentiments from social media, understand customer satisfaction from emails,  extract topics from Tweets, auto-categorize legal documents and much more. .  
+DisKoveror is a Text Analytics engine developed by Serendio. Built on top of other open source packages, it provides a flexible and extensible way to extract Entities, Topics, Categories, Sentiments, and Keywords from unstructured text regardless of its source. DisKoveror has been used to mine brand sentiments from social media, understand customer satisfaction from emails,  extract topics from Tweets, auto-categorize legal documents and much more. .  
 
 ## **Key Functionalities**
 
@@ -49,8 +49,8 @@ DisKoveror supports Java APIs and a RESTful interface.
 
 ##### **Workspaces to Download**
 
- * [Diskoveror-ta](https://github.com/serendio-labs/diskoveror-ta/archive/master.zip) 
- * [Diskoveror-ml-server](https://github.com/serendio-labs/diskoveror-ml-server/archive/master.zip)
+ * [DisKoveror-ta](https://github.com/serendio-labs/diskoveror-ta/archive/master.zip) 
+ * [DisKoveror-ml-server](https://github.com/serendio-labs/diskoveror-ml-server/archive/master.zip)
 
 ##### **Starting Thrift servers for Sentiment and Topics**
 
@@ -59,16 +59,25 @@ below command to install all python related dependencies for the Sentiment and T
 
 >     /diskoveror-ml-server$ sudo pip install -r requirements.txt
 
-Start the thrift servers for Topics and Sentiments
+Start the thrift servers for Topics and Sentiments in DisKoveror-ml-server
 
 >     /diskoveror-ml-server/TopicThrift$ python server.py
 >     /diskoveror-ml-server/SentimentThrift/Thrift$ python server.py
 
-##### **Compiling Diskoveror TA Engine**
+##### **Compiling DisKoveror TA Engine**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
 >      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
 ##### **Execution**
 To execute the .jar file, the following command has to be run from the command line.
->      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar
+
+To display only the Results of Entity.
+>      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -e
+
+To display only the Results of Category.
+>      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -c
+
+To display only the Results of Sentiment.
+>      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -s
+
 
