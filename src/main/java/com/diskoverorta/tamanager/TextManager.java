@@ -58,8 +58,11 @@ public class TextManager
 	@Option(name = "--use-Sentiment", aliases = {"-s"}, usage = "if sentiment is required")
 	  private boolean Sentiment;
 	
-	@Option(name = "--use-Category", aliases = {"-c"}, usage = "if category is required")
-	  private boolean Category;
+	@Option(name = "--use-Topic", aliases = {"-t"}, usage = "if topic is required")
+	  private boolean Topic;
+	
+	@Option(name = "--use-All", aliases = {"-all"}, usage = "if entity, sentiment, topic  is required")
+	  private boolean All;
 	
 	@Argument  
           private List<String> arguments = new ArrayList<String>(); 
@@ -150,7 +153,7 @@ public class TextManager
 
        // if(config.analysisConfig.get("LSEntity") == "TRUE")
        //     apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
-        if(config.analysisConfig.get("Category") == "TRUE")
+        if(config.analysisConfig.get("Topic") == "TRUE")
         {
             Set<String> topic_set = new TreeSet<String>();
             if (apiOut.text_information == null)
@@ -207,7 +210,7 @@ public class TextManager
         
         config.analysisConfig.put("Entity", "FALSE");
         
-        config.analysisConfig.put("Category", "FALSE");
+        config.analysisConfig.put("Topic", "FALSE");
         
         config.analysisConfig.put("Sentiment", "FALSE");
         
@@ -226,6 +229,7 @@ public class TextManager
         config.entityConfig.put("Percent", "TRUE");
        
        
+          
           try {  
              
             parser.parseArgument(args);  
@@ -246,20 +250,27 @@ public class TextManager
     
         if( Entity )
         {
-            config.analysisConfig.put("Entity", "TRUE");
-            System.out.println("-e flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)) ;  
+        	config.analysisConfig.put("Entity", "TRUE");
+                System.out.println("-e flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)) ;  
         }
-        if( Category)
+        if( Topic)
         {
             
-            config.analysisConfig.put("Category", "TRUE");
-            System.out.println("-c flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)  ); 
+                config.analysisConfig.put("Topic", "TRUE");
+                System.out.println("-t flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)  ); 
         }
         if( Sentiment)
         {
-            config.analysisConfig.put("Sentiment", "TRUE");
-            System.out.println("-s flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
+        	config.analysisConfig.put("Sentiment", "TRUE");
+        	System.out.println("-s flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
         }  
+        if( All)
+        {
+        	config.analysisConfig.put("Entity", "TRUE");
+        	config.analysisConfig.put("Topic", "TRUE");
+        	config.analysisConfig.put("Sentiment", "TRUE");
+        	System.out.println("-all flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
+        }
         
         }
         
