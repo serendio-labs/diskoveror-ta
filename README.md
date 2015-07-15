@@ -74,3 +74,8 @@ Start the thrift servers for Topics and Sentiments
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
 >      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
+## **Execution**
+To display the output, run the following command from command line.
+>      /diskoveror-ta$ java -Xmx2048m -jar diskoverorta-0.1.jar 
+
+
