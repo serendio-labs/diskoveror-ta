@@ -45,7 +45,7 @@ public class TAConfig
         ontologyConfig = new TreeMap<String,String>();
         analysisConfig.put("Entity","FALSE");
         analysisConfig.put("Coref","FALSE");
-        analysisConfig.put("Category","FALSE");
+        analysisConfig.put("Topic","FALSE");
         analysisConfig.put("Sentiment","FALSE");
 
         //sentimentConfig.put("mainText","");

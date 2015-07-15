@@ -54,7 +54,7 @@ import java.util.ArrayList;
  */
 public class TextManager
 {
-	@Option(name = "-analyze", aliases = {"-analyze"}, usage = "Accepted options for analyze : Entity, Sentiment, Category, All")
+	@Option(name = "-analyze", aliases = {"-analyze"}, usage = "Accepted options for analyze : Entity, Sentiment, Topic, All")
 	String analysis;
 
     @Option(name = "-Text", aliases = {"-text"}, usage = "Extracts Text analytics components for given Text")
@@ -208,8 +208,8 @@ public class TextManager
         {
             ex.printStackTrace();
         }
-
-
+        System.out.println("Command line API :");
+        parser.printUsage(System.out);
         config.entityConfig.put("Person", "TRUE");
         config.entityConfig.put("Organization", "TRUE");
         config.entityConfig.put("Location", "TRUE");
@@ -250,15 +250,21 @@ public class TextManager
             System.out.println("Analyzing Sentiment in given text");
         }
         else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Category") == true)) {
-            config.analysisConfig.put("Category", "TRUE");
-            System.out.println("Analyzing Category in given text");
+            config.analysisConfig.put("Topic", "TRUE");
+            System.out.println("Analyzing Topic in given text");
+        }
+        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("All") == true)) {
+            System.out.println("Analyzing Entity, Sentiment and Topic");
+            config.analysisConfig.put("Entity","TRUE");
+            config.analysisConfig.put("Sentiment", "TRUE");
+            config.analysisConfig.put("Topic", "TRUE");
         }
         else {
-            System.out.println("Analysis options not specified. Possible values : Entity, Sentiment, Category, All ");
+            System.out.println("Analysis options not specified. Possible values : Entity, Sentiment, Topic, All ");
             System.out.println("Choosing All by default");
             config.analysisConfig.put("Entity","TRUE");
             config.analysisConfig.put("Sentiment", "TRUE");
-            config.analysisConfig.put("Category", "TRUE");
+            config.analysisConfig.put("Topic", "TRUE");
         }
         System.out.println("Text Analytics output : ");
         System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(trialtext, config));
