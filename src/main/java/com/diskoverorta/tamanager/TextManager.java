@@ -52,22 +52,19 @@ import java.util.ArrayList;
 public class TextManager
 {
 	 
-	@Option(name = "--use-Entity", aliases = {"-e"}, usage = "if entity is required")
+	@Option(name = "--use-Entity", aliases = {"-entity"}, usage = "if entity is required")
 	  private boolean Entity;
 	
-	@Option(name = "--use-Sentiment", aliases = {"-s"}, usage = "if sentiment is required")
+	@Option(name = "--use-Sentiment", aliases = {"-sentiment"}, usage = "if sentiment is required")
 	  private boolean Sentiment;
 	
-	@Option(name = "--use-Topic", aliases = {"-t"}, usage = "if topic is required")
+	@Option(name = "--use-Topic", aliases = {"-topic"}, usage = "if topic is required")
 	  private boolean Topic;
 	
-	@Option(name = "--use-All", aliases = {"-all"}, usage = "if entity, sentiment, topic  is required")
-	  private boolean All;
-	
-	@Option(name = "--use-Text", aliases = {"-text"}, usage = "if external text is required")
+        @Option(name = "--use-Text", aliases = {"-text"}, usage = "if external text is required")
 	  private boolean Text;
-	
-	@Argument  
+
+        @Argument  
           private List<String> arguments = new ArrayList<String>(); 
 	
     static StanfordNLP nlpStanford = null;
@@ -209,16 +206,20 @@ public class TextManager
         CmdLineParser parser = new CmdLineParser(this);
         TAConfig config = new TAConfig();
         TextManager temp = new TextManager();
-        String sample = "Sachin Tendulkar was the winner of the WorldCup sporting event at South Africa during the year 2014 :)";
+        String sample = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
         String sample1 = "";
         for(int i=0;i<args.length;i++)
         {
         	sample1 = sample1 + args[i] + ",";
         	
         }
-        sample1 = sample1.substring(0,sample1.length()-1);
+        sample1 = sample1.substring(0,sample1.length());
+        
         System.out.println("args length:" + args.length);
-    	
+    	for(String s: args)
+    	{
+    		System.out.println(s);
+    	}
         
         config.analysisConfig.put("Entity", "FALSE");
         
@@ -261,42 +262,42 @@ public class TextManager
         
     
         if( Entity)
-        {
+        {   
             config.analysisConfig.put("Entity", "TRUE");
-            System.out.println("-e flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)) ;  
-        }
+            System.out.println(" -entity flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 	
+            System.out.println(" -entity flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 	
+         }
+        
         if( Topic)
         {
             
             config.analysisConfig.put("Topic", "TRUE");
-            System.out.println("-c flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)); 
+            System.out.println("-topic flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)  );
+            System.out.println(" -topic flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 	
         }
         if( Sentiment)
         {
-            config.analysisConfig.put("Sentiment", "TRUE");
-            System.out.println("-s flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)); 
+        	config.analysisConfig.put("Sentiment", "TRUE");
+        	System.out.println("-sentiment flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
+                System.out.println("-sentiment flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 
         }  
-        if( All)
+        if( args.length == 0)
         {
-            config.analysisConfig.put("Entity", "TRUE");
-            config.analysisConfig.put("Topic", "TRUE");
-            config.analysisConfig.put("Sentiment", "TRUE");
-            System.out.println("-all flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)); 
+        	config.analysisConfig.put("Entity", "TRUE");
+        	config.analysisConfig.put("Topic", "TRUE");
+        	config.analysisConfig.put("Sentiment", "TRUE");
+        	System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
         }
-        if( Text)
+       if( Text)
         {
-            config.analysisConfig.put("Entity", "TRUE");
-            config.analysisConfig.put("Topic", "TRUE");
-            config.analysisConfig.put("Sentiment", "TRUE");
-            System.out.println("-text flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config)); 
+        	config.analysisConfig.put("Entity", "TRUE");
+          	config.analysisConfig.put("Topic", "TRUE");
+          	config.analysisConfig.put("Sentiment", "TRUE");
+          	System.out.println(" -text flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 	
         }
-        
         }
-        
-        }
+    }
 
-        
-  
   
       
         
