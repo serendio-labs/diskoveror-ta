@@ -6,6 +6,8 @@ DisKoveror has been used to mine brand sentiments from social media, understand 
 
 DisKoveror can be accessed through Java APIs or a RESTful interface.
 
+License: Apache 2.0
+
 ## **Key Functionalities**
 
   *  [Sentiment analysis](https://github.com/serendio-labs/diskoveror-ta/wiki/Sentiment-Extraction)
