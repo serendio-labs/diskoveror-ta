@@ -70,3 +70,7 @@ Start the thrift servers for Topics and Sentiments
 >     /diskoveror-ml-server/TopicThrift$ python server.py
 >     /diskoveror-ml-server/SentimentThrift/Thrift$ python server.py
 
+## **Compiling DisKoveror TA Engine**
+To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
+>      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
+
