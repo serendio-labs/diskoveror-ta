@@ -1,6 +1,10 @@
 # **Overview**
 
-DisKoveror is a Text Analytics engine developed by Serendio. Built on top of other open source packages, it provides a flexible and extensible way to extract Entities, Topics, Categories, Sentiments, and Keywords from unstructured text regardless of its source. DisKoveror has been used to mine brand sentiments from social media, understand customer satisfaction from emails,  extract topics from Tweets, auto-categorize legal documents and much more. .  
+DisKoveror is a Text Analytics framework developed by Serendio. Built on top of other open source packages, it provides a flexible and extensible way to extract Entities, Topics, Categories, Sentiments, and Keywords from unstructured text regardless of its source. The key advantage of DisKoveror over the numerous open source options is it provides access to the best-of-breed components through a plug and play approach and a unified programming interface.  DisKoveror has also improved the output quality, in some cases, through Training sets, domain specific ontology, and folksonomy. 
+
+DisKoveror has been used to mine brand sentiments from social media, understand customer satisfaction from emails, extract topics from Tweets, compute social influence score, auto-categorize legal documents and much more. 
+
+DisKoveror can be accessed through Java APIs or a RESTful interface.
 
 ## **Key Functionalities**
 
