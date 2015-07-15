@@ -21,6 +21,8 @@ import com.diskoverorta.entities.EntityManager;
 import com.diskoverorta.osdep.StanfordNLP;
 import com.diskoverorta.utils.EntityUtils;
 import com.diskoverorta.vo.*;
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 //import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
@@ -28,6 +30,7 @@ import com.diskoverorta.topicmodel.Client;
 import com.diskoverorta.sentiment.*;
 
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -51,32 +54,23 @@ import java.util.ArrayList;
  */
 public class TextManager
 {
-	 
-	@Option(name = "--use-Entity", aliases = {"-entity"}, usage = "if entity is required")
-	  private boolean Entity;
-	
-	@Option(name = "--use-Sentiment", aliases = {"-sentiment"}, usage = "if sentiment is required")
-	  private boolean Sentiment;
-	
-	@Option(name = "--use-Topic", aliases = {"-topic"}, usage = "if topic is required")
-	  private boolean Topic;
-	
-        @Option(name = "--use-Text", aliases = {"-text"}, usage = "if external text is required")
-	  private boolean Text;
+	@Option(name = "-analyze", aliases = {"-analyze"}, usage = "Accepted options for analyze : Entity, Sentiment, Category, All")
+	String analysis;
 
-        @Argument  
-          private List<String> arguments = new ArrayList<String>(); 
+    @Option(name = "-Text", aliases = {"-text"}, usage = "Extracts Text analytics components for given Text")
+	String text;
+
+    @Option(name = "-File", aliases = {"-file"}, usage = "Extracts Text analytics components for given File")
+    String fileName;
+
+    @Argument
+    List<String> arguments = new ArrayList<String>();
 	
     static StanfordNLP nlpStanford = null;
     static Client TopicThriftClient = null;
     static SClient SentimentThriftClient = null;
     DocumentObject doc = null;
-    
-    public static void main(String args[])throws IOException
-    {
-    	 new TextManager().doMain(args);  
-    }
-    
+
     public TextManager()
     {
         if(nlpStanford==null)
@@ -200,103 +194,77 @@ public class TextManager
         }
         return gson.toJson(apiOut);
     }
-    
-    public void doMain(String[] args) throws IOException { 
-    	
-        CmdLineParser parser = new CmdLineParser(this);
+
+    public static void main(String args[])
+    {
         TAConfig config = new TAConfig();
         TextManager temp = new TextManager();
+        CmdLineParser parser = new CmdLineParser(temp);
         String sample = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
-        String sample1 = "";
-        for(int i=0;i<args.length;i++)
+        String trialtext = "";
+        try {
+            parser.parseArgument(args);
+        }catch(CmdLineException ex)
         {
-        	sample1 = sample1 + args[i] + ",";
-        	
+            ex.printStackTrace();
         }
-        sample1 = sample1.substring(0,sample1.length());
-        
-        System.out.println("args length:" + args.length);
-    	for(String s: args)
-    	{
-    		System.out.println(s);
-    	}
-        
-        config.analysisConfig.put("Entity", "FALSE");
-        
-        config.analysisConfig.put("Topic", "FALSE");
-        
-        config.analysisConfig.put("Sentiment", "FALSE");
-        
+
+
         config.entityConfig.put("Person", "TRUE");
-        
         config.entityConfig.put("Organization", "TRUE");
-        
         config.entityConfig.put("Location", "TRUE");
-        
         config.entityConfig.put("Date", "TRUE");
-        
         config.entityConfig.put("Time", "TRUE");
-        
         config.entityConfig.put("Currency", "TRUE");
-        
         config.entityConfig.put("Percent", "TRUE");
-       
-       
-          
-          try {  
-             
-            parser.parseArgument(args);  
-  
-          if( arguments.isEmpty() )  
-                throw new CmdLineException("No argument is given");  
-  
-        } catch( CmdLineException e ) {  
-            
-            System.err.println(e.getMessage());  
-            System.err.println("java TextManager [options...] arguments...");  
-            parser.printUsage(System.err);  
-            System.err.println();  
-            System.err.println(" Example: java -jar diskoverorta-0.1.jar"+parser.printExample(ALL));  
-  
-        }  
-        
-    
-        if( Entity)
-        {   
+
+        if((temp.text == null) && (temp.fileName == null)) {
+            trialtext = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
+            System.out.println("No Text source provided considering this default text for analysis : "+trialtext);
+        }
+        else if((temp.text != null) && (temp.fileName != null)) {
+            System.out.println("Command line text input considered for Text Analytics : " + temp.text);
+            trialtext = temp.text;
+        }
+        else if((temp.text != null)) {
+            System.out.println("Command line text input considered for Text Analytics : " + temp.text);
+            trialtext = temp.text;
+        }
+        else if((temp.fileName != null)) {
+            System.out.println("Command line text input considered for Text Analytics");
+            try {
+                trialtext = Files.toString(new File(temp.fileName), Charsets.UTF_8);
+            }catch(IOException ex)
+            {
+                ex.printStackTrace();
+            }
+            System.out.println("File input considered for Text Analytics : " + trialtext);
+        }
+
+        if((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Entity") == true)) {
             config.analysisConfig.put("Entity", "TRUE");
-            System.out.println(" -entity flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 	
-            System.out.println(" -entity flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 	
-         }
-        
-        if( Topic)
-        {
-            
-            config.analysisConfig.put("Topic", "TRUE");
-            System.out.println("-topic flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config)  );
-            System.out.println(" -topic flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 	
+            System.out.println("Analyzing Entity in given text");
         }
-        if( Sentiment)
-        {
-        	config.analysisConfig.put("Sentiment", "TRUE");
-        	System.out.println("-sentiment flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
-                System.out.println("-sentiment flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 
-        }  
-        if( args.length == 0)
-        {
-        	config.analysisConfig.put("Entity", "TRUE");
-        	config.analysisConfig.put("Topic", "TRUE");
-        	config.analysisConfig.put("Sentiment", "TRUE");
-        	System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(sample, config) ); 
+        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Sentiment") == true)) {
+            config.analysisConfig.put("Sentiment", "TRUE");
+            System.out.println("Analyzing Sentiment in given text");
         }
-       if( Text)
-        {
-        	config.analysisConfig.put("Entity", "TRUE");
-          	config.analysisConfig.put("Topic", "TRUE");
-          	config.analysisConfig.put("Sentiment", "TRUE");
-          	System.out.println(" -text flag is set" + temp.tagUniqueTextAnalyticsComponentsINJSON(sample1, config) ); 	
+        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Category") == true)) {
+            config.analysisConfig.put("Category", "TRUE");
+            System.out.println("Analyzing Category in given text");
         }
+        else {
+            System.out.println("Analysis options not specified. Possible values : Entity, Sentiment, Category, All ");
+            System.out.println("Choosing All by default");
+            config.analysisConfig.put("Entity","TRUE");
+            config.analysisConfig.put("Sentiment", "TRUE");
+            config.analysisConfig.put("Category", "TRUE");
         }
+        System.out.println("Text Analytics output : ");
+        System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(trialtext, config));
+
     }
+ }
 
   
       
