@@ -249,7 +249,7 @@ public class TextManager
             config.analysisConfig.put("Sentiment", "TRUE");
             System.out.println("Analyzing Sentiment in given text");
         }
-        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Category") == true)) {
+        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Topic") == true)) {
             config.analysisConfig.put("Topic", "TRUE");
             System.out.println("Analyzing Topic in given text");
         }
