@@ -70,24 +70,3 @@ Start the thrift servers for Topics and Sentiments
 >     /diskoveror-ml-server/TopicThrift$ python server.py
 >     /diskoveror-ml-server/SentimentThrift/Thrift$ python server.py
 
-##### **Compiling DisKoveror TA Engine**
-To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
->      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
-
-##### **Execution**
-To execute the .jar file, the following command has to be run from the command line.
-
-To display all of Entity, Topic, Sentiment. 
->      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -all
-
-To display only the Results of Entity.
->      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -e
-
-To display only the Results of Topic.
->      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -t
-
-To display only the Results of Sentiment.
->      /diskoveror-ta/target$ java -Xmx2048m -jar diskoverorta-0.1.jar -s
-
-
-
