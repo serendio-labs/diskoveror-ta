@@ -4,7 +4,7 @@ DisKoveror is a Text Analytics framework developed by Serendio. Built on top of 
 
 DisKoveror has been used to mine brand sentiments from social media, understand customer satisfaction from emails, extract topics from Tweets, compute social influence score, auto-categorize legal documents and much more. 
 
-DisKoveror can be accessed through Java APIs or a RESTful interface.
+DisKoveror can be accessed through [Command Line API](https://github.com/serendio-labs/diskoveror-ta/wiki/Command-Line-API), [Java API](https://github.com/serendio-labs/diskoveror-ta/wiki/JAVA-API) or a [RESTful interface](https://github.com/serendio-labs/diskoveror-ta/wiki/REST-API).
 
 License: Apache 2.0
 
@@ -74,8 +74,10 @@ Start the thrift servers for Topics and Sentiments
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
 >      /diskoveror-ta$ mvn package dependency:copy-dependencies clean
 
-## **Execution**
-To display the output, run the following command from command line.
->      /diskoveror-ta$ java -Xmx2048m -jar diskoverorta-0.1.jar 
+## **The diskoveror-ta package could be utilized by any of the below provided methods**
+
+* [JAVA API](https://github.com/serendio-labs/diskoveror-ta/wiki/JAVA-API)
+* [Command Line API](https://github.com/serendio-labs/diskoveror-ta/wiki/Command-Line-API)
+* [RESTful interface](https://github.com/serendio-labs/diskoveror-ta/wiki/REST-API)
 
 
