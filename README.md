@@ -54,22 +54,20 @@ DisKoveror supports Java APIs and a RESTful interface.
  * Python (version 2.7.X)
  * Pip (version 7.1.X)
 
-##### **Workspaces to Download**
+##### **Workspace to Download**
 
- * [DisKoveror-ta](https://github.com/serendio-labs/diskoveror-ta/archive/master.zip) 
- * [DisKoveror-ml-server](https://github.com/serendio-labs/diskoveror-ml-server/archive/master.zip)
+  [DisKoveror-ta](https://github.com/serendio-labs/diskoveror-ta/archive/master.zip) 
 
-##### **Starting Thrift servers for Sentiment and Topics in DisKoveror-ml-server**
+##### **Starting Thrift servers for Sentiment and Topics in DisKoveror-ta**
 
 The requirements.txt file specifies the software packages along with their versions to be installed. Execute the
 below command to install all python related dependencies for the Sentiment and Topics.
 
->     /diskoveror-ml-server$ sudo pip install -r requirements.txt
+>    /diskoveror-ta/src/main/python$ sudo pip install -r requirements.txt
 
 Start the thrift servers for Topics and Sentiments 
 
->     /diskoveror-ml-server/TopicThrift$ python server.py
->     /diskoveror-ml-server/SentimentThrift/Thrift$ python server.py
+>     /diskoveror-ta/src/main/python$ python server.py
 
 ##### **Compiling DisKoveror TA Engine**
 To package it in a single executable jar for distribution (.jar file), the following command has to be run from the command line.
