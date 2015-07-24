@@ -63,7 +63,7 @@ DisKoveror supports Java APIs and a RESTful interface.
 The requirements.txt file specifies the software packages along with their versions to be installed. Execute the
 below command to install all python related dependencies for the Sentiment and Topics.
 
->    /diskoveror-ta/src/main/python$ sudo pip install -r requirements.txt
+>     /diskoveror-ta/src/main/python$ sudo pip install -r requirements.txt
 
 Start the thrift servers for Topics and Sentiments 
 
