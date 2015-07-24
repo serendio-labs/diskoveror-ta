@@ -25,6 +25,7 @@ public class TextInformation
 {
     public Set<String> topics = null;
     public Set<String> sentiment = null;
+    public Set<String> keywords = null;
 
     public TextInformation()
     {

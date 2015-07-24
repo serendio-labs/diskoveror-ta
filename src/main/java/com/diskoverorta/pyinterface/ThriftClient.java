@@ -1,8 +1,8 @@
-package com.diskoverorta.sentiment;
+package com.diskoverorta.pyinterface;
 /*******************************************************************************
  *   Copyright 2015 Serendio Inc. ( http://www.serendio.com/ )
  *   Author - Praveen Jesudhas
- *    
+ *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
@@ -15,7 +15,6 @@ package com.diskoverorta.sentiment;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  *******************************************************************************/
-
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -23,40 +22,41 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
-public class SClient {
+import java.util.List;
+
+public class ThriftClient
+{
     String ip;
     int port;
     TTransport transport = null;
-    Sentiments.Client client = null;
+    PyInterface.Client client = null;
     TProtocol protocol = null;
 
-    public SClient(String s, int p){
+    public ThriftClient(String s, int p){
         this.ip= s;
         this.port = p;
         if (transport == null)
             transport = new TSocket(this.ip, this.port);
         if (protocol == null)
-            {
-                protocol = new TBinaryProtocol(transport);
-                client = new Sentiments.Client(protocol);
-                try {
-                    transport.open();
-                } catch (TTransportException e) {
-                    e.printStackTrace();
-                }
+        {
+            protocol = new TBinaryProtocol(transport);
+            client = new PyInterface.Client(protocol);
+            try {
+                transport.open();
+            } catch (TTransportException e) {
+                e.printStackTrace();
             }
+        }
 
     }
 
-    public String getSentimentScore(String mainText,String textType) {
+    public String getSentimentScore(String mainText,String textType)
+    {
         try {
-
             SentiRequestObject obj = new SentiRequestObject();
             obj.setMainText(mainText);
             obj.setTextType(textType);
-
             int senti = client.getSentimentScore(obj);
-
             return ("" + senti);
         } catch (TTransportException e) {
             e.printStackTrace();
@@ -69,7 +69,8 @@ public class SClient {
         return "Connection to " + this.ip + ":" + this.port + " failed!";
     }
 
-    public String getSentimentScore(String mainText,String title,String topDomain,String subDomain) {
+    public String getSentimentScore(String mainText,String title,String topDomain,String subDomain)
+    {
         try {
             SentiRequestObject obj = new SentiRequestObject();
             obj.setMainText(mainText);
@@ -77,11 +78,8 @@ public class SClient {
             obj.setTitle(title);
             obj.setTopDomain(topDomain);
             obj.setSubDomain(subDomain);
-
             int senti = client.getSentimentScore(obj);
-
             return ("" + senti);
-
         } catch (TTransportException e) {
             e.printStackTrace();
             transport.close();
@@ -92,10 +90,9 @@ public class SClient {
         transport.close();
         return "Connection to " + this.ip + ":" + this.port + " failed!";
     }
-    public String getSentimentScore(String mainText,String title,String middleParas,String lastPara, int diffBlog) {
-
+    public String getSentimentScore(String mainText,String title,String middleParas,String lastPara, int diffBlog)
+    {
         // "diffBlog" parameter can be set with any integer (added as a dummy parameter to support method overloading)
-
         try {
 
             SentiRequestObject obj = new SentiRequestObject();
@@ -118,6 +115,39 @@ public class SClient {
         }
         transport.close();
         return "Connection to " + this.ip + ":" + this.port + " failed!";
+    }
+    public List<String> getTopics(String mainText)
+    {
+        try
+        {
+            List<String> topics = client.getTopics(mainText);
+            return topics;
+
+        }catch (TTransportException e) {
+            e.printStackTrace();
+            transport.close();
+        } catch (TException e) {
+            e.printStackTrace();
+            transport.close();
+        }
+        transport.close();
+        return null;
+    }
+    public List<String> getKeywords(String mainText)
+    {
+        try
+        {
+            List<String> keywords = client.getKeywords(mainText);
+            return keywords;
+        }catch (TTransportException e) {
+            e.printStackTrace();
+            transport.close();
+        } catch (TException e) {
+            e.printStackTrace();
+            transport.close();
+        }
+        transport.close();
+        return null;
     }
 //
 //   public static void main(String [] Args)

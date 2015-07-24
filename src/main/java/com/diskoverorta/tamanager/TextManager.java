@@ -25,36 +25,22 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.diskoverorta.pyinterface.*;
 //import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
-import com.diskoverorta.topicmodel.Client;
-import com.diskoverorta.sentiment.*;
-
-
 import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import static org.kohsuke.args4j.ExampleMode.ALL;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
-
-
-
-//import java.io.File;  
 import java.io.IOException;  
 import java.util.ArrayList;  
 
-
-
-/**
- * Created by praveen on 11/11/14.
- */
 public class TextManager
 {
-	@Option(name = "-analyze", aliases = {"-analyze"}, usage = "Accepted options for analyze : Entity, Sentiment, Topic, All")
+	@Option(name = "-analyze", aliases = {"-analyze"}, usage = "Accepted options for analyze : Entity, Sentiment, Topic, Keyword, All")
 	String analysis;
 
     @Option(name = "-Text", aliases = {"-text"}, usage = "Extracts Text analytics components for given Text")
@@ -67,8 +53,8 @@ public class TextManager
     List<String> arguments = new ArrayList<String>();
 	
     static StanfordNLP nlpStanford = null;
-    static Client TopicThriftClient = null;
-    static SClient SentimentThriftClient = null;
+    static ThriftClient pyClient = null;
+
     DocumentObject doc = null;
 
     public TextManager()
@@ -77,13 +63,9 @@ public class TextManager
         {
             nlpStanford = new StanfordNLP();
         }
-        if(TopicThriftClient==null)
+        if(pyClient==null)
         {
-            TopicThriftClient = new Client("localhost",8001);
-        }
-        if(SentimentThriftClient==null)
-        {
-             SentimentThriftClient = new SClient("localhost",8002);
+            pyClient = new ThriftClient("localhost",8002);
         }
     }
 
@@ -152,19 +134,37 @@ public class TextManager
             Set<String> topic_set = new TreeSet<String>();
             if (apiOut.text_information == null)
                 apiOut.text_information = new TextInformation();
-            if(TopicThriftClient != null)
+            if(pyClient != null)
             {
-                String topics_temp = TopicThriftClient.getTopics(sDoc);
-                String[] topics = topics_temp.split("\\|");
+                List<String> topics = pyClient.getTopics(sDoc);
                 for (String topic : topics)
                     topic_set.add(topic);
             }
-            else
+            if (topic_set.isEmpty() == true)
             {
-                topic_set.add("Topic analyzer not working, Start Topic Thrift server at port 8001");
+                topic_set.add("Topic analyzer not working, Start Thrift server at port 8002");
             }
             apiOut.text_information.topics = topic_set;
         }
+
+        if(config.analysisConfig.get("Keyword") == "TRUE")
+        {
+            Set<String> keyword_set = new TreeSet<String>();
+            if (apiOut.text_information == null)
+                apiOut.text_information = new TextInformation();
+            if(pyClient != null)
+            {
+                List<String> keywords = pyClient.getKeywords(sDoc);
+                for (String keyword : keywords)
+                    keyword_set.add(keyword);
+            }
+            if (keyword_set.isEmpty() == true)
+            {
+                keyword_set.add("Keyword extractor not working, Start Thrift server at port 8002");
+            }
+            apiOut.text_information.keywords = keyword_set;
+        }
+
         if(config.analysisConfig.get("Sentiment") == "TRUE")
         {
             String senti_temp = null;
@@ -173,20 +173,21 @@ public class TextManager
             if (apiOut.text_information == null)
                 apiOut.text_information = new TextInformation();
 
-            if(SentimentThriftClient != null)
+            if(pyClient != null)
             {
                 if (apiOut.text_information == null)
                     apiOut.text_information = new TextInformation();
+
                 if (config.sentimentConfig.get("textType") == "blogs_news")
-                    senti_temp = SentimentThriftClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("middleParas"), config.sentimentConfig.get("lastPara"), 1);
+                    senti_temp = pyClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("middleParas"), config.sentimentConfig.get("lastPara"), 1);
                 if (config.sentimentConfig.get("textType") == "reviews")
-                    senti_temp = SentimentThriftClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("topDomain"), config.sentimentConfig.get("subDomain"));
+                    senti_temp = pyClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("topDomain"), config.sentimentConfig.get("subDomain"));
                 else
-                    senti_temp = SentimentThriftClient.getSentimentScore(sDoc, config.sentimentConfig.get("textType"));
+                    senti_temp = pyClient.getSentimentScore(sDoc, config.sentimentConfig.get("textType"));
             }
-            else
+            if (senti_temp == null)
             {
-                senti_temp = "Sentiment analyzer not working, Start Sentiment Thrift server at port 8002";
+                senti_temp = "Sentiment analyzer not working, Start Thrift server at port 8002";
             }
 
             senti_set.add(senti_temp);
@@ -249,22 +250,28 @@ public class TextManager
             config.analysisConfig.put("Sentiment", "TRUE");
             System.out.println("Analyzing Sentiment in given text");
         }
-        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Category") == true)) {
+        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Topic") == true)) {
             config.analysisConfig.put("Topic", "TRUE");
             System.out.println("Analyzing Topic in given text");
         }
+        else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("Keyword") == true)) {
+            config.analysisConfig.put("Keyword", "TRUE");
+            System.out.println("Extracting keywords in given text");
+        }
         else if ((temp.analysis != null) && (temp.analysis.equalsIgnoreCase("All") == true)) {
-            System.out.println("Analyzing Entity, Sentiment and Topic");
+            System.out.println("Analyzing Entity, Sentiment, Topic and Keywords");
             config.analysisConfig.put("Entity","TRUE");
             config.analysisConfig.put("Sentiment", "TRUE");
             config.analysisConfig.put("Topic", "TRUE");
+            config.analysisConfig.put("Keyword","TRUE");
         }
         else {
-            System.out.println("Analysis options not specified. Possible values : Entity, Sentiment, Topic, All ");
+            System.out.println("Analysis options not specified. Possible values : Entity, Sentiment, Topic, Kaeyword, All");
             System.out.println("Choosing All by default");
             config.analysisConfig.put("Entity","TRUE");
             config.analysisConfig.put("Sentiment", "TRUE");
             config.analysisConfig.put("Topic", "TRUE");
+            config.analysisConfig.put("Keyword","TRUE");
         }
         System.out.println("Text Analytics output : ");
         System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(trialtext, config));

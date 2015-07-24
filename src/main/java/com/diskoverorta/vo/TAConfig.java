@@ -43,10 +43,12 @@ public class TAConfig
         outputConfig = new TreeMap<String,String>();
         corefConfig = new TreeMap<String,String>();
         ontologyConfig = new TreeMap<String,String>();
+
         analysisConfig.put("Entity","FALSE");
         analysisConfig.put("Coref","FALSE");
         analysisConfig.put("Topic","FALSE");
         analysisConfig.put("Sentiment","FALSE");
+        analysisConfig.put("Keyword","FALSE");
 
         //sentimentConfig.put("mainText","");
         sentimentConfig.put("textType","microblogs");
