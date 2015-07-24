@@ -1,0 +1,224 @@
+#header #nav ul, #footer_nav ul{
+	position:absolute;
+	font-size:13px;
+}
+
+#header #nav ul li a, #footer_nav ul li a{
+	color:#FFF;
+	font-size:90%;
+	font-weight:700;
+}
+
+#header #nav li a:hover, #footer_nav li a:hover{
+	color:#D9B263;
+	text-decoration:none;
+}
+
+#header #nav li li a, #footer_nav li li a{
+	color:#333333;
+	font-size:90%;
+}
+
+#header #nav li li a:hover, #footer_nav li li a:hover{
+	color:#CC9933;
+/*	text-decoration:underline; */
+	background:#CCCCCC;
+	text-decoration:none;
+}
+
+
+#pagewidth #header #nav .alphabet li{
+	margin:0 3px 0 3px;
+	padding:0 3px 0 3px;
+}
+
+#header #nav .alphabet a{
+	padding-left:4px;
+	padding-right:4px;
+	padding-bottom:4px;
+	color:#8B0000;
+	text-transform:none;
+	font-size:150%;
+	font-family:"Courier New", Courier, monospace;
+}
+
+#header #nav .alphabet .small{
+	padding-left:0;
+	padding-right:0;
+	padding-bottom:4px;
+	font-size:130%;
+}
+
+
+#header #nav .alphabet a:hover{
+	background:#CCCCCC;
+	text-decoration:none;
+	padding-bottom:1px;	
+}
+
+#header #nav .alphabet .small:hover{
+	background:#CCCCCC;
+	text-decoration:none;
+	padding-bottom:4px;	
+}
+
+
+/*
+#header #nav .active{
+	color:#CC9933;
+	text-decoration:underline;
+}
+*/
+
+#header #nav .active, #footer_nav .active{
+	color:#CC9933;
+	background:#CCCCCC;
+	text-decoration:none;
+}
+
+#header #nav .alphabet .active{
+	color:#CC9933;
+	background:#CCCCCC;
+	text-decoration:none;
+	padding-bottom:1px;	
+}
+
+#header #nav .alphabet .small_active{
+	font-size:130%;
+	color:#CC9933;
+	background:#CCCCCC;
+	text-decoration:none;
+	padding-bottom:4px;	
+}
+
+
+/*** ESSENTIAL STYLES ***/
+.sf-menu, .sf-menu * {
+	margin:			0;
+	padding:		0;
+	list-style:		none;
+}
+.sf-menu {
+	line-height:	1.0;
+}
+.sf-menu ul {
+	position:		absolute;
+	top:			-999em;
+	width:			10em; /* left offset of submenus need to match (see below) */
+}
+.sf-menu ul li {
+	width:			100%;
+}
+.sf-menu li:hover {
+	visibility:		inherit; /* fixes IE7 'sticky bug' */
+}
+.sf-menu li {
+	float:			left;
+	position:		relative;
+	padding:0;
+}
+
+.sf-menu a {
+	text-align:center;
+	display:		block;
+	position:		relative;
+	text-align:center;
+}
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+	left:			0;
+	top:			33px; /* match top ul list item height */
+	z-index:		99;
+}
+ul.sf-menu li:hover li ul,
+ul.sf-menu li.sfHover li ul {
+	top:			-999em;
+}
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+	left:			10em; /* match ul width */
+	top:			0;
+}
+ul.sf-menu li li:hover li ul,
+ul.sf-menu li li.sfHover li ul {
+	top:			-999em;
+}
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+	left:			10em; /* match ul width */
+	top:			0;
+}
+
+.sf-menu {
+	float:			left;
+	margin-bottom:	1em;
+}
+.sf-menu li a {
+	padding: 11px 13px 11px 13px;
+	text-decoration:none;
+	text-align:center;
+}
+.sf-menu li li a {
+	padding: 11px 9px 9px 9px;
+}
+
+.sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
+	color:			#13a;
+}
+
+.sf-menu li:hover, .sf-menu li.sfHover,
+.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
+	outline:		0;
+}
+
+/*** arrows **/
+.sf-menu a.sf-with-ul {
+	min-width:		1px; /* trigger IE7 hasLayout so spans position accurately */
+}
+.sf-sub-indicator {
+	position:		absolute;
+	display:		block;
+	right:			.75em;
+	top:			1.05em; /* IE6 only */
+	width:			10px;
+	height:			10px;
+	text-indent: 	-999em;
+	overflow:		hidden;	
+}
+a > .sf-sub-indicator {  /* give all except IE6 the correct values */
+	top:			.8em;
+	background-position: 0 -100px; /* use translucent arrow for modern browsers*/
+}
+/* apply hovers to modern browsers */
+a:focus > .sf-sub-indicator,
+a:hover > .sf-sub-indicator,
+a:active > .sf-sub-indicator,
+li:hover > a > .sf-sub-indicator,
+li.sfHover > a > .sf-sub-indicator {
+	background-position: -10px -100px; /* arrow hovers for modern browsers*/
+}
+
+/* point right for anchors in subs */
+.sf-menu ul .sf-sub-indicator { background-position:  -10px 0; }
+.sf-menu ul a > .sf-sub-indicator { background-position:  0 0; }
+/* apply hovers to modern browsers */
+.sf-menu ul a:focus > .sf-sub-indicator,
+.sf-menu ul a:hover > .sf-sub-indicator,
+.sf-menu ul a:active > .sf-sub-indicator,
+.sf-menu ul li:hover > a > .sf-sub-indicator,
+.sf-menu ul li.sfHover > a > .sf-sub-indicator {
+	background-position: -10px 0; /* arrow hovers for modern browsers*/
+}
+
+/*** shadows for all but IE6 ***/
+.sf-shadow ul {
+	/* background:	url('../images/shadow.png') no-repeat bottom right; */
+	padding: 0 8px 9px 0;
+	-moz-border-radius-bottomleft: 17px;
+	-moz-border-radius-topright: 17px;
+	-webkit-border-top-right-radius: 17px;
+	-webkit-border-bottom-left-radius: 17px;
+}
+.sf-shadow ul.sf-shadow-off {
+	background: transparent;
+}
