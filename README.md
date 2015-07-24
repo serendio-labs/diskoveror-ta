@@ -13,6 +13,7 @@ License: Apache 2.0
   *  [Sentiment analysis](https://github.com/serendio-labs/diskoveror-ta/wiki/Sentiment-Extraction)
   *  [Topic detection](https://github.com/serendio-labs/diskoveror-ta/wiki/Topic-Detection)
   *  [Named Entity Extraction](https://github.com/serendio-labs/diskoveror-ta/wiki/Name-Entity-Extraction)
+  *  [Keywords Extraction](https://github.com/serendio-labs/diskoveror-ta/wiki/Keywords-Extraction)
     
 ### System Architecture
 
