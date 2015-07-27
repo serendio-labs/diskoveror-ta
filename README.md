@@ -19,7 +19,7 @@ License: Apache 2.0
 
 The architecture of the system is as given below.
 
-![System Architecture](/Diskoveror_architecture.png "System Architechture")
+![System Architecture](/Diskoveror_architecture.png "System Architecture")
 
 DisKoveror supports Java APIs and a RESTful interface.
 
