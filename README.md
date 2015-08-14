@@ -26,23 +26,23 @@ DisKoveror supports Java APIs and a RESTful interface.
 #####**DisKoveror leverages the open source modules shown below:**
 
 ######**Name Entity extraction**
-* Stanford CoreNLP
-* Apache OpenNLP
-* DUKE
+* [Stanford CoreNLP](http://nlp.stanford.edu/software/corenlp.shtml)
+* [Apache OpenNLP](https://opennlp.apache.org/)
+* [DUKE](http://code.google.com/p/duke/)
 
 ######**Sentiment extraction**
-* Twokenize
-* Scikit-Learn
-* RAKE
+* [Twokenize](http://www.ark.cs.cmu.edu/TweetNLP/)
+* [Scikit-Learn](http://scikit-learn.org/stable/)
+* [RAKE](http://rake.rubyforge.org/)
  
 ######**Topic extraction**
-* WORD2VEC
-* Scikit-Learn
-* RAKE
-* Gensim
+* [WORD2VEC](https://code.google.com/p/word2vec/)
+* [Scikit-Learn](http://scikit-learn.org/stable/)
+* [RAKE](http://rake.rubyforge.org/)
+* [Gensim](https://radimrehurek.com/gensim/)
 
 ######**Keyword extraction**
-* RAKE
+* [RAKE](http://rake.rubyforge.org/)
 
 ###**Getting Started**
 
