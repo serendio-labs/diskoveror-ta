@@ -15,7 +15,7 @@
  *    limitations under the License.
  *******************************************************************************/
 package com.diskoverorta.vo;
-
+import java.util.Set;
 //import com.serendio.diskoverer.lifesciences.document.LifeScienceDocument;
 
 /**
@@ -23,9 +23,11 @@ package com.diskoverorta.vo;
  */
 public class APIOutput
 {
-    public EntityAPISet entity_general = null;
+    public EntityAPISet Entity = null;
   //  public LifeScienceDocument entity_lifesciences = null;
-    public TextInformation text_information = null;
+    public Set<String> Topics = null;
+    public Set<String> Sentiment = null;
+    public Set<String> Keywords = null;
     public APIOutput()
     {
 

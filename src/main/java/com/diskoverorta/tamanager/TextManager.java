@@ -16,6 +16,7 @@
  *******************************************************************************/
 package com.diskoverorta.tamanager;
 
+import java.io.ByteArrayInputStream;
 import com.diskoverorta.entities.EntityManager;
 //import com.diskoverorta.lifesciences.LSInterface;
 import com.diskoverorta.osdep.StanfordNLP;
@@ -31,12 +32,15 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Scanner;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import java.io.IOException;  
-import java.util.ArrayList;  
+import java.util.ArrayList;
+import java.nio.charset.Charset;
+import java.io.*;
 
 public class TextManager
 {
@@ -113,30 +117,39 @@ public class TextManager
         return jsonOutput;
     }
 
-    public String tagUniqueTextAnalyticsComponentsINJSON(String sDoc,TAConfig config)
+    public String tagUniqueTextAnalyticsComponentsINJSON(String sDoc,TAConfig config) throws UnsupportedEncodingException
     {
         String jsonOutput = "";
         APIOutput apiOut = new APIOutput();
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        if(config.analysisConfig.get("Entity") == "TRUE")
+       if(config.analysisConfig != null && config.analysisConfig.get("Entity") == "TRUE")
         {
+           
             DocSentObject doc = tagTextAnalyticsComponents(sDoc, config);
             DocumentObject docObject = aggregateDocumentComponentsFromSentences(doc);
             EntityAPISet apiSet = EntityUtils.getEntitySet(docObject);
-            apiOut.entity_general = apiSet;
+            apiOut.Entity = apiSet;
         }
 
        // if(config.analysisConfig.get("LSEntity") == "TRUE")
        //     apiOut.entity_lifesciences = gson.fromJson(LSInterface.getLSEntitiesinJSON(sDoc),LifeScienceDocument.class);
         if(config.analysisConfig.get("Topic") == "TRUE")
         {
+          
             Set<String> topic_set = new TreeSet<String>();
-            if (apiOut.text_information == null)
-                apiOut.text_information = new TextInformation();
+            if (apiOut.Topics == null)
+                //apiOut.Topics = new TextInformation();
             if(pyClient != null)
             {
-                List<String> topics = pyClient.getTopics(sDoc);
+
+                
+              //  InputStream is = new ByteArrayInputStream(sDoc.getBytes("UTF-8"));
+		byte[] ptext = sDoc.getBytes("UTF-8");
+		//String inputStreamString = new Scanner(is,"UTF-8").next();
+		//System.out.println("====>"+new String(ptext, "UTF-8"));
+                List<String> topics = pyClient.getTopics(new String(ptext, "UTF-8"));
+                System.out.println("====>"+topics);
                 for (String topic : topics)
                     topic_set.add(topic);
             }
@@ -144,16 +157,18 @@ public class TextManager
             {
                 topic_set.add("Topic analyzer not working, Start Thrift server at port 8002");
             }
-            apiOut.text_information.topics = topic_set;
+            apiOut.Topics = topic_set;
         }
 
-        if(config.analysisConfig.get("Keyword") == "TRUE")
+       if(config.analysisConfig != null && config.analysisConfig.get("Keyword") == "TRUE")
         {
+           
             Set<String> keyword_set = new TreeSet<String>();
-            if (apiOut.text_information == null)
-                apiOut.text_information = new TextInformation();
+            if (apiOut.Keywords == null)
+                //apiOut.Keywords = new TextInformation();
             if(pyClient != null)
             {
+                
                 List<String> keywords = pyClient.getKeywords(sDoc);
                 for (String keyword : keywords)
                     keyword_set.add(keyword);
@@ -162,21 +177,21 @@ public class TextManager
             {
                 keyword_set.add("Keyword extractor not working, Start Thrift server at port 8002");
             }
-            apiOut.text_information.keywords = keyword_set;
+            apiOut.Keywords = keyword_set;
         }
 
-        if(config.analysisConfig.get("Sentiment") == "TRUE")
+     if(config.analysisConfig != null && config.analysisConfig.get("Sentiment") == "TRUE")
         {
             String senti_temp = null;
             Set<String> senti_set = new TreeSet<String>();
 
-            if (apiOut.text_information == null)
-                apiOut.text_information = new TextInformation();
+            if (apiOut.Sentiment == null)
+               // apiOut.Sentiment = new TextInformation();
 
             if(pyClient != null)
             {
-                if (apiOut.text_information == null)
-                    apiOut.text_information = new TextInformation();
+                if (apiOut.Sentiment == null)
+                    //apiOut.Sentiment = new TextInformation();
 
                 if (config.sentimentConfig.get("textType") == "blogs_news")
                     senti_temp = pyClient.getSentimentScore(sDoc, config.sentimentConfig.get("title"), config.sentimentConfig.get("middleParas"), config.sentimentConfig.get("lastPara"), 1);
@@ -191,17 +206,19 @@ public class TextManager
             }
 
             senti_set.add(senti_temp);
-            apiOut.text_information.sentiment = senti_set;
+            apiOut.Sentiment = senti_set;
         }
         return gson.toJson(apiOut);
     }
 
-    public static void main(String args[])
+    public static void main(String args[]) throws UnsupportedEncodingException 
     {
         TAConfig config = new TAConfig();
         TextManager temp = new TextManager();
         CmdLineParser parser = new CmdLineParser(temp);
-        String sample = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
+        String sample = "Sachin Tendulkar won the Man of the Match award at Sydney in the year 2012:). Dhoni won the Man of the series award at Melbourne.";
+
+
         String trialtext = "";
         try {
             parser.parseArgument(args);
@@ -211,16 +228,16 @@ public class TextManager
         }
         System.out.println("Command line API :");
         parser.printUsage(System.out);
-        config.entityConfig.put("Person", "TRUE");
-        config.entityConfig.put("Organization", "TRUE");
-        config.entityConfig.put("Location", "TRUE");
-        config.entityConfig.put("Date", "TRUE");
-        config.entityConfig.put("Time", "TRUE");
-        config.entityConfig.put("Currency", "TRUE");
-        config.entityConfig.put("Percent", "TRUE");
+        config.entityConfig.put("person", "TRUE");
+        config.entityConfig.put("organization", "TRUE");
+        config.entityConfig.put("location", "TRUE");
+        config.entityConfig.put("date", "TRUE");
+        config.entityConfig.put("time", "TRUE");
+        config.entityConfig.put("currency", "TRUE");
+        config.entityConfig.put("percent", "TRUE");
 
         if((temp.text == null) && (temp.fileName == null)) {
-            trialtext = "Lewis Hamilton was the winner of the Formula one sporting event at Miami during the year 2012 :)";
+            trialtext = "Sachin Tendulkar won the Man of the Match award at Sydney in the year 2012:). Dhoni won the Man of the series award at Melbourne.";
             System.out.println("No Text source provided considering this default text for analysis : "+trialtext);
         }
         else if((temp.text != null) && (temp.fileName != null)) {
@@ -274,6 +291,7 @@ public class TextManager
             config.analysisConfig.put("Keyword","TRUE");
         }
         System.out.println("Text Analytics output : ");
+    
         System.out.println(temp.tagUniqueTextAnalyticsComponentsINJSON(trialtext, config));
 
     }

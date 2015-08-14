@@ -71,14 +71,14 @@ public class EntityManager
     EntityObject getALLEntitiesForSentence(String sSentence)
     {
         Map<String,String> entityConfig = new HashMap<String,String>();
-        entityConfig.put("Person","TRUE");
-        entityConfig.put("Organization","TRUE");
-        entityConfig.put("Location","TRUE");
-        entityConfig.put("Date","TRUE");
-        entityConfig.put("Time","TRUE");
-        entityConfig.put("Currency","TRUE");
-        entityConfig.put("Percent","TRUE");
-        entityConfig.put("Package","TRUE");
+        entityConfig.put("person","TRUE");
+        entityConfig.put("organization","TRUE");
+        entityConfig.put("location","TRUE");
+        entityConfig.put("date","TRUE");
+        entityConfig.put("time","TRUE");
+        entityConfig.put("currency","TRUE");
+        entityConfig.put("percent","TRUE");
+        entityConfig.put("package","TRUE");
 
         return getSelectedEntitiesForSentence(sSentence,entityConfig);
     }
@@ -88,30 +88,30 @@ public class EntityManager
         OSEntityInterface osdep = null;
         EntityObject entities = new EntityObject();
 
-        if((entityConfig.containsKey("Package") == true) && entityConfig.get("Package").equals("StanfordNLP") == true )
+        if((entityConfig.containsKey("package") == true) && entityConfig.get("package").equals("StanfordNLP") == true )
             osdep = new StanfordNLP();
         else
             osdep = new OpenNLP();
 
-        if(entityConfig.get("Person")== "TRUE")
+        if(entityConfig.get("person")== "TRUE")
             entities.person = (new PersonEntity()).getEntities(osdep,sSentence);
 
-        if(entityConfig.get("Organization")== "TRUE")
+        if(entityConfig.get("organization")== "TRUE")
             entities.organization = (new OrganizationEntity()).getEntities(osdep,sSentence);
 
-        if(entityConfig.get("Location")== "TRUE")
+        if(entityConfig.get("location")== "TRUE")
             entities.location = (new LocationEntity()).getEntities(osdep,sSentence);
 
-        if(entityConfig.get("Date")== "TRUE")
+        if(entityConfig.get("date")== "TRUE")
             entities.date = (new DateEntity()).getEntities(osdep,sSentence);
 
-        if(entityConfig.get("Time")== "TRUE")
+        if(entityConfig.get("time")== "TRUE")
             entities.time = (new TimeEntity()).getEntities(osdep,sSentence);
 
-        if(entityConfig.get("Currency")== "TRUE")
+        if(entityConfig.get("currency")== "TRUE")
             entities.currency = (new CurrencyEntity()).getEntities(osdep,sSentence);
 
-        if(entityConfig.get("Percent")== "TRUE")
+        if(entityConfig.get("percent")== "TRUE")
             entities.percent = (new PercentEntity()).getEntities(osdep,sSentence);
 
         return entities;

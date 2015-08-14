@@ -11,7 +11,9 @@ Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 '''
-from atk import Text
+#from atk import Text
+
+
 from IPython.core.release import keywords
 __author__ = "Satish Palaniappan, Praveen Jesudhas"
 
@@ -41,7 +43,8 @@ class PyInterfaceServer:
         print ("Ping Success !! :D")
         return
 
-    def getSentimentScore(self,obj):
+    def getSentimentscore(self, obj):
+        obj=obj.decode('utf-8')
         '''
         Arguments List:
         general -> mainText,textType = "general"
@@ -51,7 +54,7 @@ class PyInterfaceServer:
         blogs_news -> mainText< or first paragraph>, title, textType="blogs_news",lastPara = "" <optional last paragraph>,middleParas = [] <optional middle paragraphs(separate each para with newline into string)>
         '''
         try:
-            S = self.S.getSentimentScore(obj.mainText,obj.textType,obj.title,obj.middleParas,obj.lastPara,obj.topDomain,obj.subDomain)
+            S = self.S.getSentimentscore(obj.mainText,obj.textType,obj.title,obj.middleParas,obj.lastPara,obj.topDomain,obj.subDomain)
             print ("Sentiment Text : " + obj.mainText + " ||| SentimentScore[-5 to 5]: " + str(S))
             return S
         except Exception as err:
@@ -60,6 +63,7 @@ class PyInterfaceServer:
             print err
 
     def getTopics(self, text):
+        text=text.decode('utf-8')
         print text
         cat = self.catz.getCategory(text)
         print ("Topic Text : " + text + " ||| Topic: " + cat)
@@ -67,6 +71,7 @@ class PyInterfaceServer:
         return res
    
     def getKeywords(self, text):
+        text=text.decode('utf-8')
         print "Keyword Text",text
         keywords = self.catz.getKeywords(text)
         return keywords 
