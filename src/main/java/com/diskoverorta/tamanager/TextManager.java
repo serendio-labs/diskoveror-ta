@@ -117,7 +117,7 @@ public class TextManager
         return jsonOutput;
     }
 
-    public String tagUniqueTextAnalyticsComponentsINJSON(String sDoc,TAConfig config) throws UnsupportedEncodingException
+    public String tagUniqueTextAnalyticsComponentsINJSON(String sDoc,TAConfig config) 
     {
         String jsonOutput = "";
         APIOutput apiOut = new APIOutput();
@@ -145,10 +145,11 @@ public class TextManager
 
                 
               //  InputStream is = new ByteArrayInputStream(sDoc.getBytes("UTF-8"));
-		byte[] ptext = sDoc.getBytes("UTF-8");
+		//byte[] ptext = sDoc.getBytes("UTF-8");
 		//String inputStreamString = new Scanner(is,"UTF-8").next();
 		//System.out.println("====>"+new String(ptext, "UTF-8"));
-                List<String> topics = pyClient.getTopics(new String(ptext, "UTF-8"));
+                //List<String> topics = pyClient.getTopics(new String(ptext, "UTF-8"));
+                List<String> topics = pyClient.getTopics(sDoc);
                 System.out.println("====>"+topics);
                 for (String topic : topics)
                     topic_set.add(topic);
@@ -190,7 +191,7 @@ public class TextManager
 
             if(pyClient != null)
             {
-                if (apiOut.Sentiment == null)
+                //if (apiOut.Sentiment == null)
                     //apiOut.Sentiment = new TextInformation();
 
                 if (config.sentimentConfig.get("textType") == "blogs_news")
@@ -211,7 +212,7 @@ public class TextManager
         return gson.toJson(apiOut);
     }
 
-    public static void main(String args[]) throws UnsupportedEncodingException 
+    public static void main(String args[]) 
     {
         TAConfig config = new TAConfig();
         TextManager temp = new TextManager();

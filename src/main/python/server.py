@@ -43,8 +43,8 @@ class PyInterfaceServer:
         print ("Ping Success !! :D")
         return
 
-    def getSentimentscore(self, obj):
-        obj=obj.decode('utf-8')
+    def getSentimentScore(self, obj):
+       
         '''
         Arguments List:
         general -> mainText,textType = "general"
@@ -54,7 +54,7 @@ class PyInterfaceServer:
         blogs_news -> mainText< or first paragraph>, title, textType="blogs_news",lastPara = "" <optional last paragraph>,middleParas = [] <optional middle paragraphs(separate each para with newline into string)>
         '''
         try:
-            S = self.S.getSentimentscore(obj.mainText,obj.textType,obj.title,obj.middleParas,obj.lastPara,obj.topDomain,obj.subDomain)
+            S = self.S.getSentimentScore(obj.mainText,obj.textType,obj.title,obj.middleParas,obj.lastPara,obj.topDomain,obj.subDomain)
             print ("Sentiment Text : " + obj.mainText + " ||| SentimentScore[-5 to 5]: " + str(S))
             return S
         except Exception as err:
