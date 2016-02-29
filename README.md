@@ -33,7 +33,7 @@ DisKoveror supports Java APIs and a RESTful interface.
 ######**Sentiment extraction**
 * [Twokenize](http://www.ark.cs.cmu.edu/TweetNLP/)
 * [Scikit-Learn](http://scikit-learn.org/stable/)
-* [RAKE](http://rake.rubyforge.org/)
+* [RAKE](https://github.com/aneesha/RAKE)
  
 ######**Topic extraction**
 * [WORD2VEC](https://code.google.com/p/word2vec/)
